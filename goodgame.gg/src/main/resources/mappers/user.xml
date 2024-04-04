@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.UserRepository">
+
+    <insert id="registerUser" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+        insert into user_mst
+        values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail}, 1)
+    </insert>
+
+</mapper>
