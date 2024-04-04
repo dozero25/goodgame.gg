@@ -1,2 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto;public class example {
+package fourjo.idle.goodgame.gg.web.dto;
+
+public class example {
 }
