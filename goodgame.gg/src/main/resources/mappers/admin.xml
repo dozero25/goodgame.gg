@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.AdminRepository">
+
+    <insert id="admin_board_insert" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
+        insert into board_mst
+        values( 0, #{board_subject},#{user_index}, #{board_content}, now(), #{board_visit},#{board_good},#{board_bad}, #{board_upload_name},#{board_upload_size},#{board_upload_trans} )
+    </insert>
+
+    <update id="admin_board_update" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
+        update board_mst set board_subject = #{board_subject}, board_content = #{board_content}
+        where board_index = #{board_index}
+
+    </update>
+
+    <delete id="admin_board_delete" parameterType="integer">
+        delete from board_mst where board_index = #{board_index}
+    </delete>
+
+    <select id="admin_board_selectAll" resultType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
+        select * from board_mst
+    </select>
+
+</mapper>
