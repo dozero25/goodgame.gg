@@ -9,4 +9,5 @@
         values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail}, 1)
     </insert>
 
+
 </mapper>

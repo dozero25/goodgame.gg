@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.AdminRepository">
+
+
+
+    <update id="userUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+        update user_mst set user_nick=#{userNick}
+        where user_index=#{userIndex}
+    </update>
+
+    <delete id="userDelete" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+        delete from user_mst where user_index=#{userIndex}
+    </delete>
+
+
+
+</mapper>
