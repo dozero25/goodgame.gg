@@ -1,0 +1,47 @@
+package fourjo.idle.goodgame.gg.web.api;
+
+import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
+import fourjo.idle.goodgame.gg.web.dto.Record.LeagueDto;
+import fourjo.idle.goodgame.gg.web.dto.Record.SummonerDto;
+import fourjo.idle.goodgame.gg.web.service.RecordService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/record")
+@Tag(name = "Record Api", description = "Record Api 입니다.")
+public class RecordApi {
+
+    @Autowired
+    private RecordService recordService;
+
+    @PostMapping(value = "/searchSummonerName")
+    public ResponseEntity<CMRespDto<?>> SearchRecordAll(String summonerName){
+
+        summonerName = summonerName.replaceAll(" ", "%20");
+        SummonerDto summonerDto =  recordService.searchBySummonerName(summonerName);
+        ArrayList<String> matchesList = new ArrayList<>(recordService.searchMatchesByMatchId(summonerDto.getPuuid()));
+        List<LeagueDto> leagueList = recordService.searchLeagueBySummonerName(summonerDto.getId());
+
+        System.out.println(summonerDto);
+        System.out.println(leagueList);
+        System.out.println(matchesList);
+
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully Search", leagueList));
+    }
+
+
+
+}
