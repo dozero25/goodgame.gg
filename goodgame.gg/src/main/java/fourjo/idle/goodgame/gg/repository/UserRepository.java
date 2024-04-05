@@ -8,4 +8,6 @@ public interface UserRepository {
 
     public int registerUser(UserDto userDto);
 
+    public String findUserByUserId(String userId);
+
 }
