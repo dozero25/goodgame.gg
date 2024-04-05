@@ -9,4 +9,8 @@
         values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail}, 1)
     </insert>
 
+    <select id="findUserByUserId" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto" resultType="string">
+        select user_id from user_mst where user_id = #{userId}
+    </select>
+
 </mapper>
