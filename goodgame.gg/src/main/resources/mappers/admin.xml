@@ -6,15 +6,58 @@
 
 
 
-    <update id="userUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    <update id="AdminUserUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
         update user_mst set user_nick=#{userNick}
         where user_index=#{userIndex}
     </update>
 
-    <delete id="userDelete" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
-        delete from user_mst where user_index=#{userIndex}
+    <delete id="AdminUserDelete" parameterType="integer" >
+        delete from user_mst where user_index= #{user_index}
     </delete>
 
 
+    <select id="AdminUserSelectAll"  resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+      select
+        user_index as userIndex,
+        user_id as userId,
+        user_pw as userPw,
+        user_nick as userNick,
+        user_gender as userGender,
+        user_reg_date as userRegDate,
+        user_email as userEmail,
+        role_id as roleId
+        from user_mst
+        where user_index=#{user_index}
 
+    </select>
+
+    <select id="AdminUserSearchList"  parameterType="string" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    select
+    user_index as userIndex,
+    user_id as userId,
+    user_pw as userPw,
+    user_nick as userNick,
+    user_gender as userGender,
+    user_reg_date as userRegDate,
+    user_email as userEmail,
+    role_id as roleId
+    from user_mst
+    where user_nick like CONCAT('%', #{user_nick}, '%')
+
+</select>
+
+    <select id="AdminUserSelectOne"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+        select
+        user_index as userIndex,
+        user_id as userId,
+        user_pw as userPw,
+        user_nick as userNick,
+        user_gender as userGender,
+        user_reg_date as userRegDate,
+        user_email as userEmail,
+        role_id as roleId
+        from user_mst
+        where user_index=#{user_index}
+
+    </select>
 </mapper>
