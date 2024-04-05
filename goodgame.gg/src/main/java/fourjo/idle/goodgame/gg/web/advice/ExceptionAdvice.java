@@ -1,6 +1,7 @@
 package fourjo.idle.goodgame.gg.web.advice;
 
 import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
+import fourjo.idle.goodgame.gg.exception.CustomRiotResponseCodeException;
 import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
 import fourjo.idle.goodgame.gg.exception.CustomValidationException;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
@@ -28,5 +29,11 @@ public class ExceptionAdvice {
     public ResponseEntity<?> inputUserGenderError(CustomInputUserGenderException e){
         return ResponseEntity.badRequest()
                 .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "InputUserGender Error", e.getErrorMap()));
+    }
+
+    @ExceptionHandler(CustomRiotResponseCodeException.class)
+    public ResponseEntity<?> riotResponseCodeException(CustomRiotResponseCodeException e){
+        return ResponseEntity.badRequest()
+                .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "riot response Error", e.getErrorMap()));
     }
 }
