@@ -22,6 +22,27 @@ public class BoardApi {
     @Autowired
     private BoardService boardService;
 
+
+    @PostMapping("/insertBoard")
+    public ResponseEntity<CMRespDto<?>> insertBoard (BoardDTO dto){
+        boardService.insertBoard(dto);
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
+    }
+
+    @PostMapping("/updateBoard")
+    public ResponseEntity<CMRespDto<?>> updateBoard (BoardDTO dto){
+        boardService.updateBoard(dto);
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
+    }
+
+    @PostMapping("/deleteBoard")
+    public ResponseEntity<CMRespDto<?>> deleteBoard (int board_index){
+        boardService.deleteBoard(board_index);
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
+    }
     @GetMapping("/selectOneBoard")
     public ResponseEntity<CMRespDto<?>> selectOneBoard (int board_index){
         boardService.selectOneBoard(board_index);
@@ -30,15 +51,15 @@ public class BoardApi {
     }
 
     @GetMapping("/selectAllBoard")
-    public ResponseEntity<CMRespDto<?>> selectAllBoard (@RequestBody BoardDTO dto){
-        boardService.selectAllBoard(dto);
+    public ResponseEntity<CMRespDto<?>> selectAllBoard (){
+        boardService.selectAllBoard();
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
-    @GetMapping("/searchBoard_title")
-    public ResponseEntity<CMRespDto<?>> searchBoard_title (@RequestBody String searchKey, @RequestBody String searchWord){
-        boardService.searchBoard_title(searchKey, searchWord);
+    @GetMapping("/searchBoard")
+    public ResponseEntity<CMRespDto<?>> searchBoard (String searchKey, String searchValue){
+        boardService.searchBoard(searchKey, searchValue);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
