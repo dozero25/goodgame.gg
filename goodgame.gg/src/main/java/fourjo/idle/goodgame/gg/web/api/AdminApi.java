@@ -1,6 +1,7 @@
 package fourjo.idle.goodgame.gg.web.api;
 
 import fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.AdminBoardSearchDTO;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.service.AdminService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +40,7 @@ public class AdminApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
-    @PostMapping("/admin_board_delete")
+    @DeleteMapping("/admin_board_delete")
     public ResponseEntity<CMRespDto<?>> admin_board_delete (int board_index){
         log.info("Board_index:{}",board_index);
         adminService.admin_board_delete(board_index);
@@ -52,6 +53,13 @@ public class AdminApi {
         log.info("admin_board_selectAll");
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", adminService.admin_board_selectAll()));
+    }
+
+    @GetMapping ("/AdminBoardSearch")
+    public ResponseEntity<CMRespDto<?>> AdminBoardSearch (AdminBoardSearchDTO adminBoardSearchDTO){
+        log.info("AdminBoardSearch");
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", adminService.AdminBoardSearch(adminBoardSearchDTO)));
     }
 
 }
