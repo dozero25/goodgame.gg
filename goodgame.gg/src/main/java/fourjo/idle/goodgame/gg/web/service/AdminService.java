@@ -2,6 +2,7 @@ package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.AdminRepository;
 import fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.AdminBoardSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,9 @@ public class AdminService {
 
     public List<AdminBoardDTO> admin_board_selectAll() {
         return adminRepository.admin_board_selectAll();
+    }
+
+    public List<AdminBoardDTO> AdminBoardSearch(AdminBoardSearchDTO adminBoardSearchDTO) {
+        return adminRepository.AdminBoardSearch(adminBoardSearchDTO);
     }
 }
