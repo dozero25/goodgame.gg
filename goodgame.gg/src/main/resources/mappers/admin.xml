@@ -31,31 +31,21 @@
 
     </select>
 
+    <select id="AdminUserSearchList"  parameterType="string" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    select
+    user_index as userIndex,
+    user_id as userId,
+    user_pw as userPw,
+    user_nick as userNick,
+    user_gender as userGender,
+    user_reg_date as userRegDate,
+    user_email as userEmail,
+    role_id as roleId
+    from user_mst
+    where user_nick like CONCAT('%', #{user_nick}, '%')
 
-    <select id="AdminUserSearch"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminUserSearchReq" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
-        select
-        user_index as userIndex,
-        user_id as userId,
-        user_pw as userPw,
-        user_nick as userNick,
-        user_gender as userGender,
-        user_reg_date as userRegDate,
-        user_email as userEmail,
-        role_id as roleId
-        from user_mst
-        <if test='searchValue != null and searchValue !=""'>
-            where (
-            user_nick like CONCAT('%', #{searchValue}, '%')
-            or user_id like CONCAT('%', #{searchValue}, '%')
-            or user_email like CONCAT('%', #{searchValue}, '%')
-            )
-        </if>
-        order by
-        user_index desc
-        <if test='limit == "Y"'>
-            limit #{index}, #{count}
-        </if>
-    </select>
+</select>
+
     <select id="AdminUserSelectOne"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
         select
         user_index as userIndex,
