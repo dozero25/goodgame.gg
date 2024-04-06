@@ -20,11 +20,29 @@ public class BoardService {
     }
 
     public int deleteBoard(BoardDTO boardDTO) {
-
         return boardRepository.deleteBoard(boardDTO);
     }
 
+    /*@GetMapping("/delete")
+    public String boardDelete(Integer id, Board board, Model model) {
+
+        boardService.boardDelete(id);
+
+        model.addAttribute("message", "글이 삭제되었습니다.");
+        model.addAttribute("searchUrl", "/board/list");
+
+        return "message";
+    }*/
+
     public BoardDTO selectOneBoard(int boardDTO) {
+        return boardRepository.selectOneBoard(boardDTO);
+    }
+
+    public BoardDTO selectAllBoard(int boardDTO) {
+        return boardRepository.selectOneBoard(boardDTO);
+    }
+
+    public BoardDTO searchListBoard(int boardDTO) {
         return boardRepository.selectOneBoard(boardDTO);
     }
 

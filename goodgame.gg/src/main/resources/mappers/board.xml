@@ -24,5 +24,14 @@
         board_index=#{board_index}
     </select>
 
+    <select id="selectAllBoard" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+        select * from board_mst order by
+        board_index desc
+    </select>
+
+    <select id="searchListBoard" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+        select * from board_mst where user_index like #{searchWord}
+    </select>
+
 
 </mapper>

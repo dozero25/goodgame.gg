@@ -13,4 +13,8 @@ public interface BoardRepository {
     public int deleteBoard(BoardDTO boardDTO);
 
     public BoardDTO selectOneBoard(int board_index);
+
+    public BoardDTO selectAllBoard(int board_index);
+
+    public BoardDTO searchListBoard(int board_index);
 }

@@ -38,7 +38,7 @@ public class BoardApi {
 
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<CMRespDto<?>> deleteBoard(@RequestBody BoardDTO boardDTO,Model model){
 
         boardService.deleteBoard(boardDTO);
@@ -48,20 +48,56 @@ public class BoardApi {
     }
 
     /*@GetMapping("/delete")
-    public String boardDelete(Integer id, Board board, Model model) {
-
-        boardService.boardDelete(id);
-
+    public String boardDelete(@RequestParam Integer id, Model model) {
+        boardService.deleteBoard(boardDTO);
         model.addAttribute("message", "글이 삭제되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
-
         return "message";
     }*/
 
-    @PostMapping("/selectOne")
+
+    @GetMapping("/selectOne")
     public ResponseEntity<CMRespDto<?>> selectOneBoard(@RequestBody int board_index){
 
         boardService.selectOneBoard(board_index);
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
+
+    }
+
+    @GetMapping("/selectAll")
+    public ResponseEntity<CMRespDto<?>> selectAllBoard(@RequestBody int boardDTO){
+
+        boardService.selectAllBoard(boardDTO);
+
+        /*int total_rows = service.getTotalRows();
+		log.info("total_rows:" + total_rows);
+
+		int totalPageCount = 1;
+		if (total_rows / pageBlock == 0) {
+			totalPageCount = 1;
+		} else if (total_rows % pageBlock == 0) {
+			totalPageCount = total_rows / pageBlock;
+		} else {
+			totalPageCount = total_rows / pageBlock + 1;
+		}
+		// 페이지 링크 몇개?
+		log.info("totalPageCount:" + totalPageCount);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("totalPageCount", 10);//테스트용
+
+		model.addAttribute("content", "thymeleaf/member/th_selectAll");
+		model.addAttribute("title", "회원목록");
+	*/
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
+
+    }
+
+    @PostMapping("/searchList")
+    public ResponseEntity<CMRespDto<?>> searchListBoard(@RequestBody int board_index){
+
+        boardService.searchListBoard(board_index);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
 
