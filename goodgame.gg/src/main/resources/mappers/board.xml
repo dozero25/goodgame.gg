@@ -5,6 +5,18 @@
 <mapper namespace="fourjo.idle.goodgame.gg.repository.BoardRepository">
 
 
+    <insert id ="insertBoard"  parameterType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+        insert into board_mst
+        values(#{board_index}, #{board_subject}, #{user_index}, #{board_content}, now(), #{board_visit},
+        #{board_good}, #{board_bad},#{board_upload_name},#{board_upload_size},#{board_upload_trans});
+    </insert>
+    <update id ="updateBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+        update board_mst set board_subject = #{board_subject}, board_content =  #{board_content} where board_index = #{board_index};
+    </update>
+    <delete id ="deleteBoard" parameterType="integer">
+        delete from board_mst where  board_index = #{board_index}
+    </delete>
+
     <select id ="selectOneBoard" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
         select * from board_mst where  board_index = #{board_index}
     </select>
@@ -14,8 +26,23 @@
         select * from board_mst
     </select>
 
-    <select id ="searchBoard_title" parameterType="string" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
-        select * from board_mst where board_subject like CONCAT('%', #{searchWord}, '%')
+
+    <select id ="searchBoard" parameterType="string" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+        select * from board_mst
+        join user_mst on (board_mst.user_index = user_mst.user_index)
+        where
+        1=1
+        <if test='searchKey != null and searchKey == "title", searchValue != null and searchValue != ""'>
+            and (
+            board_mst.user_index like CONCAT('%', #{searchValue}, '%')
+            or board_subject like CONCAT('%', #{searchValue}, '%')
+            or board_content like CONCAT('%', #{searchValue}, '%')
+            )
+        </if>
+
+        <if test='limit == "Y"'>
+            limit #{index}, #{count}
+        </if>
 
     </select>
 

@@ -14,21 +14,29 @@ public class BoardService {
     private BoardRepository boardRepository; // mapper대신 사용함, 왜?
 
 
-    // public int insertOK(BoardDTO dto) {
-    //    return boardRepository.insertBoard(dto);
-    //}
+    public int insertBoard(BoardDTO dto) {
+      return boardRepository.insertBoard(dto);
+   }
+
+    public int updateBoard(BoardDTO dto) {
+        return boardRepository.updateBoard(dto);
+    }
+
+    public int deleteBoard(int board_index) {
+        return boardRepository.deleteBoard(board_index);
+    }
 
 
     public BoardDTO selectOneBoard(int board_index) {
         return boardRepository.selectOneBoard(board_index);
     }
 
-    public List<BoardDTO> selectAllBoard(BoardDTO dto) {
+    public List<BoardDTO> selectAllBoard() {
         return boardRepository.selectAllBoard();
     }
 
-   public List<BoardDTO> searchBoard_title(String searchKey, String searchWord) {
-       return boardRepository.searchBoard_title(searchKey, searchWord);
+   public List<BoardDTO> searchBoard(String searchKey, String searchValue) {
+       return boardRepository.searchBoard(searchKey, searchValue);
 
     };
 
