@@ -1,7 +1,6 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.AdminRepository;
-import fourjo.idle.goodgame.gg.web.dto.AdminUserSelectAll;
 import fourjo.idle.goodgame.gg.web.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class AdminService {
+public class AdminUserService {
 
     @Autowired
     private AdminRepository adminRepository;

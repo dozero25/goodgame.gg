@@ -1,10 +1,8 @@
 package fourjo.idle.goodgame.gg.web.api;
 
-import fourjo.idle.goodgame.gg.web.dto.AdminUserSelectAll;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.dto.UserDto;
-import fourjo.idle.goodgame.gg.web.service.AdminService;
-import fourjo.idle.goodgame.gg.web.service.UserService;
+import fourjo.idle.goodgame.gg.web.service.AdminUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +16,20 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/admin_user")
 @Tag(name ="Admin User Api", description = "Admin User Api 입니다.")
-public class AdminApi {
+public class AdminUserApi {
 
     @Autowired
-    private AdminService adminService;
+    private AdminUserService adminUserService;
 
     @PostMapping("/AdminUserUpdate")
     public ResponseEntity<CMRespDto<?>> AdminUserUpdate (@RequestBody UserDto userDto, BindingResult bindingResult){
-        adminService.AdminUserUpdate(userDto);
+        adminUserService.AdminUserUpdate(userDto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
     @PostMapping("/AdminUserDelete")
     public ResponseEntity<CMRespDto<?>> AdminUserDelete (int user_index){
-        adminService.AdminUserDelete(user_index);
+        adminUserService.AdminUserDelete(user_index);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
@@ -40,20 +38,20 @@ public class AdminApi {
 
         return ResponseEntity
                 .ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",adminService.AdminUserSelectAll()));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", adminUserService.AdminUserSelectAll()));
     }
     @GetMapping("/all/AdminUserSearchList")
     public ResponseEntity<CMRespDto<?>> AdminUserSearchList(String user_nick) {
 
         return ResponseEntity
                 .ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",    adminService.AdminUserSearchList(user_nick)));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",    adminUserService.AdminUserSearchList(user_nick)));
     }
     @GetMapping("/all/AdminUserSelectOne")
     public ResponseEntity<CMRespDto<?>> AdminUserSelectOne(int user_index) {
 
         return ResponseEntity
                 .ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",    adminService.AdminUserSelectOne(user_index)));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",    adminUserService.AdminUserSelectOne(user_index)));
     }
 }
