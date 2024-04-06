@@ -1,12 +1,13 @@
 package fourjo.idle.goodgame.gg.web.dto;
 
 import lombok.Data;
+
 @Data
-public class AdminUserSelectAll {
-
-
+public class AdminUserSearchReq {
 
         private int page;
+
+
 
         private String searchValue;
 
@@ -21,5 +22,3 @@ public class AdminUserSelectAll {
         }
 
     }
-
-

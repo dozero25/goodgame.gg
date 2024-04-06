@@ -1,6 +1,7 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.AdminRepository;
+import fourjo.idle.goodgame.gg.web.dto.AdminUserSearchReq;
 import fourjo.idle.goodgame.gg.web.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,10 @@ public class AdminUserService {
 
         return adminRepository.AdminUserSelectAll();
     }
-    public List<UserDto> AdminUserSearchList(String user_nick  ) {
 
-        return adminRepository.AdminUserSearchList(user_nick);
+    public List<UserDto> AdminUserSearch(AdminUserSearchReq adminUserSearchReq) {
+
+        return adminRepository.AdminUserSearch(adminUserSearchReq);
     }
     public UserDto AdminUserSelectOne(int user_index  ) {
 
