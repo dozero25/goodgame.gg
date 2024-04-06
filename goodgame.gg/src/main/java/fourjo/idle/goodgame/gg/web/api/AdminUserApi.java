@@ -28,7 +28,7 @@ public class AdminUserApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
-    @PostMapping("/AdminUserDelete")
+    @DeleteMapping("/AdminUserDelete")
     public ResponseEntity<CMRespDto<?>> AdminUserDelete (int user_index){
         adminUserService.AdminUserDelete(user_index);
         return ResponseEntity.ok()

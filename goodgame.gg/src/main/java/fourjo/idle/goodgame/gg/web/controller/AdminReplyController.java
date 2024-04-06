@@ -13,5 +13,8 @@ public class AdminReplyController {
     public String AdminReplyDelete(){
         return "admin/AdminReplyDelete";
     }
-
+    @GetMapping("/AdminReplySearch")
+    public String AdminReplySearch(){
+        return "admin/AdminReplySearch";
+    }
 }
