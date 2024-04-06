@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface AdminRepository {
+public interface AdminUserRepository {
 
 
     public int AdminUserUpdate(UserDto dto);

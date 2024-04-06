@@ -15,9 +15,9 @@ int page;
 
     private int index;
 
-    public void setIndex() {
-        index = (page-1) * count;
-    }
+   // public void setIndex() {
+  //      index = (page-1) * count;
+ //   }
 
 
 }
