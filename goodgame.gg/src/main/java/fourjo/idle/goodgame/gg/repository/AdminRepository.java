@@ -1,6 +1,7 @@
 package fourjo.idle.goodgame.gg.repository;
 
 
+import fourjo.idle.goodgame.gg.web.dto.AdminUserSearchDTO;
 import fourjo.idle.goodgame.gg.web.dto.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +16,7 @@ public interface AdminRepository {
 
     public List<UserDto> AdminUserSelectAll();
 
-    public List<UserDto> AdminUserSearchList(String user_nick);
+    public List<UserDto> AdminUserSearch(AdminUserSearchDTO adminUserSearchDTO);
 
     public UserDto AdminUserSelectOne(int user_index);
 

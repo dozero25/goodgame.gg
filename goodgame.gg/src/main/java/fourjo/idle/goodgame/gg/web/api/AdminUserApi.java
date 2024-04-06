@@ -1,5 +1,6 @@
 package fourjo.idle.goodgame.gg.web.api;
 
+import fourjo.idle.goodgame.gg.web.dto.AdminUserSearchDTO;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.dto.UserDto;
 import fourjo.idle.goodgame.gg.web.service.AdminUserService;
@@ -40,12 +41,12 @@ public class AdminUserApi {
                 .ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", adminUserService.AdminUserSelectAll()));
     }
-    @GetMapping("/all/AdminUserSearchList")
-    public ResponseEntity<CMRespDto<?>> AdminUserSearchList(String user_nick) {
+    @GetMapping("/all/AdminUserSearch")
+    public ResponseEntity<CMRespDto<?>> AdminUserSearch(AdminUserSearchDTO AdminUserSearchDTO) {
 
         return ResponseEntity
                 .ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",    adminUserService.AdminUserSearchList(user_nick)));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully",    adminUserService.AdminUserSearch(AdminUserSearchDTO)));
     }
     @GetMapping("/all/AdminUserSelectOne")
     public ResponseEntity<CMRespDto<?>> AdminUserSelectOne(int user_index) {

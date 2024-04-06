@@ -22,9 +22,9 @@ AdminUserService adminUserService;
         return "admin/AdminUserSelectAll";
     }
 
-    @GetMapping("/AdminUserSearchList")
-    public String AdminUserSearchList(){
-        return "admin/AdminUserSearchList";
+    @GetMapping("/AdminUserSearch")
+    public String AdminUserSearch(){
+        return "admin/AdminUserSearch";
     }
     @GetMapping("/AdminUserSelectOne")
     public String AdminUserSelectOne(){
