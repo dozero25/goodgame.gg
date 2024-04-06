@@ -30,4 +30,6 @@ public class UserApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
+
+
 }
