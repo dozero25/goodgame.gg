@@ -1,17 +1,14 @@
 package fourjo.idle.goodgame.gg.web.controller;
 
-import fourjo.idle.goodgame.gg.web.dto.UserDto;
-import fourjo.idle.goodgame.gg.web.service.AdminService;
+import fourjo.idle.goodgame.gg.web.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
 @Controller
-public class AdminController {
+public class AdminUserController {
 @Autowired
-AdminService adminService;
+AdminUserService adminUserService;
     @GetMapping("/AdminUserUpdate")
     public String AdminUserUpdate(){
         return "admin/AdminUserUpdate";
