@@ -1,5 +1,6 @@
 package fourjo.idle.goodgame.gg.web.service;
 
+import fourjo.idle.goodgame.gg.exception.CustomInputPasswordException;
 import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
 import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
 import fourjo.idle.goodgame.gg.repository.UserRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -19,6 +22,7 @@ public class UserService {
 
     public UserDto registerUser(UserDto userDto) {
         duplicateUserId(userDto.getUserId());
+//        checkPassword(userDto.getUserPw());
         inputUserGender(userDto.getUserGender());
 
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
@@ -39,8 +43,19 @@ public class UserService {
 
     }
 
-    public void inputUserGender(String userGender){
+    public void checkPassword(String userPw) {
+        Pattern passPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$");
+        Matcher passMatcher = passPattern.matcher(userPw);
 
+        if(!passMatcher.find()){
+            Map<String, String> errorMap = new HashMap<>();
+            errorMap.put("Password Error", "비밀번호는 최소 8글자에서 최대 20글자, 영문자 1개 이상, 숫자 1개 이상, 특수문자1개이상으로 구성되어야 합니다.");
+
+            throw new CustomInputPasswordException(errorMap);
+        }
+    }
+
+    public void inputUserGender(String userGender){
         String gender = userGender.toLowerCase();
 
         if(gender.length() != 1){
@@ -56,6 +71,5 @@ public class UserService {
             throw new CustomInputUserGenderException(errorMap);
         }
     }
-
 
 }

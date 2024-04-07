@@ -1,9 +1,6 @@
 package fourjo.idle.goodgame.gg.web.advice;
 
-import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
-import fourjo.idle.goodgame.gg.exception.CustomRiotResponseCodeException;
-import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
-import fourjo.idle.goodgame.gg.exception.CustomValidationException;
+import fourjo.idle.goodgame.gg.exception.*;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +20,12 @@ public class ExceptionAdvice {
     public ResponseEntity<?> sameUserIdError(CustomSameUserIdException e){
         return ResponseEntity.badRequest()
                 .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "SameUserId Error", e.getErrorMap()));
+    }
+
+    @ExceptionHandler(CustomInputPasswordException.class)
+    public ResponseEntity<?> sameUserIdError(CustomInputPasswordException e){
+        return ResponseEntity.badRequest()
+                .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "Password Error", e.getErrorMap()));
     }
 
     @ExceptionHandler(CustomInputUserGenderException.class)
