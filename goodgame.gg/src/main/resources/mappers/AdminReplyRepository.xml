@@ -10,7 +10,7 @@
         delete from reply_mst where replyIndex=#{relpyIndex}
     </delete>
 
-    <select id="replySearchByUserNickAndReplyContent"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminReplySearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.ReplyDto">
+    <select id="replySearchByUserNickAndReplyContent" parameterType="fourjo.idle.goodgame.gg.web.dto.admin.AdminReplySearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.admin.ReplyDto">
         select
         rm.replyIndex as replyIndex,
         rm.boardIndex as boardIndex,
@@ -20,18 +20,18 @@
         rm.replySequence as replySequence,
         rm.replyRegDate as replyRegDate
         from reply_mst rm
-       join user_mst um on (rm.userId = um.userIndex)
-       <if test='searchKey == "cn" and  searchValue != null and searchValue !=""'>
+       inner join user_mst um on (rm.userId = um.userIndex)
+       <if test='searchKey == "replyContentAndUserNick" and  searchValue != null and searchValue !=""'>
             where (
             rm.replyContent like CONCAT('%',#{searchValue},'%') or
             um.userNick like CONCAT('%', #{searchValue}, '%')
             )
         </if>
-        <if test='searchKey == "c" '>
+        <if test='searchKey == "replyContent" '>
             where rm.replyContent like CONCAT('%',#{searchValue},'%')
 
         </if>
-        <if test='searchKey == "n" '>
+        <if test='searchKey == "userNick" '>
             where um.userNick like CONCAT('%', #{searchValue}, '%')
 
         </if>

@@ -1,13 +1,14 @@
-package fourjo.idle.goodgame.gg.web.dto;
+package fourjo.idle.goodgame.gg.web.dto.admin;
 
 import lombok.Data;
 
 @Data
-public class AdminUserSearchDTO {
+public class AdminReplySearchDTO {
 
 int page;
 
     private String searchKey;
+
     private String searchValue;
 
     private String limit;

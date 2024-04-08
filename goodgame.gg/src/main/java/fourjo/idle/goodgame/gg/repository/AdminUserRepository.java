@@ -1,8 +1,8 @@
 package fourjo.idle.goodgame.gg.repository;
 
 
-import fourjo.idle.goodgame.gg.web.dto.AdminUserSearchDTO;
-import fourjo.idle.goodgame.gg.web.dto.UserDto;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminUserSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
