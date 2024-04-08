@@ -2,18 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="fourjo.idle.goodgame.gg.repository.EmployeeRepository">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.AdminEmployeeRepository">
 
-    <insert id="employeeInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
+    <insert id="adminEmployeeInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminEmployeeDto">
         insert into emp_mst
         values(0, #{empId}, #{empPw}, #{empName}, #{empRegNum}, #{empEmail}, #{empPhone}, #{empGender})
     </insert>
 
-    <delete id="employeeDelete" parameterType="fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
-        Delete from emp_mst where emp_index = #{empIndex}
+    <delete id="adminEmployeeDelete" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminEmployeeDto">
+        Delete from emp_mst where empIndex = #{empIndex}
     </delete>
 
-    <update id="employeeUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
+    <update id="adminEmployeeUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminEmployeeDto">
         update emp_mst
         set
             empId = #{empId},
@@ -27,16 +27,16 @@
             empIndex = #{empIndex}
     </update>
 
-    <select id = "employeeSearch" parameterType = "String" resultType = "fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
+    <select id = "adminEmployeeSearch" parameterType ="String" resultType = "fourjo.idle.goodgame.gg.web.dto.AdminEmployeeDto">
         select
             *
         from
             emp_mst
         where
-            emp_id = #{empId}
+            empId = #{empId}
     </select>
 
-    <insert id="insertRoleId" parameterType="Integer">
+    <insert id="adminInsertRoleId" parameterType="Integer">
         insert into role_dtl values(0, #{empIndex}, 2)
     </insert>
 
