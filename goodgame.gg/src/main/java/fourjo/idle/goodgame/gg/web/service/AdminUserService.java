@@ -17,24 +17,21 @@ public class AdminUserService {
     private AdminUserRepository adminUserRepository;
 
 
-    public int AdminUserUpdate(UserDto dto) {
-        return adminUserRepository.AdminUserUpdate(dto);
+    public int userUpdateUserNickByUserIndex(UserDto dto) {
+        return adminUserRepository.userUpdateUserNickByUserIndex(dto);
     }
 
-    public int AdminUserDelete(int user_index) {
+    public int userDeleteByUserIndex(int userIndex) {
 
-        return adminUserRepository.AdminUserDelete(user_index);
+        return adminUserRepository.userDeleteByUserIndex(userIndex);
     }
-    public List<UserDto> AdminUserSelectAll(  ) {
 
-        return adminUserRepository.AdminUserSelectAll();
+    public List<UserDto> userSearchByUserNickAndEmailAndId(AdminUserSearchDTO adminUserSearchDTO  ) {
+
+        return adminUserRepository.userSearchByUserNickAndEmailAndId(adminUserSearchDTO);
     }
-    public List<UserDto> AdminUserSearch(AdminUserSearchDTO adminUserSearchDTO  ) {
+    public UserDto userSelectOneByUserIndex(int userIndex  ) {
 
-        return adminUserRepository.AdminUserSearch(adminUserSearchDTO);
-    }
-    public UserDto AdminUserSelectOne(int user_index  ) {
-
-        return adminUserRepository.AdminUserSelectOne(user_index);
+        return adminUserRepository.userSelectOneByUserIndex(userIndex);
     }
 }

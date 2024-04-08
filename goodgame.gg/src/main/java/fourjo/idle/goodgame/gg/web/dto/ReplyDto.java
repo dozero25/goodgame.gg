@@ -10,8 +10,8 @@ public class ReplyDto {
     private int boardIndex;
     private int userId;
     private String replyContent;
-    private int replyFir;
-    private int replySec;
+    private int replyGroup;
+    private int replySequence;
     private LocalDateTime relyRegDate;
 
 }

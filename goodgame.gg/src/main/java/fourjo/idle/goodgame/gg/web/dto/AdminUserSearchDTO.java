@@ -7,6 +7,7 @@ public class AdminUserSearchDTO {
 
 int page;
 
+    private String searchKey;
     private String searchValue;
 
     private String limit;

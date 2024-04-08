@@ -6,69 +6,51 @@
 
 
 
-    <update id="AdminUserUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
-        update user_mst set user_nick=#{userNick}
-        where user_index=#{userIndex}
+    <update id="userUpdateUserNickByUserIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+        update user_mst set userNick=#{userNick}
+        where userIndex=#{userIndex}
     </update>
 
-    <delete id="AdminUserDelete" parameterType="integer" >
-        delete from user_mst where user_index= #{user_index}
+    <delete id="userDeleteByUserIndex" parameterType="integer" >
+        delete from user_mst where userIndex= #{userIndex}
     </delete>
 
 
-    <select id="AdminUserSelectAll"  resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
-      select
-        user_index as userIndex,
-        user_id as userId,
-        user_pw as userPw,
-        user_nick as userNick,
-        user_gender as userGender,
-        user_reg_date as userRegDate,
-        user_email as userEmail,
-        role_id as roleId
-        from user_mst
-        where user_index=#{user_index}
 
-    </select>
 
-    <select id="AdminUserSearch"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminUserSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
-    select
-    user_index as userIndex,
-    user_id as userId,
-    user_pw as userPw,
-    user_nick as userNick,
-    user_gender as userGender,
-    user_reg_date as userRegDate,
-    user_email as userEmail,
-    role_id as roleId
-    from user_mst
-        <if test='searchValue != null and searchValue !=""'>
+    <select id="userSearchByUserNickAndEmailAndId"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminUserSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    select  * from user_mst
+        <if test='searchKey=="in" and searchValue != null and searchValue !=""'>
             where (
-            user_id like CONCAT('%', #{searchValue}, '%')
-            or user_nick like CONCAT('%', #{searchValue}, '%')
-            or user_email like CONCAT('%', #{searchValue}, '%')
+          userId like CONCAT('%',#{searchValue},'%') or
+            userNick like CONCAT('%',#{searchValue},'%')
+            )
+        </if>
+        <if test='searchKey=="i"'>
+            where (
+          userId like CONCAT('%',#{searchValue},'%')
+            )
+        </if>
+        <if test='searchKey=="n"'>
+            where (
+          userNick like CONCAT('%',#{searchValue},'%')
+            )
+        </if>
+        <if test='searchKey=="e"'>
+            where (
+           userEmail like CONCAT('%',#{searchValue},'%')
             )
         </if>
         order by
-        user_index desc
+        userIndex desc
         <if test='limit == "Y"'>
             limit #{index}, #{count}
         </if>
 
 </select>
 
-    <select id="AdminUserSelectOne"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
-        select
-        user_index as userIndex,
-        user_id as userId,
-        user_pw as userPw,
-        user_nick as userNick,
-        user_gender as userGender,
-        user_reg_date as userRegDate,
-        user_email as userEmail,
-        role_id as roleId
-        from user_mst
-        where user_index=#{user_index}
+    <select id="userSelectOneByUserIndex"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+        select * from user_mst where userIndex=#{user_index}
 
     </select>
 </mapper>

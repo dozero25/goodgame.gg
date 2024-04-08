@@ -6,37 +6,37 @@
 
 
 
-    <delete id="AdminReplyDelete" parameterType="integer">
-        delete from reply_mst where reply_index=#{relpy_index}
+    <delete id="replyDeleteByUserIndex" parameterType="integer">
+        delete from reply_mst where replyIndex=#{relpyIndex}
     </delete>
 
-    <select id="AdminReplySearch"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminReplySearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.ReplyDto">
+    <select id="replySearchByUserNickAndReplyContent"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminReplySearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.ReplyDto">
         select
-        rm.reply_index as replyIndex,
-        rm.board_index as boardIndex,
-       rm.user_id as userId,
-        rm.reply_content as replyContent,
-        rm.reply_fir as replyFir,
-        rm.reply_sec as replySec,
-        rm.reply_reg_date as replyRegDate
+        rm.replyIndex as replyIndex,
+        rm.boardIndex as boardIndex,
+       rm.userId as userId,
+        rm.replyContent as replyContent,
+        rm.replyGroup as replyGroup,
+        rm.replySequence as replySequence,
+        rm.replyRegDate as replyRegDate
         from reply_mst rm
-       join user_mst um on (rm.user_id = um.user_index)
+       join user_mst um on (rm.userId = um.userIndex)
        <if test='searchKey == "cn" and  searchValue != null and searchValue !=""'>
             where (
-            rm.reply_content like CONCAT('%',#{searchValue},'%') or
-            um.user_nick like CONCAT('%', #{searchValue}, '%')
+            rm.replyContent like CONCAT('%',#{searchValue},'%') or
+            um.userNick like CONCAT('%', #{searchValue}, '%')
             )
         </if>
         <if test='searchKey == "c" '>
-            where rm.reply_content like CONCAT('%',#{searchValue},'%')
+            where rm.replyContent like CONCAT('%',#{searchValue},'%')
 
         </if>
         <if test='searchKey == "n" '>
-            where um.user_nick like CONCAT('%', #{searchValue}, '%')
+            where um.userNick like CONCAT('%', #{searchValue}, '%')
 
         </if>
         order by
-       reply_index desc
+       replyIndex desc
         <if test='limit == "Y"'>
             limit #{index}, #{count}
         </if>

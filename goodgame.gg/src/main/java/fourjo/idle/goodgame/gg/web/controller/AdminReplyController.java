@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminReplyController {
 @Autowired
     AdminReplyService adminReplyService;
-    @GetMapping("/AdminReplyDelete")
-    public String AdminReplyDelete(){
+    @GetMapping("/ReplyDeleteByIndex")
+    public String replyDeleteByUserIndex(){
         return "admin/AdminReplyDelete";
     }
     @GetMapping("/AdminReplySearch")
-    public String AdminReplySearch(){
+    public String replySearchByUserNickAndReplyContent(){
         return "admin/AdminReplySearch";
     }
 }
