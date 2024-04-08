@@ -2,27 +2,46 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="fourjo.idle.goodgame.gg.repository.EmpRepository">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.EmployeeRepository">
 
-    <insert id="empInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.EmpDto">
+    <insert id="employeeInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
         insert into emp_mst
         values(0, #{empId}, #{empPw}, #{empName}, #{empRegNum}, #{empEmail}, #{empPhone}, #{empGender})
     </insert>
 
-    <delete id="empDelete" parameterType="fourjo.idle.goodgame.gg.web.dto.EmpDto">
+    <delete id="employeeDelete" parameterType="fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
         Delete from emp_mst where emp_index = #{empIndex}
     </delete>
 
-    <update id="empUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.EmpDto">
-        update emp_mst set
-            emp_id = #{empId},
-            emp_pw = #{empPw},
-            emp_name = #{empName},
-            emp_reg_num = #{empRegNum},
-            emp_email = #{empEmail},
-            emp_phone = #{empPhone},
-            emp_gender = #{empGender}
-        where emp_index = #{empIndex}
+    <update id="employeeUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
+        update emp_mst
+        set
+            empId = #{empId},
+            empPw = #{empPw},
+            empName = #{empName},
+            empRegNum = #{empRegNum},
+            empEmail = #{empEmail},
+            empPhone = #{empPhone},
+            empGender = #{empGender}
+        where
+            empIndex = #{empIndex}
     </update>
+
+    <select id = "employeeSearch" parameterType = "String" resultType = "fourjo.idle.goodgame.gg.web.dto.EmployeeDto">
+        select
+            *
+        from
+            emp_mst
+        where
+            emp_id = #{empId}
+    </select>
+
+    <insert id="insertRoleId" parameterType="Integer">
+        insert into role_dtl values(0, #{empIndex}, 2)
+    </insert>
+
+
+
+
 
 </mapper>
