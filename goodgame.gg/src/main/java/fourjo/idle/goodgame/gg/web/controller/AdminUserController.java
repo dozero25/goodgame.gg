@@ -10,24 +10,20 @@ public class AdminUserController {
 @Autowired
 AdminUserService adminUserService;
     @GetMapping("/AdminUserUpdate")
-    public String AdminUserUpdate(){
+    public String userUpdateUserNickByUserIndex(){
         return "admin/AdminUserUpdate";
     }
     @GetMapping("/AdminUserDelete")
-    public String AdminUserDelete(){
+    public String userDeleteByUserIndex(){
         return "admin/AdminUserDelete";
-    }
-    @GetMapping("/AdminUserSelectAll")
-    public String AdminUserSelectAll(){
-        return "admin/AdminUserSelectAll";
     }
 
     @GetMapping("/AdminUserSearch")
-    public String AdminUserSearch(){
+    public String userSearchByUserNickAndEmailAndId(){
         return "admin/AdminUserSearch";
     }
     @GetMapping("/AdminUserSelectOne")
-    public String AdminUserSelectOne(){
+    public String userSelectOneByUserIndex(){
         return "admin/AdminUserSelectOne";
     }
 }

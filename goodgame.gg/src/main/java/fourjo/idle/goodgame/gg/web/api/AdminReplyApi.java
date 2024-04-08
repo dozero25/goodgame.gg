@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin_reply")
-@Tag(name ="Admin Reply Api", description = "Admin Reply Api 입니다.")
+@RequestMapping("/api/admin")
+@Tag(name ="adminReplyApi", description = "Admin이 Reply를 관리하는 Api 입니다.")
 public class AdminReplyApi {
 
     @Autowired
     private AdminReplyService adminReplyService;
 
-    @DeleteMapping("/AdminReplyDelete")
-    public ResponseEntity<CMRespDto<?>> AdminReplyDelete (int reply_index){
-        adminReplyService.AdminReplyDelete(reply_index);
+    @DeleteMapping("/reply/delete")
+    public ResponseEntity<CMRespDto<?>> replyDeleteByUserIndex (int replyIndex){
+        adminReplyService.replyDeleteByUserIndex(replyIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
-    @GetMapping("/AdminReplySearch")
-    public ResponseEntity<CMRespDto<?>> AdminReplySearch (AdminReplySearchDTO adminReplySearchDTO){
+    @GetMapping("/reply/search")
+    public ResponseEntity<CMRespDto<?>> replySearchByUserNickAndReplyContent (AdminReplySearchDTO adminReplySearchDTO){
 
         return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", adminReplyService.AdminReplySearch(adminReplySearchDTO)));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", adminReplyService.replySearchByUserNickAndReplyContent(adminReplySearchDTO)));
     }
 }

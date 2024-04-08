@@ -11,13 +11,13 @@ import java.util.List;
 public interface AdminUserRepository {
 
 
-    public int AdminUserUpdate(UserDto dto);
-    public int AdminUserDelete(int user_index);
+    public int userUpdateUserNickByUserIndex(UserDto dto);
+    public int userDeleteByUserIndex(int userIndex);
 
-    public List<UserDto> AdminUserSelectAll();
 
-    public List<UserDto> AdminUserSearch(AdminUserSearchDTO adminUserSearchDTO);
 
-    public UserDto AdminUserSelectOne(int user_index);
+    public List<UserDto> userSearchByUserNickAndEmailAndId(AdminUserSearchDTO adminUserSearchDTO);
+
+    public UserDto userSelectOneByUserIndex(int userIndex);
 
 }

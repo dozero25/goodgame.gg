@@ -11,7 +11,7 @@ import java.util.List;
 public interface AdminReplyRepository {
 
 
-    public int AdminReplyDelete(int reply_index);
+    public int replyDeleteByUserIndex(int replyIndex);
 
-    public List<ReplyDto> AdminReplySearch(AdminReplySearchDTO adminReplySearchDTO);
+    public List<ReplyDto> replySearchByUserNickAndReplyContent(AdminReplySearchDTO adminReplySearchDTO);
 }

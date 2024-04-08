@@ -17,11 +17,11 @@ public class AdminReplyService {
     private AdminReplyRepository adminReplyRepository;
 
 
-    public int AdminReplyDelete(int reply_index) {
-        return adminReplyRepository.AdminReplyDelete(reply_index);
+    public int replyDeleteByUserIndex(int replyIndex) {
+        return adminReplyRepository.replyDeleteByUserIndex(replyIndex);
     }
-    public List<ReplyDto> AdminReplySearch(AdminReplySearchDTO adminReplySearchDTO) {
-        return adminReplyRepository.AdminReplySearch(adminReplySearchDTO);
+    public List<ReplyDto> replySearchByUserNickAndReplyContent(AdminReplySearchDTO adminReplySearchDTO) {
+        return adminReplyRepository.replySearchByUserNickAndReplyContent(adminReplySearchDTO);
     }
 
 
