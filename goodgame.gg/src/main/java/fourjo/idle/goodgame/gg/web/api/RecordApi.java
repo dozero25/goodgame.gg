@@ -33,7 +33,7 @@ public class RecordApi {
 
         summonerName = summonerName.replaceAll(" ", "%20");
         SummonerDto summonerDto =  recordService.searchSummonerInfoBySummonerName(summonerName);
-        List<String> matchesList = new ArrayList<>(recordService.searchMatchesByMatchId(summonerDto.getPuuid()));
+        List<String> matchesList = recordService.searchMatchesByMatchId(summonerDto.getPuuid());
         List<LeagueDto> leagueList = recordService.searchLeagueBySummonerName(summonerDto.getId());
         List<ChampionMasteryDto> championMasteryList = recordService.searchChampionMasteryByPuuid(summonerDto.getPuuid());
 

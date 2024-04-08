@@ -3,7 +3,7 @@ package fourjo.idle.goodgame.gg.web.dto.Record;
 import lombok.Data;
 
 @Data
-public class ChampionMasteryDto implements Comparable<ChampionMasteryDto>{
+public class ChampionMasteryDto {
     private String puuid;
     private long championPointsUntilNextLevel;
     private boolean chestGranted;
@@ -15,8 +15,4 @@ public class ChampionMasteryDto implements Comparable<ChampionMasteryDto>{
     private long championPointsSinceLastLevel;
     private int tokensEarned;
 
-    @Override
-    public int compareTo(ChampionMasteryDto o) {
-        return (int) ( o.championPointsUntilNextLevel- championPointsUntilNextLevel );
-    }
 }

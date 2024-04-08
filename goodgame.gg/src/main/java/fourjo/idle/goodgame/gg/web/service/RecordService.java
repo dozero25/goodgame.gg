@@ -2,7 +2,6 @@ package fourjo.idle.goodgame.gg.web.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import fourjo.idle.goodgame.gg.exception.CustomRiotResponseCodeException;
 import fourjo.idle.goodgame.gg.web.dto.Record.ChampionMasteryDto;
 import fourjo.idle.goodgame.gg.web.dto.Record.LeagueDto;
@@ -22,7 +21,7 @@ public class RecordService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String mykey = "RGAPI-e5b95bf4-abf3-498a-8ec6-271e47567574";
+    private final String mykey = "RGAPI-cdc7235e-9880-4797-ae0e-b51f97d58c49";
     private final String serverUrl = "https://kr.api.riotgames.com";
     private final String severUrlAsia = "https://asia.api.riotgames.com/";
 
@@ -97,8 +96,6 @@ public class RecordService {
 
             HttpEntity entity = response.getEntity();
             championMasteryList = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
-
-            Collections.sort(championMasteryList);
 
             // Dto에 Comparable를 implements 하지 않고 사용
 //            championMasteryList.sort(Comparator.comparing(ChampionMasteryDto::getChampionPointsUntilNextLevel).reversed());

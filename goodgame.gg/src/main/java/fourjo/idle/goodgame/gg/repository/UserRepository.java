@@ -1,6 +1,6 @@
 package fourjo.idle.goodgame.gg.repository;
 
-import fourjo.idle.goodgame.gg.web.dto.UserDto;
+import fourjo.idle.goodgame.gg.web.dto.user.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
