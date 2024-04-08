@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto;
+package fourjo.idle.goodgame.gg.web.dto.user;
 
 import lombok.Data;
 

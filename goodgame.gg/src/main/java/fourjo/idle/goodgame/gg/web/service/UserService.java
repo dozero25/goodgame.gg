@@ -4,7 +4,7 @@ import fourjo.idle.goodgame.gg.exception.CustomInputPasswordException;
 import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
 import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
 import fourjo.idle.goodgame.gg.repository.UserRepository;
-import fourjo.idle.goodgame.gg.web.dto.UserDto;
+import fourjo.idle.goodgame.gg.web.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,9 +21,9 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserDto registerUser(UserDto userDto) {
-        duplicateUserId(userDto.getUserId());
+//        duplicateUserId(userDto.getUserId());
 //        checkPassword(userDto.getUserPw());
-        inputUserGender(userDto.getUserGender());
+//        inputUserGender(userDto.getUserGender());
 
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
         userRepository.registerUser(userDto);
@@ -57,7 +57,7 @@ public class UserService {
 
     public void inputUserGender(String userGender){
         String gender = userGender.toLowerCase();
-
+        // W w
         if(gender.length() != 1){
             Map<String, String> errorMap = new HashMap<>();
             errorMap.put("userGender", "입력 데이터 길이를 확인해주세요");
