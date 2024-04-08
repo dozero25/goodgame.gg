@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.web.api;
 
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
-import fourjo.idle.goodgame.gg.web.dto.UserDto;
+import fourjo.idle.goodgame.gg.web.dto.admin.UserDto;
 import fourjo.idle.goodgame.gg.web.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

@@ -6,7 +6,7 @@
 
 
 
-    <update id="userUpdateUserNickByUserIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    <update id="userUpdateUserNickByUserIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.admin.UserDto">
         update user_mst set userNick=#{userNick}
         where userIndex=#{userIndex}
     </update>
@@ -18,9 +18,9 @@
 
 
 
-    <select id="userSearchByUserNickAndEmailAndId"  parameterType="fourjo.idle.goodgame.gg.web.dto.AdminUserSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    <select id="userSearchByUserNickAndEmailAndId" parameterType="fourjo.idle.goodgame.gg.web.dto.admin.AdminUserSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.admin.UserDto">
     select  * from user_mst
-        <if test='searchKey=="in" and searchValue != null and searchValue !=""'>
+        <if test='searchKey=="userIdAndUserNick" and searchValue != null and searchValue !=""'>
             where (
           userId like CONCAT('%',#{searchValue},'%') or
             userNick like CONCAT('%',#{searchValue},'%')
@@ -49,7 +49,7 @@
 
 </select>
 
-    <select id="userSelectOneByUserIndex"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.UserDto">
+    <select id="userSelectOneByUserIndex"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.admin.UserDto">
         select * from user_mst where userIndex=#{user_index}
 
     </select>

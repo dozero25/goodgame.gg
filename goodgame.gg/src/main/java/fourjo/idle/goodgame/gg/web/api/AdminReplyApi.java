@@ -1,6 +1,6 @@
 package fourjo.idle.goodgame.gg.web.api;
 
-import fourjo.idle.goodgame.gg.web.dto.AdminReplySearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminReplySearchDTO;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.service.AdminReplyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
