@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api/user") //
 @Tag(name ="User Api", description = "User Api 입니다.")
 public class UserApi {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/register") // js로 보내거나 url에 맞춰서
     public ResponseEntity<CMRespDto<?>> registerUser (@RequestBody UserDto userDto, BindingResult bindingResult){
         userService.registerUser(userDto);
         return ResponseEntity.ok()
