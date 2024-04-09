@@ -1,6 +1,10 @@
 package fourjo.idle.goodgame.gg.web.service;
 import fourjo.idle.goodgame.gg.repository.BoardRepository;
-import fourjo.idle.goodgame.gg.web.dto.BoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
+
+import fourjo.idle.goodgame.gg.web.dto.board.BoardLikeDTO;
+import fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO;
+import fourjo.idle.goodgame.gg.web.dto.board.BoardSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,34 +18,72 @@ public class BoardService {
     private BoardRepository boardRepository; // mapper대신 사용함, 왜?
 
 
-    public int insertBoard(BoardDTO dto) {
-      return boardRepository.insertBoard(dto);
+    public int boardInsert(BoardDTO dto) {
+      return boardRepository.boardInsert(dto);
    }
 
-    public int updateBoard(BoardDTO dto) {
-        return boardRepository.updateBoard(dto);
+    public int boardUpdateByBoardIndex(BoardDTO dto) {
+        return boardRepository.boardUpdateByBoardIndex(dto);
     }
 
-    public int deleteBoard(int board_index) {
-        return boardRepository.deleteBoard(board_index);
+    public int boardDeleteByBoardIndex(int boardIndex) {
+        return boardRepository.boardDeleteByBoardIndex(boardIndex);
     }
 
 
-    public BoardDTO selectOneBoard(int board_index) {
-        return boardRepository.selectOneBoard(board_index);
+    public BoardDTO boardSelectOneByBoardIndex(int boardIndex) {
+        return boardRepository.boardSelectOneByBoardIndex(boardIndex);
     }
 
-    public List<BoardDTO> selectAllBoard() {
-        return boardRepository.selectAllBoard();
-    }
 
-   public List<BoardDTO> searchBoard(String searchKey, String searchValue) {
-       return boardRepository.searchBoard(searchKey, searchValue);
-
+   public List<BoardDTO> boardSearchAllBySubjectAndUserIndexAndContent(BoardSearchDTO dto) {
+       return boardRepository.boardSearchAllBySubjectAndUserIndexAndContent(dto);
     };
 
-    //public List<BoardDTO> selectAll(int cpage, int pageblock);
-    //public int getTotalRows();
 
 
+    public void likeAdd(BoardLikeDTO dto) {
+        boardRepository.likeAdd(dto);
+    };
+
+    public void badAdd(BoardLikeDTO dto) {
+        boardRepository.badAdd(dto);
+    };
+
+    public void likeBadCancel(BoardLikeDTO dto) {
+        boardRepository.likeBadCancel(dto);
+    };
+
+
+    public int boardViewCount(BoardDTO dto) {
+        return boardRepository.boardViewCount(dto);
+    }
+
+    public int boardReplyInsert(BoardReplyDTO dto) {
+       // 로직 다시 생각해봐야할듯
+    /*    BoardReplyDTO.setReplyGroup(boardRepository.getReplyCount(BoardReplyDTO.getBoardIndex()));
+        BoardReplyDTO.setReplyGroup(BoardReplyDTO.getReplyGroup());
+        BoardReplyDTO.setReplySequence(BoardReplyDTO.getReplySequence() + 1);
+        return boardRepository.boardReplyInsert(dto);
+
+
+
+
+*/
+
+
+        return boardRepository.boardReplyInsert(dto);
+    }
+
+    public int boardReplyUpdateByReplyIndex(BoardReplyDTO dto) {
+        return boardRepository.boardReplyUpdateByReplyIndex(dto);
+    }
+
+    public int boardReplyDeleteByReplyIndex(int replyIndex) {
+        return boardRepository.boardReplyDeleteByReplyIndex(replyIndex);
+    }
+
+    public List<BoardReplyDTO> boardReplySelectAll(int boardIndex) {
+        return boardRepository.boardReplySelectAll(boardIndex);
+    }
 }
