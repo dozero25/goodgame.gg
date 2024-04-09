@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.DuoRepository">
+
+    <insert id="duoInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.duo.DuoDto">
+        insert into duo_mst
+        values(0, #{duoGameId}, #{duoQue}, #{duoPosition}, #{duoContent}, now(), #{duoTier})
+    </insert>
+
+
+
+    <select id="duoSearchByQueAndTierAndPosition" parameterType="fourjo.idle.goodgame.gg.web.dto.duo.DuoSearchDto" resultType="fourjo.idle.goodgame.gg.web.dto.duo.DuoDto">
+        select  * from duo_mst
+        <if test='searchKey=="Que" and searchQueValue != null and searchQueValue !=""'>
+           where duoQue=#{searchQueValue}
+        </if>
+        <if test='searchKey=="Tier"and searchTierValue != null and searchTierValue !=""'>
+            where duoQue=#{searchTierValue}
+        </if>
+        <if test='searchKey=="Position" and searchPositionValue != null and searchPositionValue !=""'>
+            where duoQue=#{searchPositionValue}
+        </if>
+        <if test='searchKey=="QueAndTier"and searchQueValue != null and searchQueValue !=""and searchTierValue != null and searchTierValue !=""'>
+            where (
+            duoQue=#{searchQueValue} and duoTier=#{searchTierValue}
+            )
+        </if>
+        <if test='searchKey=="QueAndPosition"and searchQueValue != null and searchQueValue !=""and searchPositionValue != null and searchPositionValue !=""'>
+            where (
+            duoQue=#{searchQueValue} and duoPosition=#{searchPositionValue}
+            )
+        </if>
+        <if test='searchKey=="TierAndPosition"and searchTierValue != null and searchTierValue !=""and searchPositionValue != null and searchPositionValue !=""'>
+            where (
+            duoTier=#{searchTierValue} and duoPosition=#{searchPositionValue}
+            )
+        </if>
+
+        order by
+        duoIndex desc
+        <if test='limit == "Y"'>
+            limit #{index}, #{count}
+        </if>
+
+    </select>
+
+
+</mapper>
