@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 @Controller
 public class AdminController {
-    @GetMapping("/admin_home")
-    public String admin_home () {return "admin/admin_home";}
+    @GetMapping("/adminHome")
+    public String adminHome () {return "admin/admin_home";}
 }

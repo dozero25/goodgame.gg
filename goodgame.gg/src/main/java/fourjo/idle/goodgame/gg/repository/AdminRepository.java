@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.repository;
 
-import fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,17 +9,12 @@ import java.util.List;
 @Mapper
 public interface AdminRepository {
 
-    public int admin_board_insert(AdminBoardDTO dto);
+    public int boardInsertByUserIndex(AdminBoardDTO adminBoardDTO);
 
-    public int admin_board_update(AdminBoardDTO dto);
+    public int boardUpdateByBoardIndex(AdminBoardDTO adminBoardDTO);
 
-    public int admin_board_delete(int board_index);
-
-
+    public int boardDeleteByBoardIndex(int boardIndex);
 
 
-
-    public List<AdminBoardDTO> admin_board_selectAll();
-
-    public List<AdminBoardDTO> AdminBoardSearch(AdminBoardSearchDTO adminBoardSearchDTO);
+    public List<AdminBoardDTO> boardSearchAllBySubjectAndContentAndNickAndId(AdminBoardSearchDTO adminBoardSearchDTO);
 }
