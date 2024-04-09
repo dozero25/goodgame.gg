@@ -4,46 +4,45 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.AdminRepository">
 
-    <insert id="admin_board_insert" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
+    <insert id="boardInsertByUserIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO">
         insert into board_mst
-        values( 0, #{board_subject},#{user_index}, #{board_content}, now(), #{board_visit},#{board_good},#{board_bad}, #{board_upload_name},#{board_upload_size},#{board_upload_trans} )
+        values( 0, #{boardSubject},#{userIndex}, #{boardContent}, now(), #{boardVisit},#{boardUploadName},#{boardUploadSize},#{boardUploadLocation} )
     </insert>
 
-    <update id="admin_board_update" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
-        update board_mst set board_subject = #{board_subject}, board_content = #{board_content}
-        where board_index = #{board_index}
+    <update id="boardUpdateByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO">
+        update board_mst set boardSubject = #{boardSubject}, boardContent = #{boardContent}
+        where boardIndex = #{boardIndex}
 
     </update>
 
-    <delete id="admin_board_delete" parameterType="integer">
-        delete from board_mst where board_index = #{board_index}
+    <delete id="boardDeleteByBoardIndex" parameterType="integer">
+        delete from board_mst where boardIndex = #{boardIndex}
     </delete>
 
-    <select id="admin_board_selectAll" resultType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
-        select * from board_mst
-    </select>
-
-    <select id="AdminBoardSearch" parameterType="fourjo.idle.goodgame.gg.web.dto.AdminBoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO">
-            select * from board_mst
-            <if test='searchKey == "sc" and searchValue != null and searchValue !=""'>
+    <select id="boardSearchAllBySubjectAndContentAndNickAndId" parameterType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO">
+            select * from board_mst bm
+            inner join user_mst um
+            on bm.userIndex = um.userIndex
+            <if test='searchKey == "subjectAndContent" and searchValue != null and searchValue !=""'>
                 where (
-                board_subject like CONCAT('%', #{searchValue}, '%')
-                or board_content like CONCAT('%', #{searchValue}, '%')
+                boardSubject like CONCAT('%', #{searchValue}, '%')
+                or boardContent like CONCAT('%', #{searchValue}, '%')
                 )
             </if>
             <if test='searchKey == "subject" and searchValue != null and searchValue !=""'>
-                where board_subject like CONCAT('%', #{searchValue}, '%')
+                where boardSubject like CONCAT('%', #{searchValue}, '%')
             </if>
             <if test='searchKey == "content" and searchValue != null and searchValue !=""'>
-                where board_content like CONCAT('%', #{searchValue}, '%')
+                where boardContent like CONCAT('%', #{searchValue}, '%')
             </if>
              <if test='searchKey == "nick" and searchValue != null and searchValue !=""'>
-                 bm join user_mst um
-                 on bm.user_index = um.user_index
-                 where um.user_nick like CONCAT('%', #{searchValue}, '%')
+                 where um.userNick like CONCAT('%', #{searchValue}, '%')
+            </if>
+             <if test='searchKey == "id" and searchValue != null and searchValue !=""'>
+                where um.userId like CONCAT('%', #{searchValue}, '%')
             </if>
         order by
-        board_index desc
+        boardIndex desc
         <if test='limit == "Y"'>
             limit #{index}, #{count}
         </if>

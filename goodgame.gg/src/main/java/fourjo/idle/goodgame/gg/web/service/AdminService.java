@@ -1,8 +1,8 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.AdminRepository;
-import fourjo.idle.goodgame.gg.web.dto.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +14,19 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public int admin_board_insert(AdminBoardDTO dto) {
-        return adminRepository.admin_board_insert(dto);
+    public int boardInsertByUserIndex(AdminBoardDTO adminBoardDTO) {
+        return adminRepository.boardInsertByUserIndex(adminBoardDTO);
     }
 
-    public int admin_board_update(AdminBoardDTO dto) {
-        return adminRepository.admin_board_update(dto);
+    public int boardUpdateByBoardIndex(AdminBoardDTO adminBoardDTO) {
+        return adminRepository.boardUpdateByBoardIndex(adminBoardDTO);
     }
 
-    public int admin_board_delete(int board_index) {
-        return adminRepository.admin_board_delete(board_index);
+    public int boardDeleteByBoardIndex(int boardIndex) {
+        return adminRepository.boardDeleteByBoardIndex(boardIndex);
     }
 
-    public List<AdminBoardDTO> admin_board_selectAll() {
-        return adminRepository.admin_board_selectAll();
-    }
-
-    public List<AdminBoardDTO> AdminBoardSearch(AdminBoardSearchDTO adminBoardSearchDTO) {
-        return adminRepository.AdminBoardSearch(adminBoardSearchDTO);
+    public List<AdminBoardDTO> boardSearchAllBySubjectAndContentAndNickAndId(AdminBoardSearchDTO adminBoardSearchDTO) {
+        return adminRepository.boardSearchAllBySubjectAndContentAndNickAndId(adminBoardSearchDTO);
     }
 }

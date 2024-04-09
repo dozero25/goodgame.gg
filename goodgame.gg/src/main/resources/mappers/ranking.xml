@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.RankingRepository">
+
+    <insert id="rankingInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.Ranking.LeagueEntryDto">
+        insert into ranking_mst
+        values( 0, #{summonerName},#{queueType}, #{tier}, #{rank},#{leaguePoints},#{wins},#{losses} )
+    </insert>
+
+
+
+
+
+</mapper>
