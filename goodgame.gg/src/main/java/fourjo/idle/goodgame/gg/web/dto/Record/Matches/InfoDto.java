@@ -1,10 +1,12 @@
-package fourjo.idle.goodgame.gg.web.dto.Record;
+package fourjo.idle.goodgame.gg.web.dto.Record.Matches;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class InfoDto {
 
     private String endOfGameResult;
@@ -18,13 +20,9 @@ public class InfoDto {
     private String gameType;
     private String gameVersion;
     private int mapId;
-    private List<> participants;
+    private List<ParticipantDto> participants;
     private String platformId;
     private int queueId;
-    private List<> teams;
+    private List<TeamDto> teams;
     private String tournamentCode;
-
-
-
-
-}0
+}

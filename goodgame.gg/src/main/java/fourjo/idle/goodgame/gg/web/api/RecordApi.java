@@ -1,8 +1,10 @@
 package fourjo.idle.goodgame.gg.web.api;
 
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
+import fourjo.idle.goodgame.gg.web.dto.Record.AccountDto;
 import fourjo.idle.goodgame.gg.web.dto.Record.ChampionMasteryDto;
 import fourjo.idle.goodgame.gg.web.dto.Record.LeagueDto;
+import fourjo.idle.goodgame.gg.web.dto.Record.Matches.MatchDto;
 import fourjo.idle.goodgame.gg.web.dto.Record.SummonerDto;
 import fourjo.idle.goodgame.gg.web.service.RecordService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,23 +29,33 @@ public class RecordApi {
     @Autowired
     private RecordService recordService;
 
-    @PostMapping("/searchSummonerName")
-    @Operation(summary ="전적 검색", description = "SummonerName으로 검색합니다.")
-    public ResponseEntity<CMRespDto<?>> SearchRecordAll(String summonerName){
+    @GetMapping("/searchSummonerName")
+    @Operation(summary ="전적 검색", description = "gameName(String)과 tagLine(String)으로 검색합니다.")
+    public ResponseEntity<CMRespDto<?>> SearchRecordAll(String gameName, String tagLine){
 
-        summonerName = summonerName.replaceAll(" ", "%20");
-        SummonerDto summonerDto =  recordService.searchSummonerInfoBySummonerName(summonerName);
-        List<String> matchesList = recordService.searchMatchesByMatchId(summonerDto.getPuuid());
+        gameName = gameName.replaceAll(" ", "%20");
+        tagLine = tagLine.replaceAll(" ", "%20");
+
+        AccountDto accountDto = recordService.searchSummonerInfoByGameNameAndTagLine(gameName, tagLine);
+        SummonerDto summonerDto =  recordService.searchSummonerInfoByEncryptedPUUID(accountDto.getPuuid());
+        List<String> matchesList = recordService.searchMatchesByPuuid(summonerDto.getPuuid());
+
+        List<MatchDto> matchDtoList = new ArrayList<>();
+        for (String index : matchesList){
+            matchDtoList.add(recordService.searchMatchInfoByMatchId(index));
+        }
+
         List<LeagueDto> leagueList = recordService.searchLeagueBySummonerName(summonerDto.getId());
         List<ChampionMasteryDto> championMasteryList = recordService.searchChampionMasteryByPuuid(summonerDto.getPuuid());
 
-        System.out.println(summonerDto);
-        System.out.println(leagueList);
-        System.out.println(matchesList);
-        System.out.println(championMasteryList);
+//        System.out.println(summonerDto);
+//        System.out.println(matchesList);
+//        System.out.println(matchDtoList);
+//        System.out.println(leagueList);
+//        System.out.println(championMasteryList);
 
         return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully Search", championMasteryList));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully Search", true));
     }
 
 
