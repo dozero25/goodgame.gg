@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>insert</title>
@@ -9,6 +9,8 @@
         제목: <input type="text" name="board_index"><br>
         제목: <input type="text" name="board_subject"><br>
         내용: <textarea name="board_content" cols="30" rows="10"></textarea><br>
+        session 값 확인: <p th: text="${session.loginXmail}}"></p>
+        <a href="/member/update">내 정보 수정하기</a>
     </form>
 </body>
 </html>

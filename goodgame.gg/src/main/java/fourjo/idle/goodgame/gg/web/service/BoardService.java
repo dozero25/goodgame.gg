@@ -1,9 +1,13 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.BoardRepository;
-import fourjo.idle.goodgame.gg.web.dto.BoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -12,14 +16,21 @@ public class BoardService {
     private BoardRepository boardRepository;
 
     public int insertBoard(BoardDTO boardDTO) {
+
+        /*int result = boardRepository.insertBoard(boardDTO);
+        if(result == 1){
+            return result;
+        }*/
         return boardRepository.insertBoard(boardDTO);
     }
 
     public int updateBoard(BoardDTO boardDTO) {
+
         return boardRepository.updateBoard(boardDTO);
     }
 
     public int deleteBoard(BoardDTO boardDTO) {
+
         return boardRepository.deleteBoard(boardDTO);
     }
 
@@ -34,17 +45,33 @@ public class BoardService {
         return "message";
     }*/
 
-    public BoardDTO selectOneBoard(int boardDTO) {
+    public List<BoardDTO> selectAllBoard(BoardDTO boardDTO) {
+
+        return boardRepository.selectAllBoard(boardDTO);
+    }
+    public List<BoardDTO> selectAllPageBlock(int cpage,int pageBlock) {
+        int startRow = (cpage - 1) * pageBlock + 1;
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startRow", startRow-1);
+        map.put("pageBlock", pageBlock);
+
+        return boardRepository.selectAllPageBlock(map);
+    }
+
+    public int getTotalRows() {
+        return boardRepository.getTotalRows();
+    }
+
+    public BoardDTO selectOneBoard(BoardDTO boardDTO) {
+
         return boardRepository.selectOneBoard(boardDTO);
     }
 
-    public BoardDTO selectAllBoard(int boardDTO) {
-        return boardRepository.selectOneBoard(boardDTO);
-    }
+   /* public BoardDTO searchListBoard(int boardDTO) {
 
-    public BoardDTO searchListBoard(int boardDTO) {
-        return boardRepository.selectOneBoard(boardDTO);
-    }
+        return boardRepository.selectOneBoard();
+    }*/
 
 
 }
