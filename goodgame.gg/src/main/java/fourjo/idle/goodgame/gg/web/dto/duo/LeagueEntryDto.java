@@ -1,8 +1,10 @@
 package fourjo.idle.goodgame.gg.web.dto.duo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueEntryDto {
 
     private String leagueId;
@@ -13,9 +15,6 @@ public class LeagueEntryDto {
     private String rank;
     private int leaguePoints;
     private int wins;
-    private int losers;
-    private boolean hotStreak;
-    private boolean veteran;
-    private boolean freshBlood;
-    private boolean inactive;
+    private int losses;
+
 }
