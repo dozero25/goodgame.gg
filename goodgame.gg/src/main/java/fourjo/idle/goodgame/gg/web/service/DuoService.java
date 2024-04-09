@@ -24,7 +24,7 @@ public class DuoService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String myKey = "RGAPI-8c52e05c-4dca-4999-b7bf-e23c4a350019";
+    private final String myKey = "";
     private final String serverUrl = "https://kr.api.riotgames.com/";
     private final String serverAsia = "https://asia.api.riotgames.com/";
 
