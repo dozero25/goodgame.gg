@@ -2,7 +2,7 @@ package fourjo.idle.goodgame.gg.web.dto.admin;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class ReplyDto {
@@ -12,6 +12,6 @@ public class ReplyDto {
     private String replyContent;
     private int replyGroup;
     private int replySequence;
-    private LocalDateTime relyRegDate;
+    private Date replyRegDate;
 
 }
