@@ -3,7 +3,6 @@ package fourjo.idle.goodgame.gg.web.api;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.dto.duo.DuoDto;
 import fourjo.idle.goodgame.gg.web.dto.duo.DuoSearchDto;
-import fourjo.idle.goodgame.gg.web.dto.duo.SummonerDto;
 import fourjo.idle.goodgame.gg.web.service.DuoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,19 +23,22 @@ public class DuoApi {
     @Autowired
     private DuoService duoService;
 
-    @PostMapping("/searchEncryptedId")
-    public ResponseEntity<CMRespDto<?>> searchEncryptedId(String summonerName) {
-
-        summonerName = summonerName.replaceAll(" ", "%20");
-        SummonerDto summonerDto = duoService.searchEncryptedIdBySummonerName(summonerName);
-        System.out.println(summonerDto);
-
-        return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
-    }
+//    @GetMapping("/searchTierByEncryptedId")
+//    public ResponseEntity<CMRespDto<?>> searchTierByEncryptedId(String summonerName) {
+//
+//        summonerName = summonerName.replaceAll(" ", "%20");
+//        SummonerDto summonerDto = duoService.searchEncryptedIdBySummonerName(summonerName);
+//        System.out.println(summonerDto);
+//        List<LeagueEntryDto> leagueEntryDto= duoService.searchTierByEncryptedId(summonerDto.getId());
+//        System.out.println(leagueEntryDto);
+//
+//        return ResponseEntity.ok()
+//                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",leagueEntryDto.get(0).getTier()));
+//    }
 
     @PostMapping("/insert")
     public ResponseEntity<CMRespDto<?>> duoInsert(DuoDto duoDto) {
+
 
         duoService.duoInsert(duoDto);
 
