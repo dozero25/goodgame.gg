@@ -23,7 +23,7 @@ public class UserService {
     public UserDto registerUser(UserDto userDto) {
 //        duplicateUserId(userDto.getUserId());
 //        checkPassword(userDto.getUserPw());
-//        inputUserGender(userDto.getUserGender());
+        inputUserGender(userDto.getUserGender());
 
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
         userRepository.registerUser(userDto);
@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public void duplicateUserId(String userId) {
-        String result = userRepository.findUserByUserId(userId);
+        String result = userRepository.findUserByUserIdForError(userId);
 
         if(result != null){
             Map<String, String> errorMap = new HashMap<>();
@@ -57,7 +57,7 @@ public class UserService {
 
     public void inputUserGender(String userGender){
         String gender = userGender.toLowerCase();
-        // W w
+        
         if(gender.length() != 1){
             Map<String, String> errorMap = new HashMap<>();
             errorMap.put("userGender", "입력 데이터 길이를 확인해주세요");

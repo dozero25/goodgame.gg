@@ -4,15 +4,87 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.UserRepository">
 
+    <resultMap id="userDto" type="fourjo.idle.goodgame.gg.entity.UserMst">
+        <result property="userIndex" column="userIndex"></result>
+        <result property="userId" column="userId"></result>
+        <result property="userPw" column="userPw"></result>
+        <result property="userNick" column="userNick"></result>
+        <result property="userGender" column="userGender"></result>
+        <result property="userGender" column="userGender"></result>
+        <result property="userRegDate" column="userRegDate"></result>
+        <result property="userEmail" column="userEmail"></result>
+        <result property="roleId" column="roleId"></result>
+        <collection property="roleMst" resultMap="roleDto"></collection>
+    </resultMap>
+    <resultMap id="empDto" type="fourjo.idle.goodgame.gg.entity.EmployeeMst">
+        <result property="empIndex" column="empIndex"></result>
+        <result property="empId" column="empId"></result>
+        <result property="empPw" column="empPw"></result>
+        <result property="empName" column="empName"></result>
+        <result property="empEmail" column="empEmail"></result>
+        <result property="empPhone" column="empPhone"></result>
+        <result property="empGender" column="empGender"></result>
+        <collection property="roleDtl" javaType="list" resultMap="roleDtlDto"></collection>
+    </resultMap>
+
+    <resultMap id="roleDto" type="fourjo.idle.goodgame.gg.entity.RoleMst">
+        <result property="roleId" column="role_id"></result>
+        <result property="roleName" column="role_name"></result>
+    </resultMap>
+
+    <resultMap id="roleDtlDto" type="fourjo.idle.goodgame.gg.entity.RoleDtl">
+        <result property="roleDtlId" column="role_dtl_id"></result>
+        <result property="empIndex" column="user_id"></result>
+        <result property="roleId" column="role_id"></result>
+        <collection property="roleMst" resultMap="roleDto"></collection>
+    </resultMap>
+
+
     <insert id="registerUser" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDto">
         insert into user_mst
         values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail}, 1)
     </insert>
 
-    <select id="findUserByUserId" parameterType="string" resultType="string">
+    <select id="findUserByUserIdForError" parameterType="string" resultType="string">
         select
-        *
+
         from user_mst where userId = #{userId}
+    </select>
+
+    <select id="findUserByUserId" parameterType="string" resultType="fourjo.idle.goodgame.gg.entity.UserMst">
+        select
+            um.userId,
+            um.userPw,
+            um.userNick,
+            um.userGender,
+            um.userRegDate,
+            um.userEmail,
+            um.roleId,
+
+            rm.role_name
+        from user_mst um
+            left join role_mst rm on(rm.roleId = em.roleId)
+        where
+            um.userId = #{userId}
+    </select>
+
+    <select id="findEmpByEmpId" parameterType="string" resultType="fourjo.idle.goodgame.gg.entity.EmployeeMst">
+        select
+            em.empId,
+            em.empPw,
+            em.empName,
+            em.empRegNum,
+            em.empEmail,
+            em.empPhone,
+            em.empGender,
+
+            rd.role_id,
+            rm.role_name
+        from emp_mst em
+            left join role_dtl rd on(em.userId = rd.userId)
+            left join role_mst rm on(rm.roleId = rd.roleId)
+        where
+            em.empId = #{empId}
     </select>
 
 </mapper>
