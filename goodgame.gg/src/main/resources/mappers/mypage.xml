@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org// Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.MyPageRepository">
+
+    <!--회원탈퇴-->
+    <delete id="deleteMemberAllDataByIdAndPw" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        delete from user_mst where userId=#{userId}
+    </delete>
+
+    <!--회원정보 수정-->
+    <update id="updateMyPageByPrivacy" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+        update user_mst set userId=#{userId},userPw=#{userPw},userNick=#{userNick},userGender=#{userGender},userEmail=#{userEmail}
+        where userId=#{userId}
+    </update>
+
+    <!--내가 작성한 글 목록 확인-->
+    <select id="searchMyWriteListByID" resultType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+        select * from user_mst where userId=#{userId} like #{searchWord}
+    </select>
+
+    <!--내가 작성한 댓글 목록 확인-->
+    <select id="searchMyCommentsListByID" resultType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+        select * from user_mst where userId like #{searchWord}
+    </select>
+
+</mapper>

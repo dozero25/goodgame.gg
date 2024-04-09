@@ -4,33 +4,68 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.BoardRepository">
 
-    <insert id="insertBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+    <insert id="insertBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         insert into board_mst
         values(0, #{board_subject}, #{user_index}, #{board_content}, now(),
           0, 0, 0, #{board_upload_name}, #{board_upload_size}, #{board_upload_trans})
     </insert>
 
-    <update id="updateBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+    <update id="updateBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         update board_mst set board_subject=#{board_subject},board_content=#{board_content}
         where board_index=#{board_index}
     </update>
 
-    <delete id="deleteBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+    <delete id="deleteBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         delete from board_mst where board_index=#{board_index}
     </delete>
 
-    <select id="selectOneBoard" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
+    <select id="selectAllBoard" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst order by board_index desc
+    </select>
+
+    <select id="selectOneBoard" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         select * from board_mst where
         board_index=#{board_index}
     </select>
 
-    <select id="selectAllBoard" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
-        select * from board_mst order by
-        board_index desc
+    <select id="searchListBoard" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst where user_index like #{searchWord}
+    </select>
+    <select id="searchListID"
+            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst where id like #{searchWord}
+    </select>
+    <select id="searchListNAME"
+            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst where name like #{searchWord}
     </select>
 
-    <select id="searchListBoard" resultType="fourjo.idle.goodgame.gg.web.dto.BoardDTO">
-        select * from board_mst where user_index like #{searchWord}
+    <select id="selectAllPageBlock"
+            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst
+        order by board_index desc limit #{startRow},#{pageBlock}
+    </select>
+    <select id="searchListID_PAGE"
+            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst
+        where id like #{searchWord}
+        order by num desc limit #{startRow},#{pageBlock}
+    </select>
+    <select id="searchListNAME_PAGE"
+            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst
+        where name like #{searchWord}
+        order by num desc limit #{startRow},#{pageBlock}
+    </select>
+
+    <select id="getTotalRows"	resultType="int">
+        select count(*) total_rows from board_mst
+    </select>
+    <select id="search_total_rows_id"	resultType="int">
+        select count(*) total_rows from board_mst  where id like #{searchWord}
+    </select>
+    <select id="search_total_rows_name"	resultType="int">
+        select count(*) total_rows from board_mst  where name like #{searchWord}
     </select>
 
 

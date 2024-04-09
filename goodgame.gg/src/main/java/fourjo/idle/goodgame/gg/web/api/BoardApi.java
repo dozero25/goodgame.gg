@@ -1,6 +1,6 @@
 package fourjo.idle.goodgame.gg.web.api;
 
-import fourjo.idle.goodgame.gg.web.dto.BoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.service.BoardService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,7 +47,7 @@ public class BoardApi {
 
     }
 
-    /*@GetMapping("/delete")
+   /* @GetMapping("/delete")
     public String boardDelete(@RequestParam Integer id, Model model) {
         boardService.deleteBoard(boardDTO);
         model.addAttribute("message", "글이 삭제되었습니다.");
@@ -56,45 +56,51 @@ public class BoardApi {
     }*/
 
 
-    @GetMapping("/selectOne")
-    public ResponseEntity<CMRespDto<?>> selectOneBoard(@RequestBody int board_index){
+    @PostMapping("/selectOne")
+    public ResponseEntity<CMRespDto<?>> selectOneBoard(@RequestBody BoardDTO boardDTO){
 
-        boardService.selectOneBoard(board_index);
+        boardService.selectOneBoard(boardDTO);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
 
     }
 
     @GetMapping("/selectAll")
-    public ResponseEntity<CMRespDto<?>> selectAllBoard(@RequestBody int boardDTO){
+    public ResponseEntity<CMRespDto<?>> selectAllBoard(@RequestBody BoardDTO boardDTO){
 
         boardService.selectAllBoard(boardDTO);
-
-        /*int total_rows = service.getTotalRows();
-		log.info("total_rows:" + total_rows);
-
-		int totalPageCount = 1;
-		if (total_rows / pageBlock == 0) {
-			totalPageCount = 1;
-		} else if (total_rows % pageBlock == 0) {
-			totalPageCount = total_rows / pageBlock;
-		} else {
-			totalPageCount = total_rows / pageBlock + 1;
-		}
-		// 페이지 링크 몇개?
-		log.info("totalPageCount:" + totalPageCount);
-		model.addAttribute("totalPageCount", totalPageCount);
-		model.addAttribute("totalPageCount", 10);//테스트용
-
-		model.addAttribute("content", "thymeleaf/member/th_selectAll");
-		model.addAttribute("title", "회원목록");
-	*/
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
 
     }
 
-    @PostMapping("/searchList")
+    @GetMapping("/selectAllPageBlock")
+    public ResponseEntity<CMRespDto<?>> selectAllPageBlock(@RequestBody int board_index,
+                                                           @RequestParam(defaultValue = "1") int cpage,
+                                                           @RequestParam(defaultValue = "5") int pageBlock,
+                                                           Model model) {
+        boardService.selectAllPageBlock(cpage, pageBlock);
+
+        int total_rows = boardService.getTotalRows();
+
+        int totalPageCount = 1;
+        if (total_rows / pageBlock == 0) {
+            totalPageCount = 1;
+        } else if (total_rows % pageBlock == 0) {
+            totalPageCount = total_rows / pageBlock;
+        } else {
+            totalPageCount = total_rows / pageBlock + 1;
+        }
+
+        model.addAttribute("totalPageCount", totalPageCount);
+
+        model.addAttribute("content", "selectAll");
+        model.addAttribute("title", "회원목록");
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
+    }
+
+    /*@PostMapping("/searchList")
     public ResponseEntity<CMRespDto<?>> searchListBoard(@RequestBody int board_index){
 
         boardService.searchListBoard(board_index);
@@ -102,6 +108,15 @@ public class BoardApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
 
     }
+
+    @GetMapping("/Paging")
+    public ResponseEntity<CMRespDto<?>> Paging(@RequestBody int board_index, Model model){
+
+        boardService.Paging(board_index);
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",true));
+
+    }*/
 
 
 }
