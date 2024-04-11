@@ -29,33 +29,75 @@ public class RecordApi {
     @Autowired
     private RecordService recordService;
 
-    @GetMapping("/searchSummonerName")
-    @Operation(summary ="전적 검색", description = "gameName(String)과 tagLine(String)으로 검색합니다.")
-    public ResponseEntity<CMRespDto<?>> SearchRecordAll(String gameName, String tagLine){
+    private AccountDto accountDto = new AccountDto();
+    private SummonerDto summonerDto = new SummonerDto();
+    private List<String> matchesList = new ArrayList<>();
+
+    @GetMapping("/search/summoner")
+    @Operation(summary ="Summoner 검색", description = "gameName(String)과 tagLine(String)으로 검색합니다.")
+    public ResponseEntity<CMRespDto<?>> searchSummonerInfoByGameNameAndTagLine(String gameName, String tagLine){
 
         gameName = gameName.replaceAll(" ", "%20");
         tagLine = tagLine.replaceAll(" ", "%20");
 
-        AccountDto accountDto = recordService.searchSummonerInfoByGameNameAndTagLine(gameName, tagLine);
-        SummonerDto summonerDto =  recordService.searchSummonerInfoByEncryptedPUUID(accountDto.getPuuid());
-        List<String> matchesList = recordService.searchMatchesByPuuid(summonerDto.getPuuid());
+        accountDto = recordService.searchSummonerInfoByGameNameAndTagLine(gameName, tagLine);
 
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", accountDto));
+    }
+
+    @GetMapping("/get/summoner/info")
+    @Operation(summary ="SummonerInfo 가져오기", description = "puuid로 Summoner의 정보를 가져옵니다.")
+    public ResponseEntity<CMRespDto<?>> searchSummonerInfoByEncryptedPUUID(){
+
+        summonerDto =  recordService.searchSummonerInfoByEncryptedPUUID(accountDto.getPuuid());
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", summonerDto));
+    }
+
+    @GetMapping("/get/matches")
+    @Operation(summary ="Matches List 가져오기", description = "puuid로 Matches 리스트를 가져옵니다.")
+    public ResponseEntity<CMRespDto<?>> searchMatchesByPuuid(){
+
+        matchesList = recordService.searchMatchesByPuuid(summonerDto.getPuuid());
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", matchesList));
+    }
+
+    @GetMapping("/get/matches/info")
+    @Operation(summary ="Matches Info 가져오기", description = "matchesList에서 각각 api에 정보를 가져와서 matchDtoList에 저장합니다.")
+    public ResponseEntity<CMRespDto<?>> searchMatchInfoByMatchId(){
         List<MatchDto> matchDtoList = new ArrayList<>();
+
         for (String index : matchesList){
             matchDtoList.add(recordService.searchMatchInfoByMatchId(index));
         }
 
-        List<LeagueDto> leagueList = recordService.searchLeagueBySummonerName(summonerDto.getId());
-        List<ChampionMasteryDto> championMasteryList = recordService.searchChampionMasteryByPuuid(summonerDto.getPuuid());
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", matchDtoList));
+    }
 
-//        System.out.println(summonerDto);
-//        System.out.println(matchesList);
-//        System.out.println(matchDtoList);
-//        System.out.println(leagueList);
-//        System.out.println(championMasteryList);
+    @GetMapping("/get/league")
+    @Operation(summary ="Summoner League List 가져오기", description = "id로 League 리스트를 가져옵니다.")
+    public ResponseEntity<CMRespDto<?>> searchLeagueBySummonerName(){
+
+
+        List<LeagueDto> leagueList = recordService.searchLeagueBySummonerName(summonerDto.getId());
 
         return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully Search", true));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", leagueList));
+    }
+
+    @GetMapping("/get/championMastery")
+    @Operation(summary ="championMastery List 가져오기", description = "puuid로 championMastery 리스트를 가져옵니다.")
+    public ResponseEntity<CMRespDto<?>> searchChampionMasteryByPuuid(){
+
+        List<ChampionMasteryDto> championMasteryList = recordService.searchChampionMasteryByPuuid(summonerDto.getPuuid());
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", championMasteryList));
     }
 
 
