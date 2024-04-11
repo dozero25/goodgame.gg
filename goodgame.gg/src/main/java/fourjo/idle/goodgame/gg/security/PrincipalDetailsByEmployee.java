@@ -3,7 +3,6 @@ package fourjo.idle.goodgame.gg.security;
 import fourjo.idle.goodgame.gg.entity.EmployeeMst;
 import fourjo.idle.goodgame.gg.entity.RoleDtl;
 import fourjo.idle.goodgame.gg.entity.RoleMst;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
