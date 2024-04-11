@@ -8,7 +8,6 @@ import lombok.Data;
 public class LeagueDto {
     private String leagueId;
     private String summonerId;
-    private String summonerName;
     private String queueType;
     private String tier;
     private String rank;

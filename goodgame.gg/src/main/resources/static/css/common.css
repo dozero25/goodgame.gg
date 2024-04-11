@@ -1,18 +1,9 @@
 * {
-    font-family: 'SUIT-Regular';
+    /* font-family: 'SUIT-Regular'; */
 }
 
 input, table, td, th{
     border: 1px solid #000000;
-}
-
-a {
-    color: black;
-    text-decoration: none;
-}
-
-li {
-    list-style-type: none;
 }
 
 input {
@@ -26,4 +17,11 @@ img {
 
 button {
     cursor: pointer;
+}
+
+body {
+    /* background-color: #CA8BF5FF; */
+    background-color: #0e0b1f;
+    /* background-color: #211e30; */
+    /* background: rgb(36, 37, 38); */
 }
