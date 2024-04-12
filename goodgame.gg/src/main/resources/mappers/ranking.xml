@@ -6,7 +6,7 @@
 
 
 
-    <select id="searchRankingList" parameterType="fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto" resultType="fourjo.idle.goodgame.gg.web.dto.ranking.RankingDto">
+    <select id="searchRankingList" parameterType="fourjo.idle.goodgame.gg.web.dto.Ranking.RankingSearchDto" resultType="fourjo.idle.goodgame.gg.web.dto.Ranking.RankingDto">
         select * from highrank_mst
 
         <where>

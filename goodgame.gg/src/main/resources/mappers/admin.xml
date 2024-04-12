@@ -4,12 +4,12 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.AdminRepository">
 
-    <insert id="boardInsertByUserIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO">
+    <insert id="boardInsertByUserIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO">
         insert into board_mst
         values( 0, #{boardSubject},#{userIndex}, #{boardContent}, now(), #{boardVisit},#{boardUploadName},#{boardUploadSize},#{boardUploadLocation} )
     </insert>
 
-    <update id="boardUpdateByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO">
+    <update id="boardUpdateByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO">
         update board_mst set boardSubject = #{boardSubject}, boardContent = #{boardContent}
         where boardIndex = #{boardIndex}
 
@@ -19,7 +19,7 @@
         delete from board_mst where boardIndex = #{boardIndex}
     </delete>
 
-    <select id="boardSearchAll4pm" parameterType="fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO">
+    <select id="boardSearchAll4pm" parameterType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO">
             select * from board_mst bm
             inner join user_mst um
             on bm.userIndex = um.userIndex

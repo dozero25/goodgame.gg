@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto.ranking;
+package fourjo.idle.goodgame.gg.web.dto.Ranking;
 
 import lombok.Data;
 

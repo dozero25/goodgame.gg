@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto.ranking;
+package fourjo.idle.goodgame.gg.web.dto.Ranking;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

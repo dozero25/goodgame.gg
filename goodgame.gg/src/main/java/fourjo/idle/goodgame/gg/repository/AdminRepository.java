@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.repository;
 
-import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

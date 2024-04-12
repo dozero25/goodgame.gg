@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.web.api;
 
-import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.service.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
