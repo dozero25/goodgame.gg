@@ -43,6 +43,8 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .defaultSuccessUrl("/main")
                         .loginProcessingUrl("/login/process")
+                        .usernameParameter("id")
+                        .passwordParameter("pw")
                         .failureUrl("/login/fail")
                         .permitAll()
                 )

@@ -64,20 +64,20 @@
 
     <select id="findUserByUserId" parameterType="string" resultType="fourjo.idle.goodgame.gg.entity.UserMst">
         select
-        um.userId,
-        um.userPw,
-        um.userNick,
-        um.userGender,
-        um.userRegDate,
-        um.userEmail,
+            um.userId,
+            um.userPw,
+            um.userNick,
+            um.userGender,
+            um.userRegDate,
+            um.userEmail,
 
-        rd.roleId,
-        rm.roleName
+            rd.roleId,
+            rm.roleName
         from user_mst um
-        left join lol.role_dtl rd on(um.userId = rd.userId)
-        left join lol.role_mst rm on(rm.roleId = rd.roleId)
+            left join lol.role_dtl rd on(um.userId = rd.userId)
+            left join lol.role_mst rm on(rm.roleId = rd.roleId)
         where
-        um.userId = #{userId}
+            um.userId = #{userId}
     </select>
 
     <select id="findEmpByEmpId" parameterType="string" resultType="fourjo.idle.goodgame.gg.entity.EmpMst">
