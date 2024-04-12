@@ -1,11 +1,14 @@
 * {
     /* font-family: 'SUIT-Regular'; */
+
 }
 
 input, table, td, th{
-    border: 1px solid #000000;
+    border: 1px solid rgb(36, 37, 38);
 }
-
+label {
+        color: #ffffff;
+}
 input {
     padding: 5px;
     cursor: pointer;
@@ -21,7 +24,8 @@ button {
 
 body {
     /* background-color: #CA8BF5FF; */
-    background-color: #0e0b1f;
+    /* background-color: #0e0b1f; */
     /* background-color: #211e30; */
-    /* background: rgb(36, 37, 38); */
+    background: rgb(36, 37, 38);
 }
+

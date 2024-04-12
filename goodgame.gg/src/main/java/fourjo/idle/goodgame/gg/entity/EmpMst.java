@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmployeeMst {
+public class EmpMst {
     private int empIndex;
     private String empId;
     private String empPw;
@@ -20,5 +21,6 @@ public class EmployeeMst {
     private String empEmail;
     private String empPhone;
     private String empGender;
-    private List<RoleDtl> roleDtl;
+    private int roleId;
+    private String roleName;
 }

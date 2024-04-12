@@ -13,7 +13,7 @@ class PrincipalApi {
         $.ajax({
             async: false,
             type: "get",
-            url: "http://localhost:8000/api/user/principal",
+            url: "http://localhost:8000/api/account/principal",
             dataType: "json",
             success : response => {
                 responseData = response.data;

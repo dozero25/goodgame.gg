@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/common.css">
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/login.css">
@@ -13,11 +12,11 @@
     <main>
 
         <form action="/login/process" id="login" method="post">
-            <input type="text" name="id">
-            <input type="password" name="pw">
+            <input type="text" name="userId">
+            <input type="password" name="userPw" autocomplete="off">
             <button type="submit">login</button>
         </form>
-
+        <a href="/register">회원가입</a>
     </main>
 </body>
 </html>

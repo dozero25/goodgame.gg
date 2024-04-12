@@ -4,7 +4,8 @@ import fourjo.idle.goodgame.gg.exception.CustomInputPasswordException;
 import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
 import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
 import fourjo.idle.goodgame.gg.repository.UserRepository;
-import fourjo.idle.goodgame.gg.web.dto.user.UserDto;
+import fourjo.idle.goodgame.gg.web.dto.account.EmpDto;
+import fourjo.idle.goodgame.gg.web.dto.account.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,26 +22,62 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserDto registerUser(UserDto userDto) {
-//        duplicateUserId(userDto.getUserId());
+        duplicateUserId(userDto.getUserId());
 //        checkPassword(userDto.getUserPw());
-        inputUserGender(userDto.getUserGender());
+//        inputUserGender(userDto.getUserGender());
 
+        nullValueCheck(userDto);
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
         userRepository.registerUser(userDto);
-
+        userRepository.saveUserRole(userDto.getUserId());
         return userDto;
     }
 
-    public void duplicateUserId(String userId) {
-        String result = userRepository.findUserByUserIdForError(userId);
+    public EmpDto registerEmp(EmpDto empDto) {
+        duplicateUserId(empDto.getEmpId());
+//        checkPassword(userDto.getUserPw());
+//        inputUserGender(userDto.getUserGender());
 
-        if(result != null){
+        empDto.setEmpPw(new BCryptPasswordEncoder().encode(empDto.getEmpPw()));
+        userRepository.registerEmp(empDto);
+        userRepository.saveEmpRole(empDto.getEmpId());
+        return empDto;
+    }
+
+    public void nullValueCheck(UserDto userDto) {
+        String userId = userDto.getUserId().replaceAll(" ", "");
+        String userPw = userDto.getUserPw().replaceAll(" ", "");
+        String userNick = userDto.getUserNick().replaceAll(" ", "");
+        String userEmail = userDto.getUserEmail().replaceAll(" ", "");
+
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("null value", "빈값을 확인 해주세요.");
+
+        if(userId.equals("")){
+            throw new CustomSameUserIdException(errorMap);
+
+        } else if(userPw.equals("")){
+            throw new CustomSameUserIdException(errorMap);
+
+        } else if(userNick.equals("")){
+            throw new CustomSameUserIdException(errorMap);
+
+        } else if(userEmail.equals("")){
+            throw new CustomSameUserIdException(errorMap);
+        }
+    }
+
+
+    public void duplicateUserId(String userId) {
+        String userResult = userRepository.findUserByUserIdForError(userId);
+        String empResult = userRepository.findEmpByEmpIdForError(userId);
+
+        if(userResult != null || empResult != null){
             Map<String, String> errorMap = new HashMap<>();
             errorMap.put("username", "이미 존재하는 사용자 이름입니다.");
 
             throw new CustomSameUserIdException(errorMap);
         }
-
     }
 
     public void checkPassword(String userPw) {
