@@ -4,10 +4,142 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.RankingRepository">
 
-    <insert id="rankingInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.Ranking.LeagueEntryDto">
-        insert into ranking_mst
-        values( 0, #{summonerName},#{queueType}, #{tier}, #{rank},#{leaguePoints},#{wins},#{losses} )
+
+
+    <select id="searchRankingList" parameterType="fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto" resultType="fourjo.idle.goodgame.gg.web.dto.ranking.RankingDto">
+        select * from highrank_mst
+
+        <where>
+            <if test='queueType == "solo"'>
+                queueType = 'RANKED_SOLO_5x5'
+                <if test='gameName != "" and gameName != ""'>
+                    and gameName = #{gameName} and tagLine = #{tagLine}
+                </if>
+                <if test='tier == "all"'>
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+                <if test='tier == "c"'>
+                    and tier = 'CHALLENGER'
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+                <if test='tier == "gm"'>
+                    and tier = 'GRANDMASTER'
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+                <if test='tier == "m"'>
+                    and tier = 'MASTER'
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+            </if>
+
+            <if test='queueType == "flex"'>
+                queueType = 'RANKED_FLEX_SR'
+                <if test='gameName != "" and gameName != ""'>
+                    and gameName = #{gameName} and tagLine = #{tagLine}
+                </if>
+                <if test='tier == "all"'>
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+                <if test='tier == "c"'>
+                    and tier = 'CHALLENGER'
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+                <if test='tier == "gm"'>
+                    and tier = 'GRANDMASTER'
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+                <if test='tier == "m"'>
+                    and tier = 'MASTER'
+                    <if test='gameName != "" and gameName != ""'>
+                        and gameName = #{gameName} and tagLine = #{tagLine}
+                    </if>
+                </if>
+            </if>
+        </where>
+        order by
+        rankingIndex asc
+        <if test='limit == "Y"'>
+            limit #{index}, #{count}
+        </if>
+    </select>
+
+
+
+
+
+    <!--highrank_mst-->
+    <insert id="insertRankingLeagueV4" parameterType="map">
+            insert into test_mst
+            values( 0, #{gameName}, #{tagLine}, #{profileIconId}, #{summonerLevel}, #{queueType}, #{tier}, #{rank},#{leaguePoints},#{wins},#{losses},#{winRate},#{summonerId},#{puuid} )
     </insert>
+
+    <update id="updateRankingSummonerV4" parameterType="map">
+            update test_mst set summonerLevel = #{summonerLevel}, profileIconId = #{profileIconId}, puuid = #{puuid}
+            where rankingIndex = #{rankingIndex}
+    </update>
+
+    <update id="updateRankingAccountV1" parameterType="map">
+            update test_mst set gameName = #{gameName}, tagLine = #{tagLine}
+            where rankingIndex = #{rankingIndex}
+    </update>
+
+
+    <select id="pullSummonerIdList" resultType="string">
+        SELECT summonerId from test_mst
+    </select>
+
+    <select id="pullPuuidList" resultType="string">
+        SELECT puuid from test_mst
+    </select>
+
+    <delete id="truncateTable">
+        TRUNCATE TABLE test_mst
+    </delete>
+
+
+    <!--highrank_mst-->
+    <insert id="insertLowRankingLeagueV4" parameterType="map">
+        insert into lowrank_mst
+        values( 0, #{gameName}, #{tagLine}, #{profileIconId}, #{summonerLevel}, #{queueType}, #{tier}, #{rank},#{leaguePoints},#{wins},#{losses},#{winRate},#{summonerId},#{puuid} )
+    </insert>
+
+    <update id="updateLowRankingSummonerV4" parameterType="map">
+        update lowrank_mst set summonerLevel = #{summonerLevel}, profileIconId = #{profileIconId}, puuid = #{puuid}
+        where rankingIndex = #{rankingIndex}
+    </update>
+
+    <update id="updateLowRankingAccountV1" parameterType="map">
+        update lowrank_mst set gameName = #{gameName}, tagLine = #{tagLine}
+        where rankingIndex = #{rankingIndex}
+    </update>
+
+    <select id="pullLowSummonerIdList" resultType="string">
+        SELECT summonerId from lowrank_mst
+    </select>
+
+    <select id="pullLowPuuidList" resultType="string">
+        SELECT puuid from lowrank_mst
+    </select>
+
+    <delete id="truncateLowTable">
+        TRUNCATE TABLE lowrank_mst
+    </delete>
+
+
 
 
 

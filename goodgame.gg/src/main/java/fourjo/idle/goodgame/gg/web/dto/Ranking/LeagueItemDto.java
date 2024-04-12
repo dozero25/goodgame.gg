@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto.Ranking;
+package fourjo.idle.goodgame.gg.web.dto.ranking;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueItemDto implements Comparable<LeagueItemDto> {
     private String summonerId;
-    private String summonerName;
     private String rank;
     private int leaguePoints;
     private int wins;

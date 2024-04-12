@@ -5,14 +5,8 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SummonerDto {
-//    private String accountId;
-//    private long revisionDate;
-    private String id;
+public class AccountDto {
     private String puuid;
-    private long summonerLevel;
-    private int profileIconId;
-    private String name;
-
-
+    private String gameName;
+    private String tagLine;
 }

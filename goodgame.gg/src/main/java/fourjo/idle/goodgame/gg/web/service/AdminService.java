@@ -1,8 +1,8 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.AdminRepository;
-import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class AdminService {
         return adminRepository.boardDeleteByBoardIndex(boardIndex);
     }
 
-    public List<AdminBoardDTO> boardSearchAllBySubjectAndContentAndNickAndId(AdminBoardSearchDTO adminBoardSearchDTO) {
-        return adminRepository.boardSearchAllBySubjectAndContentAndNickAndId(adminBoardSearchDTO);
+    public List<AdminBoardDTO> boardSearchAll4pm(AdminBoardSearchDTO adminBoardSearchDTO) {
+        return adminRepository.boardSearchAll4pm(adminBoardSearchDTO);
     }
 }

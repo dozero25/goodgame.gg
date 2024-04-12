@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.web.api;
 
-import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardSearchDTO;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
 import fourjo.idle.goodgame.gg.web.service.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin")
-@Tag(name ="Admin Board Api", description = "Admin Board Api 입니다.")
+@RequestMapping("/api")
+@Tag(name ="AdminBoardApi", description = "Admin Board Api 입니다.")
 public class AdminApi {
 
     @Autowired
@@ -52,9 +52,9 @@ public class AdminApi {
 
     @Operation( summary = "게시글 검색 Api", description = "게시글을 제목+내용,제목,내용,닉네임,아이디 로 검색 합니다.")
     @GetMapping ("/board/search")
-    public ResponseEntity<CMRespDto<?>> boardSearchAllBySubjectAndContentAndNickAndId (AdminBoardSearchDTO adminBoardSearchDTO){
+    public ResponseEntity<CMRespDto<?>> boardSearchAll4pm (AdminBoardSearchDTO adminBoardSearchDTO){
         return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", adminService.boardSearchAllBySubjectAndContentAndNickAndId(adminBoardSearchDTO)));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", adminService.boardSearchAll4pm(adminBoardSearchDTO)));
     }
 
 }
