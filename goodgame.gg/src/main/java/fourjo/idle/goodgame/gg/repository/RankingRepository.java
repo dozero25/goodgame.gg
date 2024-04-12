@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.repository;
 
-import fourjo.idle.goodgame.gg.web.dto.Ranking.RankingDto;
-import fourjo.idle.goodgame.gg.web.dto.Ranking.RankingSearchDto;
+import fourjo.idle.goodgame.gg.web.dto.ranking.RankingDto;
+import fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

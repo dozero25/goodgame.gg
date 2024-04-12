@@ -1,8 +1,8 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.AdminRepository;
-import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.Admin.AdminBoardSearchDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.admin.AdminBoardSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
