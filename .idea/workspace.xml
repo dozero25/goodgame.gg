@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbfe7e03-d6bb-45dd-9e78-d0a030e36365" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/repository/EmployeeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/advice/ExceptionAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/advice/ExceptionAdvice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/dto/bababa.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/service/AdminEmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/service/AdminEmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/service/EmployeeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/goodgame.gg/src/main/resources/mappers/AdminEmployeeRepository.xml" beforeDir="false" afterPath="$PROJECT_DIR$/goodgame.gg/src/main/resources/mappers/emp.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +53,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "ksh-2(emp)",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/pprrjj",
+    "last_opened_file_path": "C:/pprrjj/goodgame.gg",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",

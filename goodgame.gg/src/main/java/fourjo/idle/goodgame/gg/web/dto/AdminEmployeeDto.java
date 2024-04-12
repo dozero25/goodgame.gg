@@ -3,7 +3,7 @@ package fourjo.idle.goodgame.gg.web.dto;
 import lombok.Data;
 
 @Data
-public class EmployeeDto {
+public class AdminEmployeeDto {
 
     private int empIndex;
     private String empId;
