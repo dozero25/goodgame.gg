@@ -86,7 +86,7 @@ public class UserService {
 
         if(!passMatcher.find()){
             Map<String, String> errorMap = new HashMap<>();
-            errorMap.put("Password Error", "비밀번호는 최소 8글자에서 최대 20글자, 영문자 1개 이상, 숫자 1개 이상, 특수문자1개이상으로 구성되어야 합니다.");
+            errorMap.put("Password Error", "비밀번호는 최소 8글자에서 최대 20글자, 영문자 1개 이상, 숫자 1개 이상, 특수문자1개 이상으로 구성되어야 합니다.");
 
             throw new CustomInputPasswordException(errorMap);
         }
