@@ -16,6 +16,12 @@ public class ExceptionAdvice {
                 .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "Validation Error", e.getErrorMap()));
     }
 
+    @ExceptionHandler(CustomNullValueException.class)
+    public ResponseEntity<?> nullValueError(CustomNullValueException e){
+        return ResponseEntity.badRequest()
+                .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "Null Value Error", e.getErrorMap()));
+    }
+
     @ExceptionHandler(CustomSameUserIdException.class)
     public ResponseEntity<?> sameUserIdError(CustomSameUserIdException e){
         return ResponseEntity.badRequest()

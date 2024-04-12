@@ -1,9 +1,9 @@
 package fourjo.idle.goodgame.gg.security;
 
+import fourjo.idle.goodgame.gg.entity.EmpMst;
 import fourjo.idle.goodgame.gg.entity.UserMst;
 import fourjo.idle.goodgame.gg.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,21 +11,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PrincipalDetailsServiceByUser implements UserDetailsService {
+public class PrincipalDetailsService implements UserDetailsService {
 
-    // 나중에 employee로 변경
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
 
-        UserMst user = userRepository.findUserByUserId(userId);
+        UserMst user = userRepository.findUserByUserId(username);
+        EmpMst emp = userRepository.findEmpByEmpId(username);
 
-        if (user == null) {
+        if (user == null && emp == null) {
             throw new UsernameNotFoundException("회원정보를 확인할 수 없습니다.");
         }
-
-        return new PrincipalDetailsByUser(user);
+        return new PrincipalDetails(user, emp);
     }
+
 }

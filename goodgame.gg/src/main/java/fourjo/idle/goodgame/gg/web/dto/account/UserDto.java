@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto.user;
+package fourjo.idle.goodgame.gg.web.dto.account;
 
 import lombok.Data;
 
@@ -13,5 +13,4 @@ public class UserDto {
     private String userGender;
     private LocalDateTime userRegDate;
     private String userEmail;
-    private int roleId;
 }
