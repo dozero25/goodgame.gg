@@ -4,6 +4,8 @@ import fourjo.idle.goodgame.gg.repository.AdminEmployeeRepository;
 import fourjo.idle.goodgame.gg.web.dto.AdminEmployeeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AdminEmployeeService {
@@ -24,6 +26,8 @@ public class AdminEmployeeService {
     public void adminInsertRole(int empIndex){
        adminEmployeeRepository.adminInsertRoleId(empIndex);
     }
+
+
 
 
 }
