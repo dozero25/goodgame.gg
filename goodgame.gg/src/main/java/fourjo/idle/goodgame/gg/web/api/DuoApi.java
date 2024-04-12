@@ -23,18 +23,7 @@ public class DuoApi {
     @Autowired
     private DuoService duoService;
 
-//    @GetMapping("/searchTierByEncryptedId")
-//    public ResponseEntity<CMRespDto<?>> searchTierByEncryptedId(String summonerName) {
-//
-//        summonerName = summonerName.replaceAll(" ", "%20");
-//        SummonerDto summonerDto = duoService.searchEncryptedIdBySummonerName(summonerName);
-//        System.out.println(summonerDto);
-//        List<LeagueEntryDto> leagueEntryDto= duoService.searchTierByEncryptedId(summonerDto.getId());
-//        System.out.println(leagueEntryDto);
-//
-//        return ResponseEntity.ok()
-//                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered",leagueEntryDto.get(0).getTier()));
-//    }
+
 
     @PostMapping("/insert")
     public ResponseEntity<CMRespDto<?>> duoInsert(DuoDto duoDto) {
@@ -52,6 +41,14 @@ public class DuoApi {
 
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", duoService.duoSearchByQueAndTierAndPosition(duoSearchDto)));
+    }
+    @GetMapping("/totalCount")
+    public ResponseEntity<CMRespDto<?>> getDuoTotalCount(DuoSearchDto duoSearchDto) {
+
+
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", duoService.getDuoTotalCount(duoSearchDto)));
     }
 
 }

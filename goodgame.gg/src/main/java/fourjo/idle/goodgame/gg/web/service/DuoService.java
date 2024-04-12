@@ -107,7 +107,74 @@ public class DuoService {
     }
     public List<DuoDto> duoSearchByQueAndTierAndPosition(DuoSearchDto duoSearchDto)
     {
+        if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()==""&&duoSearchDto.getSearchPositionValue()=="")
+    {
+        duoSearchDto.setSearchKey("Que");
+    }
+    else if(duoSearchDto.getSearchQueValue()==""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()=="")
+    {
+        duoSearchDto.setSearchKey("Tier");
+    }
+    else if(duoSearchDto.getSearchQueValue()==""&&duoSearchDto.getSearchTierValue()==""&&duoSearchDto.getSearchPositionValue()!="")
+    {
+        duoSearchDto.setSearchKey("Position");
+    }
+    else if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()=="")
+    {
+        duoSearchDto.setSearchKey("QueAndTier");
+    }
+    else if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()==""&&duoSearchDto.getSearchPositionValue()!="")
+    {
+        duoSearchDto.setSearchKey("QueAndPosition");
+    }
+    else if(duoSearchDto.getSearchQueValue()==""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()!="")
+    {
+        duoSearchDto.setSearchKey("TierAndPosition");
+    }
+    else if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()!="")
+    {
+        duoSearchDto.setSearchKey("QueAndTierAndPosition");
+    }
+
+        duoSearchDto.setIndex();
+        System.out.println(duoSearchDto);
         return duoRepository.duoSearchByQueAndTierAndPosition(duoSearchDto);
+
+    }
+    public int getDuoTotalCount(DuoSearchDto duoSearchDto)
+    {
+        if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()==""&&duoSearchDto.getSearchPositionValue()=="")
+        {
+            duoSearchDto.setSearchKey("Que");
+        }
+        else if(duoSearchDto.getSearchQueValue()==""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()=="")
+        {
+            duoSearchDto.setSearchKey("Tier");
+        }
+        else if(duoSearchDto.getSearchQueValue()==""&&duoSearchDto.getSearchTierValue()==""&&duoSearchDto.getSearchPositionValue()!="")
+        {
+            duoSearchDto.setSearchKey("Position");
+        }
+        else if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()=="")
+        {
+            duoSearchDto.setSearchKey("QueAndTier");
+        }
+        else if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()==""&&duoSearchDto.getSearchPositionValue()!="")
+        {
+            duoSearchDto.setSearchKey("QueAndPosition");
+        }
+        else if(duoSearchDto.getSearchQueValue()==""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()!="")
+        {
+            duoSearchDto.setSearchKey("TierAndPosition");
+        }
+        else if(duoSearchDto.getSearchQueValue()!=""&&duoSearchDto.getSearchTierValue()!=""&&duoSearchDto.getSearchPositionValue()!="")
+        {
+            duoSearchDto.setSearchKey("QueAndTierAndPosition");
+        }
+
+
+
+        return duoRepository.getDuoTotalCount(duoSearchDto);
     }
 
 }

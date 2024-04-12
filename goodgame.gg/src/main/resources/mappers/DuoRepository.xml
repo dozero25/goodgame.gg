@@ -13,31 +13,35 @@
 
     <select id="duoSearchByQueAndTierAndPosition" parameterType="fourjo.idle.goodgame.gg.web.dto.duo.DuoSearchDto" resultType="fourjo.idle.goodgame.gg.web.dto.duo.DuoDto">
         select  * from duo_mst
-        <if test='searchKey=="Que" and searchQueValue != null and searchQueValue !=""'>
-           where duoQue=#{searchQueValue}
+        <if test= 'searchKey=="Que" and searchTierValue=="" and searchPositionValue=="" and searchQueValue != null and searchQueValue !=""'>
+            where duoQue=#{searchQueValue}
         </if>
-        <if test='searchKey=="Tier"and searchTierValue != null and searchTierValue !=""'>
-            where duoQue=#{searchTierValue}
+        <if test='searchKey=="Tier" and searchQueValue=="" and searchPositionValue=="" and searchTierValue != null and searchTierValue !=""'>
+            where duoTier=#{searchTierValue}
         </if>
-        <if test='searchKey=="Position" and searchPositionValue != null and searchPositionValue !=""'>
-            where duoQue=#{searchPositionValue}
+        <if test=' searchKey=="Position" and searchQueValue=="" and searchTierValue==""and searchPositionValue != null and searchPositionValue !=""'>
+            where duoPosition=#{searchPositionValue}
         </if>
-        <if test='searchKey=="QueAndTier"and searchQueValue != null and searchQueValue !=""and searchTierValue != null and searchTierValue !=""'>
+        <if test='searchKey=="QueAndTier" and searchPositionValue=="" and searchQueValue != null and searchQueValue !=""and searchTierValue != null and searchTierValue !=""'>
             where (
             duoQue=#{searchQueValue} and duoTier=#{searchTierValue}
             )
         </if>
-        <if test='searchKey=="QueAndPosition"and searchQueValue != null and searchQueValue !=""and searchPositionValue != null and searchPositionValue !=""'>
+        <if test='searchKey=="QueAndPosition"and searchTierValue=="" and searchQueValue != null and searchQueValue !=""and searchPositionValue != null and searchPositionValue !=""'>
             where (
             duoQue=#{searchQueValue} and duoPosition=#{searchPositionValue}
             )
         </if>
-        <if test='searchKey=="TierAndPosition"and searchTierValue != null and searchTierValue !=""and searchPositionValue != null and searchPositionValue !=""'>
+        <if test='searchKey=="TierAndPosition"and searchQueValue=="" and searchTierValue != null and searchTierValue !=""and searchPositionValue != null and searchPositionValue !=""'>
             where (
             duoTier=#{searchTierValue} and duoPosition=#{searchPositionValue}
             )
         </if>
-
+        <if test='searchKey=="QueAndTierAndPosition" and searchQueValue != null and searchQueValue !=""and searchPositionValue != null and searchPositionValue !="" and searchTierValue!=null and searchTierValue!=""'>
+            where (
+            duoTier=#{searchTierValue} and duoPosition=#{searchPositionValue} and duoQue=#{searchQueValue}
+            )
+        </if>
         order by
         duoIndex desc
         <if test='limit == "Y"'>
@@ -45,6 +49,37 @@
         </if>
 
     </select>
-
+    <select id="getDuoTotalCount" parameterType="fourjo.idle.goodgame.gg.web.dto.duo.DuoSearchDto" resultType="integer">
+           select count(*) from duo_mst
+        <if test= 'searchKey=="Que" and searchTierValue=="" and searchPositionValue=="" and searchQueValue != null and searchQueValue !=""'>
+            where duoQue=#{searchQueValue}
+        </if>
+        <if test='searchKey=="Tier" and searchQueValue=="" and searchPositionValue=="" and searchTierValue != null and searchTierValue !=""'>
+            where duoTier=#{searchTierValue}
+        </if>
+        <if test=' searchKey=="Position" and searchQueValue=="" and searchTierValue==""and searchPositionValue != null and searchPositionValue !=""'>
+            where duoPosition=#{searchPositionValue}
+        </if>
+        <if test='searchKey=="QueAndTier" and searchPositionValue=="" and searchQueValue != null and searchQueValue !=""and searchTierValue != null and searchTierValue !=""'>
+            where (
+            duoQue=#{searchQueValue} and duoTier=#{searchTierValue}
+            )
+        </if>
+        <if test='searchKey=="QueAndPosition"and searchTierValue=="" and searchQueValue != null and searchQueValue !=""and searchPositionValue != null and searchPositionValue !=""'>
+            where (
+            duoQue=#{searchQueValue} and duoPosition=#{searchPositionValue}
+            )
+        </if>
+        <if test='searchKey=="TierAndPosition"and searchQueValue=="" and searchTierValue != null and searchTierValue !=""and searchPositionValue != null and searchPositionValue !=""'>
+            where (
+            duoTier=#{searchTierValue} and duoPosition=#{searchPositionValue}
+            )
+        </if>
+        <if test='searchKey=="QueAndTierAndPosition" and searchQueValue != null and searchQueValue !=""and searchPositionValue != null and searchPositionValue !="" and searchTierValue!=null and searchTierValue!=""'>
+            where (
+            duoTier=#{searchTierValue} and duoPosition=#{searchPositionValue} and duoQue=#{searchQueValue}
+            )
+        </if>
+    </select>
 
 </mapper>
