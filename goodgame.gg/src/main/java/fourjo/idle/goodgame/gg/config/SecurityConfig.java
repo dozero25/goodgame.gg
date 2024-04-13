@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login/process")
                         .usernameParameter("id")
                         .passwordParameter("pw")
-                        .failureUrl("/login/fail")
+                        .failureUrl("/login")
                         .permitAll()
                 )
                 .logout((logout) -> logout

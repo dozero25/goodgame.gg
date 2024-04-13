@@ -6,29 +6,9 @@ class RecordApi{
     static #instance = null;
     static getInstance() {
         if(this.#instance == null) {
-            this.#instance = new UserInformatinApi();
+            this.#instance = new RecordApi();
         }
         return this.#instance;
-    }
-
-    searchSummonerInfoByGameNameAndTagLine(){
-        let returnData = null;
-
-        $.ajax({
-            async: false,
-            type: "get",
-            url: "http://localhost:8000/api/record/search/summoner",
-            dataType: "json",
-            success: responese => {
-                console.log(responese);
-                returnData = responese.data;
-            }, 
-            error: error => {
-                console.log(error);
-            }
-        });
-
-        return returnData;
     }
 
     searchSummonerInfoByEncryptedPUUID(){
@@ -129,6 +109,16 @@ class RecordApi{
         });
 
         return returnData;
+    }
+}
+
+class RecordShowInfoService{
+    static #instance = null;
+    static getInstance(){
+        if(this.#instance == null){
+            this.#instance = new RecordShowInfoService();
+        }
+        return this.#instance;
     }
 
 
