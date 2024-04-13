@@ -24,7 +24,7 @@ public class RecordService {
 
     private ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
 
-    private final String mykey = "RGAPI-1775b001-b0bb-42eb-9974-aee6ad1245bf";
+    private final String mykey = "RGAPI-9fd4269c-0998-4dbf-94e0-a34773dc46a4";
     private final String serverUrl = "https://kr.api.riotgames.com";
     private final String severUrlAsia = "https://asia.api.riotgames.com/";
     private final HttpClient c = HttpClientBuilder.create().build();

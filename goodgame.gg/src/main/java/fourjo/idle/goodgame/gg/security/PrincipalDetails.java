@@ -24,14 +24,13 @@ public class PrincipalDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-
+        RoleMst roleMst = new RoleMst();
         if(user != null){
             int roleId = user.getRoleId();
 
-            RoleMst roleMst = new RoleMst();
             roleMst.setRoleId(roleId);
             String roleName = roleMst.getRoleName();
-
+            System.out.println(roleName);
             GrantedAuthority role = new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
@@ -43,7 +42,6 @@ public class PrincipalDetails implements UserDetails {
         else if (emp != null) {
             int roleId = emp.getRoleId();
 
-            RoleMst roleMst = new RoleMst();
             roleMst.setRoleId(roleId);
             String roleName = roleMst.getRoleName();
 

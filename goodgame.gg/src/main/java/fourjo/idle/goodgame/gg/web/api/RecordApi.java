@@ -13,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +31,20 @@ public class RecordApi {
     private SummonerDto summonerDto = new SummonerDto();
     private List<String> matchesList = new ArrayList<>();
 
-    @GetMapping("/search/summoner")
+    @PostMapping("/search/summoner/{gameNameAndTagLine}")
     @Operation(summary ="Summoner 검색", description = "gameName(String)과 tagLine(String)으로 검색합니다.")
-    public ResponseEntity<CMRespDto<?>> searchSummonerInfoByGameNameAndTagLine(String gameName, String tagLine){
+    public ResponseEntity<CMRespDto<?>> searchSummonerInfoByGameNameAndTagLine(@PathVariable("gameNameAndTagLine") String gameNameAndTagLine){
+
+        gameNameAndTagLine = gameNameAndTagLine.replaceAll(" ", "");
+        String[] strArr = gameNameAndTagLine.split("#");
+
+        String gameName = strArr[0];
+        String tagLine = "";
+        if(strArr.length != 1){
+            tagLine = strArr[1].toLowerCase();
+        } else {
+            tagLine = "kr1";
+        }
 
         gameName = gameName.replaceAll(" ", "%20");
         tagLine = tagLine.replaceAll(" ", "%20");
