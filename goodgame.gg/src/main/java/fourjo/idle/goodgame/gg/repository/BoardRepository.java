@@ -35,6 +35,13 @@ public interface BoardRepository {
 
     public int search_total_rows_name(Map<String, String> map);
 
+    /* =================================================*/
+
+    /*public void save(BoardDTO boardDTO);
+
+    public List<BoardDTO> findAll();*/
+
+
 
 
 }

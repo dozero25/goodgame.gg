@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class UserDTO {
-
+    
     private int userIndex;
     private String userId;
     private String userPw;
@@ -16,5 +16,21 @@ public class UserDTO {
     private String userEmail;
     private int roleId;
 
-    public String myPosts;
+    public UserDTO getMemberId() {
+        return null;
+    }
+    public byte[] getMemberPw() {
+        return new byte[0];
+    }
+
+
+    // public String getMemberPw() {
+   //     return null;
+   // }
+   // public UserDTO getMemberId() {
+    //    return null;
+   // }
+
+
+
 }

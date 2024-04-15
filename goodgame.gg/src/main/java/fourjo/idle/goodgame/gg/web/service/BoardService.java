@@ -4,6 +4,8 @@ import fourjo.idle.goodgame.gg.repository.BoardRepository;
 import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +19,10 @@ public class BoardService {
 
     public int insertBoard(BoardDTO boardDTO) {
 
-        /*int result = boardRepository.insertBoard(boardDTO);
+        int result = boardRepository.insertBoard(boardDTO);
         if(result == 1){
             return result;
-        }*/
+        }
         return boardRepository.insertBoard(boardDTO);
     }
 
@@ -37,7 +39,7 @@ public class BoardService {
     /*@GetMapping("/delete")
     public String boardDelete(Integer id, Board board, Model model) {
 
-        boardService.boardDelete(id);
+        boardRepository.boardDelete();
 
         model.addAttribute("message", "글이 삭제되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
@@ -59,19 +61,29 @@ public class BoardService {
         return boardRepository.selectAllPageBlock(map);
     }
 
-    public int getTotalRows() {
+    /*public int getTotalRows() {
         return boardRepository.getTotalRows();
     }
 
     public BoardDTO selectOneBoard(BoardDTO boardDTO) {
 
         return boardRepository.selectOneBoard(boardDTO);
-    }
+    }*/
 
-   /* public BoardDTO searchListBoard(int boardDTO) {
+    /*public BoardDTO searchListBoard(int boardDTO) {
 
         return boardRepository.selectOneBoard();
     }*/
 
+    /* =================================================*/
+
+    /*public void save(BoardDTO boardDTO) {
+        boardRepository.save(boardDTO);
+        //boardRepository의 save메서드를 호출해서 boardDTO를 넘긴다.
+    }
+
+    public List<BoardDTO> findAll() {
+        return boardRepository.findAll();
+    }*/
 
 }
