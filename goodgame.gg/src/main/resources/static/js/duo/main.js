@@ -1,9 +1,10 @@
 window.onload = () => {
 
     DuoMainService.getInstance().getLoadAllDuoList();
-   ComponentEvent.getInstance().addClickEventInsertButton();
-    ComponentEvent.getInstance().addClickEventSearchButton();
 
+    ComponentEvent.getInstance().addClickEventSearchButton();
+ComponentEvent.getInstance().addClickEventModalButton();
+ComponentEvent.getInstance().addClickEventInsertButton();
 }
 
 let searchObj = {
@@ -11,8 +12,16 @@ let searchObj = {
     searchPositionValue: "",
     searchTierValue: "",
     limit: "Y",
-    count: 5,
+    count: 12,
     page: 1
+};
+let duoObj = {
+
+     duoGameId:"",
+   duoQue:"",
+     duoPosition:"",
+     duoContent:""
+
 };
 
 class DuoMainApi{
@@ -67,7 +76,25 @@ class DuoMainApi{
         });
         return returnData;
     }
+    postInsertDuo(){
+        let successFlag = null;
 
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "http://localhost:8000/api/duo/insert",
+            data: duoObj,
+            dataType: "json",
+            success: response => {
+                console.log(response);
+                successFlag = true;
+            },
+            error: error => {
+                console.log(error);
+            }
+        });
+        return successFlag;
+    }
 }
 
 class DuoMainService {
@@ -146,21 +173,23 @@ class DuoMainService {
     getLoadAllDuoList() {
 
         const responseData = DuoMainApi.getInstance().getAllDuoList(searchObj);
-        const duoTable = document.querySelector(".duo-table tbody");
+        const duoTable = document.querySelector(".duo-table");
 
         duoTable.innerHTML = "";
 
         responseData.forEach((data, index) => {
+
             duoTable.innerHTML += `
-            <tr>
-             <td>${data.duoIndex}</td>
-                <td>${data.duoGameId}</td>
-                  <td>${data.duoQue}</td>  
-                  <td>${data.duoPosition}</td>
-              <td>${data.duoTier}</td>
-              <td>${data.duoWdate}</td>
-               <td>${data.duoContent}</td>
-            </tr>
+           <td>
+             ${data.duoIndex}<br>
+             ${data.duoQue} ${data.duoTier} ${data.duoPosition} 구함<br>
+            <a href="/duo/view?UserId=${data.duoGameId}">${data.duoGameId}</a><br>
+                 ${data.duoQue} <br>
+                ${data.duoPosition}<br>
+             ${data.duoTier}<br>
+           ${data.duoWdate}<br>
+              ${data.duoContent}<br>
+           </td>
             `;
         });
         this.loadPageController();
@@ -177,16 +206,7 @@ class DuoMainService {
             return this.#instance;
         }
 
-        addClickEventInsertButton() {
 
-            const insertButton = document.querySelector(".insert-button");
-
-            insertButton.addEventListener("click", function () {
-
-            window.location.href="http://localhost:8000/duo/insert"
-            });
-
-        }
 
         addClickEventSearchButton() {
             const QueValue = document.querySelector(".Que-select");
@@ -195,13 +215,71 @@ class DuoMainService {
 
             const searchButton = document.querySelector(".search-button");
             searchButton.onclick = () => {
-                console.log("1");
+
                 searchObj.searchQueValue = QueValue.value;
                 searchObj.searchTierValue = TierValue.value;
                 searchObj.searchPositionValue = PositionValue.value;
                 searchObj.page = 1;
 
                 DuoMainService.getInstance().getLoadAllDuoList();
+            }
+
+        }
+        addClickEventModalButton() {
+           const btn=document.getElementById("insert-btn");
+           const modal= document.getElementById("modalWrap");
+           const closeBtn=document.getElementById("closeBtn");
+
+           btn.onclick=function(){
+               modal.style.display="block";
+
+           };
+           closeBtn.onclick=function(){
+               modal.style.display="none";
+           };
+           window.onclick=function(event){
+               if(event.target == modal){
+                   modal.style.display="none";
+               }
+           };
+
+        }
+addClickEventInsertButton(){
+
+    const insertBtn=document.querySelector(".insert-success-btn");
+
+    insertBtn.onclick=()=>{
+        const modal= document.getElementById("modalWrap");
+        const GameIdValue = document.getElementById("duoGameid");
+        const QueValue = document.querySelector('input[type=radio][name=duoQue]:checked');
+        const PositionValue = document.querySelector('input[type=radio][name=duoPosition]:checked');
+        const ContentValue=document.getElementById("duoContent");
+        console.log(GameIdValue.value);
+        console.log(QueValue.value);
+        console.log(PositionValue.value);
+        console.log(ContentValue.value);
+        duoObj.duoGameId=GameIdValue.value;
+        duoObj.duoQue=QueValue.value;
+        duoObj.duoPosition=PositionValue.value;
+        duoObj.duoContent=ContentValue.value;
+       console.log(duoObj);
+
+
+        DuoMainApi.getInstance().postInsertDuo();
+        modal.style.display="none";
+        searchObj.searchQueValue= "";
+        searchObj.searchPositionValue="";
+        searchObj.searchTierValue="";
+        searchObj.page=1;
+        DuoMainService.getInstance().getLoadAllDuoList();
+    }
+}
+        addClickEventCheckButton() {
+            const btn=document.getElementById("insert-check");
+
+
+            btn.onclick=function(){
+
             }
 
         }
