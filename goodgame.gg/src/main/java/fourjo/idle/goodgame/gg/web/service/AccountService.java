@@ -3,7 +3,7 @@ package fourjo.idle.goodgame.gg.web.service;
 import fourjo.idle.goodgame.gg.exception.CustomInputPasswordException;
 import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
 import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
-import fourjo.idle.goodgame.gg.repository.UserRepository;
+import fourjo.idle.goodgame.gg.repository.AccountRepository;
 import fourjo.idle.goodgame.gg.web.dto.account.EmpDto;
 import fourjo.idle.goodgame.gg.web.dto.account.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class UserService {
+public class AccountService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     public UserDto registerUser(UserDto userDto) {
         duplicateUserId(userDto.getUserId());
@@ -28,8 +28,8 @@ public class UserService {
 
         nullValueCheck(userDto);
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
-        userRepository.registerUser(userDto);
-        userRepository.saveUserRole(userDto.getUserId());
+        accountRepository.registerUser(userDto);
+        accountRepository.saveUserRole(userDto.getUserId());
         return userDto;
     }
 
@@ -39,8 +39,8 @@ public class UserService {
 //        inputUserGender(userDto.getUserGender());
 
         empDto.setEmpPw(new BCryptPasswordEncoder().encode(empDto.getEmpPw()));
-        userRepository.registerEmp(empDto);
-        userRepository.saveEmpRole(empDto.getEmpId());
+        accountRepository.registerEmp(empDto);
+        accountRepository.saveEmpRole(empDto.getEmpId());
         return empDto;
     }
 
@@ -59,8 +59,8 @@ public class UserService {
 
 
     public void duplicateUserId(String userId) {
-        String userResult = userRepository.findUserByUserIdForError(userId);
-        String empResult = userRepository.findEmpByEmpIdForError(userId);
+        String userResult = accountRepository.findUserByUserIdForError(userId);
+        String empResult = accountRepository.findEmpByEmpIdForError(userId);
 
         Map<String, String> errorMap = new HashMap<>();
         if(userResult != null || empResult != null){

@@ -35,15 +35,13 @@ public class RecordApi {
     @Operation(summary ="Summoner 검색", description = "gameName(String)과 tagLine(String)으로 검색합니다.")
     public ResponseEntity<CMRespDto<?>> searchSummonerInfoByGameNameAndTagLine(@PathVariable("gameNameAndTagLine") String gameNameAndTagLine){
 
-        gameNameAndTagLine = gameNameAndTagLine.replaceAll(" ", "");
-        String[] strArr = gameNameAndTagLine.split("#");
+        String[] strArr = gameNameAndTagLine.split("-");
 
         String gameName = strArr[0];
         String tagLine = "";
+
         if(strArr.length != 1){
-            tagLine = strArr[1].toLowerCase();
-        } else {
-            tagLine = "kr1";
+            tagLine = strArr[1];
         }
 
         gameName = gameName.replaceAll(" ", "%20");
@@ -55,7 +53,7 @@ public class RecordApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", accountDto));
     }
 
-    @GetMapping("/get/summoner/info")
+    @GetMapping("/get/summoner/info/{puuid}")
     @Operation(summary ="SummonerInfo 가져오기", description = "puuid로 Summoner의 정보를 가져옵니다.")
     public ResponseEntity<CMRespDto<?>> searchSummonerInfoByEncryptedPUUID(){
 

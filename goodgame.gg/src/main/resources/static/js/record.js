@@ -1,5 +1,5 @@
 window.onload = () => {
-
+    RecordShowInfoService.getInstance().showinfo();
 }
 
 class RecordApi{
@@ -10,6 +10,27 @@ class RecordApi{
         }
         return this.#instance;
     }
+
+    // searchSummonerInfoByGameNameAndTagLine(){
+    //     let returnData = null;
+
+    //     $.ajax({
+    //         async: false,
+    //         type: "post",
+    //         url: `http://localhost:8000/api/record/search/summoner/${gameNameAndTagLine}`,
+    //         contentType: "application/json",
+    //         data: JSON.stringify(gameNameAndTagLine),
+    //         dataType: "json",
+    //         success: responese => {
+    //             returnData = responese.data;
+    //         }, 
+    //         error: error => {
+    //             console.log(error);
+    //         }
+    //     });
+
+    //     return returnData;
+    // }
 
     searchSummonerInfoByEncryptedPUUID(){
         let returnData = null;
@@ -121,5 +142,10 @@ class RecordShowInfoService{
         return this.#instance;
     }
 
+    showinfo(){
+
+        console.log(location.search);
+        const show = RecordApi.getInstance().searchSummonerInfoByEncryptedPUUID();
+    }
 
 }

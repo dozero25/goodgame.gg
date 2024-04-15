@@ -2,14 +2,12 @@ package fourjo.idle.goodgame.gg.security;
 
 import fourjo.idle.goodgame.gg.entity.EmpMst;
 import fourjo.idle.goodgame.gg.entity.UserMst;
-import fourjo.idle.goodgame.gg.entity.RoleMst;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class PrincipalDetails implements UserDetails {
@@ -24,13 +22,10 @@ public class PrincipalDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-        RoleMst roleMst = new RoleMst();
-        if(user != null){
-            int roleId = user.getRoleId();
 
-            roleMst.setRoleId(roleId);
-            String roleName = roleMst.getRoleName();
-            System.out.println(roleName);
+        if(user != null){
+            String roleName = user.getRoleName();
+
             GrantedAuthority role = new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
@@ -40,10 +35,7 @@ public class PrincipalDetails implements UserDetails {
             authorities.add(role);
         }
         else if (emp != null) {
-            int roleId = emp.getRoleId();
-
-            roleMst.setRoleId(roleId);
-            String roleName = roleMst.getRoleName();
+            String roleName = emp.getRoleName();
 
             GrantedAuthority role = new GrantedAuthority() {
                 @Override

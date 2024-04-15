@@ -2,7 +2,7 @@ package fourjo.idle.goodgame.gg.security;
 
 import fourjo.idle.goodgame.gg.entity.EmpMst;
 import fourjo.idle.goodgame.gg.entity.UserMst;
-import fourjo.idle.goodgame.gg.repository.UserRepository;
+import fourjo.idle.goodgame.gg.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AccountRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
