@@ -1,6 +1,8 @@
 window.onload = () => {
-    RecordShowInfoService.getInstance().showinfo();
+    RecordShowInfoService.getInstance().summonerShowInfo();
 }
+
+let gameNameAndTagLine = "";
 
 class RecordApi{
     static #instance = null;
@@ -11,37 +13,15 @@ class RecordApi{
         return this.#instance;
     }
 
-    // searchSummonerInfoByGameNameAndTagLine(){
-    //     let returnData = null;
-
-    //     $.ajax({
-    //         async: false,
-    //         type: "post",
-    //         url: `http://localhost:8000/api/record/search/summoner/${gameNameAndTagLine}`,
-    //         contentType: "application/json",
-    //         data: JSON.stringify(gameNameAndTagLine),
-    //         dataType: "json",
-    //         success: responese => {
-    //             returnData = responese.data;
-    //         }, 
-    //         error: error => {
-    //             console.log(error);
-    //         }
-    //     });
-
-    //     return returnData;
-    // }
-
-    searchSummonerInfoByEncryptedPUUID(){
+    searchAccountInfoPuuid(){
         let returnData = null;
 
         $.ajax({
             async: false,
             type: "get",
-            url: "http://localhost:8000/api/record/get/summoner/info",
+            url: `http://localhost:8000/api/record/get/account/info`,
             dataType: "json",
             success: responese => {
-                console.log(responese);
                 returnData = responese.data;
             }, 
             error: error => {
@@ -52,7 +32,26 @@ class RecordApi{
         return returnData;
     }
 
-    searchMatchInfoByMatchId(){
+    searchSummonerInfoByEncryptedPUUID(){
+        let returnData = null;
+
+        $.ajax({
+            async: false,
+            type: "get",
+            url: "http://localhost:8000/api/record/get/summoner/info",
+            dataType: "json",
+            success: responese => {
+                returnData = responese.data;
+            }, 
+            error: error => {
+                console.log(error);
+            }
+        });
+
+        return returnData;
+    }
+
+    searchMatchsByMatchId(){
         let returnData = null;
 
         $.ajax({
@@ -61,7 +60,6 @@ class RecordApi{
             url: "http://localhost:8000/api/record/get/matches",
             dataType: "json",
             success: responese => {
-                console.log(responese);
                 returnData = responese.data;
             }, 
             error: error => {
@@ -81,7 +79,6 @@ class RecordApi{
             url: "http://localhost:8000/api/record/get/matches/info",
             dataType: "json",
             success: responese => {
-                console.log(responese);
                 returnData = responese.data;
             }, 
             error: error => {
@@ -101,7 +98,6 @@ class RecordApi{
             url: "http://localhost:8000/api/record/get/league",
             dataType: "json",
             success: responese => {
-                console.log(responese);
                 returnData = responese.data;
             }, 
             error: error => {
@@ -121,7 +117,6 @@ class RecordApi{
             url: "http://localhost:8000/api/record/get/championMastery",
             dataType: "json",
             success: responese => {
-                console.log(responese);
                 returnData = responese.data;
             }, 
             error: error => {
@@ -142,10 +137,22 @@ class RecordShowInfoService{
         return this.#instance;
     }
 
-    showinfo(){
-
-        console.log(location.search);
-        const show = RecordApi.getInstance().searchSummonerInfoByEncryptedPUUID();
+    summonerShowInfo(){
+        const show1 = RecordApi.getInstance().searchAccountInfoPuuid();
+        const show2 = RecordApi.getInstance().searchSummonerInfoByEncryptedPUUID();
+        const show3 = RecordApi.getInstance().searchMatchsByMatchId();
+        const show4 = RecordApi.getInstance().searchMatchInfoByMatchId();
+        const show5 = RecordApi.getInstance().searchLeagueBySummonerName();
+        // const show6 = RecordApi.getInstance().searchChampionMasteryByPuuid();
+        
+        console.log(show1);
+        console.log(show2);
+        console.log(show3);
+        console.log(show4);
+        console.log(show5);
+        
     }
 
+
+    
 }

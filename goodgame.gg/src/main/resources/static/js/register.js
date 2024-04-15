@@ -33,7 +33,7 @@ class UserRegisterApi{
                 successFlag = true;
             },
             error: error => {
-                alert(error.responseJSON.data.username);
+                alert(error.responseJSON.data.registerError);
             }
 
         });
@@ -59,13 +59,13 @@ class UserRegisterService{
         const id = document.querySelector(".id");
         const pw = document.querySelector(".pw");
         const nickName = document.querySelector(".nickName");
-        const gender = document.querySelector(".gender");
+        const gender = $('[name="gender"]:checked').val();
         const email = document.querySelector(".email");
 
         userObj.userId = id.value;
         userObj.userPw = pw.value;
         userObj.userNick = nickName.value;
-        userObj.userGender = gender.value;
+        userObj.userGender = gender;
         userObj.userEmail = email.value;
     }
 
@@ -80,37 +80,12 @@ class ComponentEvent{
         return this.#instance;
     }
 
-    showNotInputText(){
-        const id = document.querySelector(".id");
-        const pw = document.querySelector(".pw");
-        const nickName = document.querySelector(".nickName");
-        const gender = document.querySelector(".gender");
-        const email = document.querySelector(".email");
-
-        if(id.value == null){
-            
-        }
-        if(pw.value == null){
-
-        }
-        if(nickName.value == null){
-            
-        }
-        if(gender.value == null){
-            
-        }
-        if(email.value == null){
-            
-        }
-    }
-
-
     addClickEventRegisterButton(){
         const regButton = document.querySelector(".register-button");
 
         regButton.onclick = () => {
             UserRegisterService.getInstance().setUserObjectValues();
-            console.log(userObj);
+
             let successFlag = new UserRegisterApi().registerUser();
         
             if(successFlag) {

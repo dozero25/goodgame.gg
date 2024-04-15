@@ -22,11 +22,11 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     public UserDto registerUser(UserDto userDto) {
+        nullValueCheck(userDto);
         duplicateUserId(userDto.getUserId());
-//        checkPassword(userDto.getUserPw());
+        checkPassword(userDto.getUserPw());
         inputUserGender(userDto.getUserGender());
 
-        nullValueCheck(userDto);
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
         accountRepository.registerUser(userDto);
         accountRepository.saveUserRole(userDto.getUserId());
@@ -52,11 +52,10 @@ public class AccountService {
 
         Map<String, String> errorMap = new HashMap<>();
         if(userId.equals("") || userPw.equals("") || userNick.equals("") || userEmail.equals("")){
-            errorMap.put("null value", "빈값을 확인 해주세요.");
+            errorMap.put("registerError", "빈값을 확인 해주세요.");
             throw new CustomSameUserIdException(errorMap);
         }
     }
-
 
     public void duplicateUserId(String userId) {
         String userResult = accountRepository.findUserByUserIdForError(userId);
@@ -64,7 +63,7 @@ public class AccountService {
 
         Map<String, String> errorMap = new HashMap<>();
         if(userResult != null || empResult != null){
-            errorMap.put("username", "이미 존재하는 사용자 이름입니다.");
+            errorMap.put("registerError", "이미 존재하는 사용자 이름입니다.");
             throw new CustomSameUserIdException(errorMap);
         }
     }
@@ -76,7 +75,7 @@ public class AccountService {
 
         Map<String, String> errorMap = new HashMap<>();
         if(!passMatcher.find()){
-            errorMap.put("Password Error", "비밀번호를 다시 설정해주세요.");
+            errorMap.put("registerError", "비밀번호를 다시 설정해주세요.");
             throw new CustomInputPasswordException(errorMap);
         }
     }
@@ -86,11 +85,11 @@ public class AccountService {
         Map<String, String> errorMap = new HashMap<>();
 
         if(gender.length() != 1){
-            errorMap.put("userGender", "입력 데이터 길이를 확인해주세요");
+            errorMap.put("registerError", "입력 데이터 길이를 확인해주세요");
             throw new CustomInputUserGenderException(errorMap);
 
         } else if( (gender.equals("m") || gender.equals("w")) != true ){
-            errorMap.put("userGender", "올바른 단어를 사용해 입력해주세요");
+            errorMap.put("registerError", "올바른 단어를 사용해 입력해주세요");
             throw new CustomInputUserGenderException(errorMap);
         }
     }
