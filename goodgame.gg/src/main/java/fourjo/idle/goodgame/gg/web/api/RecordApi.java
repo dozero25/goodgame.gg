@@ -53,7 +53,17 @@ public class RecordApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", accountDto));
     }
 
-    @GetMapping("/get/summoner/info/{puuid}")
+    @GetMapping("/get/account/info")
+    @Operation(summary ="accountInfo 가져오기", description = "puuid로 account의 정보를 가져옵니다.")
+    public ResponseEntity<CMRespDto<?>> searchAccountInfoByPuuid(){
+
+        recordService.searchAccountInfoByPuuid(accountDto.getPuuid());
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully", accountDto));
+    }
+
+    @GetMapping("/get/summoner/info")
     @Operation(summary ="SummonerInfo 가져오기", description = "puuid로 Summoner의 정보를 가져옵니다.")
     public ResponseEntity<CMRespDto<?>> searchSummonerInfoByEncryptedPUUID(){
 

@@ -47,6 +47,24 @@ public class RecordService {
         return accountDto;
     }
 
+    // puuid로 검색
+    public AccountDto searchAccountInfoByPuuid(String puuid){
+        AccountDto accountDto = new AccountDto();
+        try {
+            HttpGet request = new HttpGet(severUrlAsia + "/riot/account/v1/accounts/by-puuid/" + puuid+ "?api_key=" + mykey);
+            HttpResponse response = c.execute(request);
+
+            riotResponseCodeError(response);
+
+            HttpEntity entity = response.getEntity();
+            accountDto = objectMapper.readValue(entity.getContent(), AccountDto.class);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return accountDto;
+    }
+
     // encryptedPUUID로 조회
     public SummonerDto searchSummonerInfoByEncryptedPUUID(String encryptedPUUID){
         SummonerDto summonerDto = new SummonerDto();

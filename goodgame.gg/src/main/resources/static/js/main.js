@@ -1,5 +1,4 @@
 window.onload = () => {
-    PrincipalApi.getInstance().getPrincipal();
     ComponentEvent.getInstance().addClickSearchButton();
 }
 
@@ -64,10 +63,9 @@ class ComponentEvent {
         seachButton.onclick = () => {
             gameNameAndTagLine = searchInput.value;
             gameNameAndTagLine = gameNameAndTagLine.replace("#", "-");
-            const successFlag = MainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
+            let successFlag = MainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
             
-
-            if(successFlag == true){
+            if(successFlag){
                 location.href = `/record/${gameNameAndTagLine}`;
             } else {
                 searchInput.focus();
