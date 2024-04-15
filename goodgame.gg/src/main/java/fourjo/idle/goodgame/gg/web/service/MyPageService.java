@@ -1,14 +1,11 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.MyPageRepository;
+import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
+import fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO;
 import fourjo.idle.goodgame.gg.web.dto.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-
-import java.awt.print.Pageable;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class MyPageService {
@@ -16,28 +13,44 @@ public class MyPageService {
     @Autowired
     private MyPageRepository myPageRepository;
 
-    /*회원탈퇴*/
-    public void deleteMemberAllDataByIdAndPw(String id) {
+    /*0. 더미데이터 생성*/
+    public int insertUserData(UserDTO userDTO) {
 
+        return myPageRepository.insertUserData(userDTO);
     }
 
-    /*회원정보 수정*/
-    public void updateMyPageByPrivacy(String userDTO) {
+    /*1. 회원탈퇴*/
+    /*public int deleteUserAllData(UserDTO userDTO) {
 
-        myPageRepository.updateMyPageByPrivacy(userDTO);
+        return myPageRepository.deleteUserAllData(userDTO);
+    }*/
+
+    public int deleteUserAllData(UserDTO userDTO) {
+
+        return myPageRepository.deleteUserAllData(userDTO);
     }
-    
-    /*내가 쓴 글 목록 확인*/
-    public UserDTO searchMyWriteListByID(UserDTO userDTO) {
+    public String pwCheck(String userId) {
 
-        return  myPageRepository.searchMyWriteListByID(userDTO);
+        return myPageRepository.pwCheck(userId);
+    }
+    //========================================
+    /*2. 회원정보 수정*/
+    public int updateMypageInfo(UserDTO userDTO) {
+
+        return myPageRepository.updateMypageInfo(userDTO);
     }
 
-    /*내가 쓴 댓글 목록 확인*/
-    public UserDTO searchMyWriteListByID(UserDTO userDTO) {
+    /*3. 내가 쓴 글 목록*/
+    public BoardDTO searchMyPostListByIndex(int userIndex) {
 
-        return  myPageRepository.searchMyWriteListByID(userDTO);
+        return myPageRepository.searchMyPostListByIndex(userIndex);
     }
+
+   /* 4. 내가 쓴 댓글 목록*/
+    public ReplyDTO searchMyReplyListByIndex(int userIndex){
+        return myPageRepository.searchMyReplyListByIndex(userIndex);
+    }
+
 
 
 }

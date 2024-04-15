@@ -8,16 +8,26 @@ import java.time.LocalDateTime;
 @Data
 public class BoardDTO {
 
-    private int board_index;
-    private String board_subject;
-    private int user_index;
-    private String board_content;
-    private LocalDateTime board_reg_date;
-    private int board_visit;
-    private int board_good;
-    private int board_bad;
-    private String board_upload_name;
-    private BigInteger board_upload_size;
-    private String board_upload_trans;
+    /*private int boardIndex;
+    private String boardSubject;
+    private int userIndex;
+    private String boardContent;
+    private LocalDateTime boardRegDate;
+    private int boardVisit;
+    private int boardGood;
+    private int boardBad;
+    private String boardUploadName;
+    private BigInteger boardUploadSize;
+    private String boardUploadTrans;
+
+    /*=================================================*/
+
+    private Long id;//글번호
+    private String boardWriter;//작성자
+    private String boardPass;//게시글 비밀번호
+    private String boardTitle;//제목
+    private String boardContents;//내용
+    private int boardHits;//조회수
+    private String createsAt;//작성시간
 
 }
