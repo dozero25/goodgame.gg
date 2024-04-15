@@ -37,8 +37,16 @@ public class BoardService {
 
 
    public List<BoardDTO> boardSearchAllBySubjectAndUserIndexAndContent(BoardSearchDTO dto) {
+
+       dto.pageIndex();
+
        return boardRepository.boardSearchAllBySubjectAndUserIndexAndContent(dto);
-    };
+    };//완.
+
+
+    public int boardTotalCount(BoardSearchDTO dto) {
+        return boardRepository.boardTotalCount(dto);
+    }
 
 
 
@@ -59,20 +67,33 @@ public class BoardService {
         return boardRepository.boardViewCount(dto);
     }
 
-    public int boardReplyInsert(BoardReplyDTO dto) {
+    /*public int boardReplyInsert(BoardReplyDTO dto) {
        // 로직 다시 생각해봐야할듯
-    /*    BoardReplyDTO.setReplyGroup(boardRepository.getReplyCount(BoardReplyDTO.getBoardIndex()));
+    *//*    BoardReplyDTO.setReplyGroup(boardRepository.getReplyCount(BoardReplyDTO.getBoardIndex()));
         BoardReplyDTO.setReplyGroup(BoardReplyDTO.getReplyGroup());
         BoardReplyDTO.setReplySequence(BoardReplyDTO.getReplySequence() + 1);
         return boardRepository.boardReplyInsert(dto);
 
-
-
-
-*/
-
-
+*//*
         return boardRepository.boardReplyInsert(dto);
+    } // 지우려했는데 밑에 로직이 틀려짐..*/
+
+    public void boardReplyInsertByReplyGroup(BoardReplyDTO dto) { //이름바꾸기
+        dto.setReplyGroup(boardRepository.boardReplyGroupCount(dto.getBoardIndex()));
+
+        dto.setReplySequence(dto.getReplySequence() + 1); //
+
+        boardRepository.boardReplyInsertByReplyGroup(dto);
+
+    }
+
+    public void boardReplyInsertBySequence(BoardReplyDTO dto) {
+
+        dto.setReplyGroup(dto.getReplyGroup());
+        dto.setReplySequence(boardRepository.boardReplySequenceCount(dto.getBoardIndex()));
+
+        boardRepository.boardReplyInsertByReplyGroup(dto);
+
     }
 
     public int boardReplyUpdateByReplyIndex(BoardReplyDTO dto) {
@@ -86,4 +107,6 @@ public class BoardService {
     public List<BoardReplyDTO> boardReplySelectAll(int boardIndex) {
         return boardRepository.boardReplySelectAll(boardIndex);
     }
+
+
 }

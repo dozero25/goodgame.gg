@@ -21,6 +21,8 @@ public class BoardDTO {
     private Long boardUploadSize; // 크기
     private String boardUploadLocation; //위치
     private int replyCount; // 댓글수
-    private String userId; //유저 ID
+    private String userNick; //유저
+
+
 
 }
