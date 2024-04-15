@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="fourjo.idle.goodgame.gg.repository.UserRepository">
+<mapper namespace="fourjo.idle.goodgame.gg.repository.AccountRepository">
 
     <resultMap id="uesrDto" type="fourjo.idle.goodgame.gg.entity.UserMst">
         <result property="userIndex" column="userIndex"></result>
@@ -64,6 +64,7 @@
 
     <select id="findUserByUserId" parameterType="string" resultType="fourjo.idle.goodgame.gg.entity.UserMst">
         select
+            um.userIndex,
             um.userId,
             um.userPw,
             um.userNick,
@@ -82,6 +83,7 @@
 
     <select id="findEmpByEmpId" parameterType="string" resultType="fourjo.idle.goodgame.gg.entity.EmpMst">
         select
+            em.empIndex,
             em.empId,
             em.empPw,
             em.empName,

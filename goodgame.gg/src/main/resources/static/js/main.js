@@ -1,14 +1,15 @@
 window.onload = () => {
+    PrincipalApi.getInstance().getPrincipal();
     ComponentEvent.getInstance().addClickSearchButton();
 }
 
 let gameNameAndTagLine ="";
 
-class mainApi{
+class MainApi{
     static #instance = null;
     static getInstance(){
         if(this.#instance == null){
-            this.#instance = new mainApi();
+            this.#instance = new MainApi();
         }
         return this.#instance;
     }
@@ -27,7 +28,7 @@ class mainApi{
                 returnData = responese.data;
             }, 
             error: error => {
-                console.log(error);
+                alert("입력데이터를 다시 확인해주세요.");
             }
         });
 
@@ -35,34 +36,16 @@ class mainApi{
     }
 }
 
-class PrincipalApi {
+class MainService{
     static #instance = null;
-    static getInstance() {
-        if(this.#instance == null) {
-            this.#instance = new PrincipalApi();
+    static getInstance(){
+        if(this.#instance == null){
+            this.#instance = new MainService();
         }
         return this.#instance;
     }
 
-    getPrincipal() {
-        let responseData = null;
 
-        $.ajax({
-            async: false,
-            type: "get",
-            url: "http://localhost:8000/api/account/principal",
-            dataType: "json",
-            success : response => {
-                responseData = response.data;
-                console.log(responseData);
-            },
-            error : error => {
-                console.log(error);
-            }
-        });
-        
-        return responseData;
-    }
 }
 
 class ComponentEvent {
@@ -75,20 +58,21 @@ class ComponentEvent {
     }
 
     addClickSearchButton(){
-        const searchInput = document.querySelector(".search-value");
+        const searchInput = document.querySelector(".search");
         const seachButton = document.querySelector(".search-button");
 
-        const principal = PrincipalApi.getInstance().getPrincipal();
-        console.log(principal);
-        
-
         seachButton.onclick = () => {
-
-
-
             gameNameAndTagLine = searchInput.value;
-            mainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
-            // location.href = ;
+            gameNameAndTagLine = gameNameAndTagLine.replace("#", "-");
+            const successFlag = MainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
+            
+
+            if(successFlag == true){
+                location.href = `/record/${gameNameAndTagLine}`;
+            } else {
+                searchInput.focus();
+            }
+            
         }
 
         searchInput.onkeyup = () => {
