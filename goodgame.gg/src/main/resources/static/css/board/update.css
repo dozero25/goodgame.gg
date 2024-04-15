@@ -1,0 +1,13 @@
+html, body, header, main, footer, div, p, h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.update-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

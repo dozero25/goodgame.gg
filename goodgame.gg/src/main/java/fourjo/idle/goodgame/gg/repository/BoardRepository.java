@@ -9,6 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface BoardRepository {
+
+
     public int boardInsert(BoardDTO dto);
     public int boardUpdateByBoardIndex(BoardDTO dto);
     public int boardDeleteByBoardIndex(int boardIndex);
@@ -16,14 +18,18 @@ public interface BoardRepository {
 
     public List<BoardDTO> boardSearchAllBySubjectAndUserIndexAndContent(BoardSearchDTO dto);
 
-  /*  public boolean isLiked(BoardLikeDTO dto); // 특정 유저가 좋아요 했는지 안했는지?*/
+    public int boardTotalCount(BoardSearchDTO dto) ;
+
+
+
+    /*  public boolean isLiked(BoardLikeDTO dto); // 특정 유저가 좋아요 했는지 안했는지?*/
     public void likeAdd(BoardLikeDTO dto);
     public void badAdd(BoardLikeDTO dto);
     public void likeBadCancel(BoardLikeDTO dto);
 
     public int boardViewCount(BoardDTO dto);
 
-    public int boardReplyInsert(BoardReplyDTO dto);
+   /* public int boardReplyInsert(BoardReplyDTO dto);*/
 
 
     public int boardReplyUpdateByReplyIndex(BoardReplyDTO dto);
@@ -31,4 +37,9 @@ public interface BoardRepository {
     public int boardReplyDeleteByReplyIndex(int replyIndex);
 
     List<BoardReplyDTO> boardReplySelectAll(int boardIndex);
+
+    public int boardReplyGroupCount(int boardIndex);
+    public int boardReplySequenceCount(int boardIndex);
+
+    public void boardReplyInsertByReplyGroup(BoardReplyDTO dto);
 }

@@ -12,8 +12,8 @@ public class BoardSearchDTO {
     private int count; // 한 페이지 당 표시할 데이터 갯수 // xml mapper에서 사용하는 #{index}, #{count}
     private int index; // 시작행 번호
 
-    // public void pageIndex() {
-    // index = (page-1) * count;
-    // 시작 행 번호 계산 = 행번호를 0부터?
-    //}
+     public void pageIndex() {
+     index = (page-1) * count;
+
+    }
 }

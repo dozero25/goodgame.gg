@@ -17,8 +17,21 @@
         delete from board_mst where  boardIndex = #{boardIndex}
     </delete>
 
+
+
     <select id ="boardSelectOneByBoardIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-        select * from board_mst where  boardIndex = #{boardIndex}
+        SELECT
+        b.boardIndex, b.boardSubject, u.userNick, u.userId, u.userIndex, b.boardContent, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
+        COUNT(r.replyIndex) AS replyCount
+
+        FROM
+        board_mst b
+
+        JOIN user_mst u ON b.userIndex = u.userIndex
+
+        LEFT JOIN reply_mst r ON b.boardIndex = r.boardIndex
+
+        where  b.boardIndex = #{boardIndex}
     </select>
 
 
@@ -39,7 +52,7 @@
 
         <!-- 댓글수 count하는 DTO따로 만들어야하는지? - swagger에 이 컬럼으로 출력이 안됨/ 아님 boardDto 컬럼 추가?,/// 조회수 count하는 DTO따로 만들어야하는지  -->
         SELECT
-        b.boardIndex, b.boardSubject, u.userId, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
+        b.boardIndex, b.boardSubject, u.userIndex, u.userId, u.userNick, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
         COUNT(r.replyIndex) AS replyCount
 
         FROM
@@ -53,18 +66,51 @@
         <choose>
             <!-- 숫자가 용량이 작긴하지만 프론트단 들고갈때 헷갈릴까봐 스트링으로 정리하기 -->
             <when test='searchKey=="1"'> where boardSubject like CONCAT('%', #{searchValue}, '%') </when>
-            <when test='searchKey=="2"'> where user_mst.userNick like CONCAT('%', #{searchValue}, '%') </when>
+            <when test='searchKey=="2"'> where u.userNick like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="3"'> where boardContent like CONCAT('%', #{searchValue}, '%') </when>
-            <when test='searchKey=="subjectAndContent"'> where( boardSubject like CONCAT('%', #{searchValue}, '%')  or
+            <when test='searchKey=="4"'> where( boardSubject like CONCAT('%', #{searchValue}, '%')  or
                 boardContent like CONCAT('%', #{searchValue}, '%'))  </when>
         </choose>
         GROUP BY b.boardIndex, b.boardSubject, u.userId, b.boardRegDate,b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation
             order by boardIndex desc
         <if test='limit == "Y"'>
-            limit #{index}
+            limit #{index}, #{count}
+
         </if>
 
     </select>
+
+
+
+    <select id ="boardTotalCount" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardSearchDTO" resultType="integer">
+        SELECT
+        COUNT(b.boardIndex) AS boardCount
+
+        <!--COUNT(b.boardIndex), b.boardSubject, u.userId, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
+        COUNT(r.replyIndex) AS replyCount-->
+
+
+        FROM
+        board_mst b
+
+        JOIN user_mst u ON b.userIndex = u.userIndex
+
+        LEFT JOIN reply_mst r ON b.boardIndex = r.boardIndex
+
+
+        <choose>
+            <!-- 숫자가 용량이 작긴하지만 프론트단 들고갈때 헷갈릴까봐 스트링으로 정리하기 -->
+            <when test='searchKey=="1"'> where boardSubject like CONCAT('%', #{searchValue}, '%') </when>
+            <when test='searchKey=="2"'> where u.userNick like CONCAT('%', #{searchValue}, '%') </when>
+            <when test='searchKey=="3"'> where boardContent like CONCAT('%', #{searchValue}, '%') </when>
+            <when test='searchKey=="4"'> where( boardSubject like CONCAT('%', #{searchValue}, '%')  or
+                boardContent like CONCAT('%', #{searchValue}, '%'))  </when>
+        </choose>
+
+
+
+    </select>
+
 
 
     <!-- 좋아요 -->
@@ -103,7 +149,7 @@
 
 
     <!-- 댓글, 대댓글 등록, 수정, 삭제 -->
-    <insert id ="boardReplyInsert"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
+    <insert id ="boardReplyInsertByReplyGroup"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
         insert into reply_mst
         values(0, #{boardIndex}, #{userIndex}, #{replyContent}, #{replyGroup}, #{replySequence}, now())
     </insert>

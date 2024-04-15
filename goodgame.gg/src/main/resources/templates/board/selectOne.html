@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoodGame.gg</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/board/selectOne.js"></script>
+<!--    <link rel="stylesheet" href="/static/css/common.css">-->
+<!--    <link rel="stylesheet" href="/static/css/reset.css">-->
+<!--    <link rel="stylesheet" href="/static/css/header.css">-->
+<!--    <link rel="stylesheet" href="/static/css/board/insert.css">-->
+    <link rel="stylesheet" href="/static/css/board/selectOne.css">
+
+</head>
+<body>
+<header>
+    <img src="example.jpg" alt="로고 이미지">
+    <h1>GOODGAME.GG</h1>
+    <p>lol-bti부터 듀오찾기까지 goodgame.gg와 함께해보세요</p>
+</header>
+
+<main>
+    <div class="board-container">
+        <div class="board-header">
+            <h1 class="board-title">게시글 제목</h1>
+            <p class="board-meta">???작성자: 작성자 이름 | 작성일: ??? | 조회수: ?? | 댓글수: ??</p>
+        </div>
+        <div class="board-content">
+            <p>게시글 내용</p>
+        </div>
+
+        <div class="button-container">
+            <p>좋아요 버튼</p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="board-reply">
+            <h2>댓글</h2>
+            <!-- 댓글 목록을 보여주는 부분 -->
+            <div class="reply">
+                <p class="reply-author">${userId}</p>
+                <p class="reply-content">${replyContent}</p>
+                <p class="reply-date">${replyRegDate}</p>
+            </div>
+            <!-- 다른 댓글들도 동일한 방식으로 추가 -->
+        </div>
+    </div>
+</main>
+
+<footer>
+    <!-- 원하는 푸터 내용 추가 -->
+</footer>
+
+<!-- 원하는 JavaScript 파일 링크 추가 -->
+</body>
+</html>

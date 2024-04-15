@@ -1,0 +1,111 @@
+/* Reset CSS */
+html, body, header, main, footer, div, p, h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header, footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.board-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.board-header {
+    margin-bottom: 20px;
+}
+
+.board-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.board-meta {
+    font-size: 14px;
+    color: #777;
+}
+
+.board-content {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.board-reply {
+    margin-top: 20px;
+}
+
+.reply {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.reply-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.reply-date {
+    font-size: 12px;
+    color: #777;
+}
+
+/* 버튼 스타일 */
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #000;
+    background-color: #000;
+    border: 2px solid #000;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+
+/* 버튼 호버 효과 */
+.button:hover {
+    background-color: #666;
+    border-color: #666;
+}
+
+/* 좋아요 버튼 스타일 */
+#like-btn {
+    margin-right: 10px;
+}
+
+/* 싫어요 버튼 스타일 */
+#bad-btn {
+    margin-left: 10px;
+}
+
+/* 이모지 스타일 */
+.emoji {
+    margin-right: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    margin: 0 10px;
+}
