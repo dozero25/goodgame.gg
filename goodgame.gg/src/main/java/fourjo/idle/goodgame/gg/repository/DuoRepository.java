@@ -15,4 +15,6 @@ public interface DuoRepository {
 
 
     public int getDuoTotalCount(DuoSearchDto duoSearchDto);
+
+
 }
