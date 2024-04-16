@@ -4,6 +4,12 @@ body {
   font: 600 16px/18px 'Open Sans', sans-serif;
 }
 
+.logo-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
 *,
 :after,
 :before {
@@ -198,7 +204,7 @@ a {
   align-items: center;
 }
 
-.box{
+.box {
   margin: 0px 10px;
 }
 
@@ -214,24 +220,25 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   cursor: pointer;
   height: 48px;
   width: 150px;
   border: 1px solid #333;
   line-height: 24px;
-  
+
   font-weight: bold;
   font-size: 13px;
 
   border-radius: 25px;
 }
 
-.radio-btn input[type=radio]+label{
+.radio-btn input[type=radio]+label {
   background-color: rgba(255, 255, 255, .2);
   color: #fff;
 }
-.radio-btn input[type=radio]:checked+label{
+
+.radio-btn input[type=radio]:checked+label {
   background-color: #fff;
   color: #333;
 }
