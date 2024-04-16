@@ -169,3 +169,20 @@
     text-align: center;
 }
 
+.reply-blue {
+    font-weight: bold;
+    color: #99ccff;
+}
+
+
+
+.board-thumb {
+    margin-left: auto; /* 오른쪽 여백 설정하여 사진을 행의 오른쪽에 위치 */
+}
+
+.board-info {
+    flex-grow: 1; /* 남은 공간을 행의 다른 요소와 동일한 크기로 설정하여 길이를 조절 */
+    padding-right: 20px; /* 제목과 댓글 수 사이 여백 설정 */
+    width: 40%; /* 제목 열의 너비를 조절합니다. */
+}
+

@@ -8,6 +8,8 @@ window.onload = () => {
 
     ComponentEvent.getInstance().addClickEventDeleteBoardButton();
     ComponentEvent.getInstance().addClickEventUpdateBoardButton();
+    ComponentEvent.getInstance().addClickEventLikeButton();
+    //ComponentEvent.getInstance().addClickEventBadButton();
 
     //ComponentEvent.getInstance().addClickEventReplyRegisterButton();
     //ComponentEvent.getInstance().addClickEventReplyFirButton();
@@ -34,10 +36,10 @@ const boardObj = {
 
 const boardLikeObj = {
     boardLikeId: "",
-    boardIndex: "", //게시물번호
+    boardIndex: "", //게시글번호
     userIndex: "", //유저번호
-    boardLike: "", //좋아요
-    boardBad:"" //싫어요
+    boardLike: "", //좋아요1,0
+    boardBad:"" //싫어요1,0
 }
 
 const replyObj ={
@@ -126,9 +128,93 @@ class BoardSelectOneApi {
     }
 
 
+    likeBoard(){
+        let returnFlag = false;
+        console.log('returnFlag...', returnFlag);   //
+        //const URLSearch = new URLSearchParams(location.search);
+        boardLikeObj.boardLike = 1; // 콘솔 확인용으로 그냥 1 찍어둔것 값넘어가면 DB에서 1로 취급
+//        boardLikeObj.boardIndex = 68;
+//        boardLikeObj.userIndex = 10;
+        console.log('boardLikeObj...', boardLikeObj);   //
+        $.ajax({
+            async: false,
+            type: "post",
+            url: `http://localhost:8000/api/board/like`,
+            contentType:"application/json",
+            data: JSON.stringify(boardLikeObj),
+            dataType:"json",
+            success: response => {
+                returnFlag = true;
+                console.log("=======좋아요 성공======");
+            },
+            error: error => {
+                console.log("=======좋아요 실패======");
+                console.log(error);
+            }
+        });
+        return returnFlag;
+
+    }
+
+
+
+    badBoard(){
+         let returnFlag = false;
+
+        $.ajax({
+            async: false,
+            type: "post",
+            url: `http://localhost:8000/api/board/bad`,
+            contentType:"application/json",
+            data: JSON.stringify(boardLikeObj),
+            dataType:"json",
+            success: response => {
+                returnFlag = true;
+                console.log("=======좋아요 성공======");
+            },
+            error: error => {
+                console.log("=======좋아요 실패======");
+                console.log(error);
+            }
+        });
+        return returnFlag;
+
+    }
+
+
+
+    likeBadCancel(){
+            let returnFlag = false;
+            console.log('boardLikeObj...', boardLikeObj);
+            console.log(boardLikeObj.boardLike);
+            console.log(boardLikeObj.boardIndex);
+            console.log(boardLikeObj.userIndex);
+            $.ajax({
+                async: false,
+                type: "post",
+                url: `http://localhost:8000/api/board/cancel`,
+                dataType:"json",
+                contentType: "application/json",
+                data: boardLikeObj,
+                success: response => {
+                    returnFlag = true;
+                    console.log("=======좋아요 취소 성공======");
+                },
+                error: error => {
+                    console.log("=======좋아요 취소 실패======");
+                    console.log(error);
+                }
+            });
+            return returnFlag;
+    }
+
+
 
 
 }
+
+
+
 
 
 
@@ -144,20 +230,23 @@ class BoardSelectOneService{
     setBoardSelectOneBoardIndex() {
          const URLSearch = new URLSearchParams(location.search);
          boardObj.boardIndex = URLSearch.get("boardIndex");
+         boardLikeObj.boardIndex = URLSearch.get("boardIndex");
+         boardLikeObj.userIndex = URLSearch.get("userIndex");
     }
 
     //selectOneBoard
     selectOneBoard(){
-        boardObj.boardIndex
+        console.log(boardLikeObj);
         const responseData = BoardSelectOneApi.getInstance().selectOneBoard(boardObj);
         const boardTitle = document.querySelector(".board-title");
 
             boardTitle.innerHTML = `
             <div>
-            <label>제목</label>
-                <div>
-                    <input type="text" class="boardSubject" autocomplete="off" value="${responseData.boardSubject}" readonly>
-                </div>
+                <table>
+                    <tr>
+                        <th class="boardSubject" colspan="2">${responseData.boardSubject}</th>
+                    </tr>
+                </table>
             </div>
             `;
 
@@ -176,7 +265,10 @@ class BoardSelectOneService{
                 <td><p>&nbsp;| 댓글수: ${responseData.replyCount}</p></td>
                 <td><p>&nbsp;| 조회수: ${responseData.boardVisit+1}</p></td>
                 <td><p>&nbsp;| 추천수: ${boardLikeObj.boardLike}</p></td>
+                <br>
+
              </tr>
+
             </table>
             `;
 
@@ -214,12 +306,12 @@ class BoardSelectOneService{
 
 
              <!-- 좋아요 버튼 -->
-            <button id="like-btn" class="like-btn" onclick="likeClick()">
+            <button id="like-btn" class="like-btn" value=${boardLikeObj.boardLike}>
                 <span class="emoji">👍</span> Like
             </button>
 
             <!-- 관리자 주요 관리 -->
-            <button id="bad-btn" class="bad-btn" onclick="badClick()">
+            <button id="bad-btn" class="bad-btn" >
                 <span class="emoji">👎</span> Bad
             </button>
 
@@ -287,25 +379,107 @@ class ComponentEvent{
 
 
     addClickEventLikeButton(){
-            const likeBtn = document.querySelector(".like-btn");
+            const likeBtn = document.getElementById('like-btn');
+            const badBtn = document.getElementById('bad-btn');
+
+
             console.log(likeBtn.value);
+            console.log(badBtn.value);
+
+            likeBtn.style.backgroundColor = '#000'; // 검정색
+            likeBtn.style.borderColor = '#000'; // 검정색
+            likeBtn.style.color = '#000'; // 검정색 텍스트
+
+            badBtn.style.backgroundColor = '#000'; // 검정색
+            badBtn.style.borderColor = '#000'; // 검정색
+            badBtn.style.color = '#000'; // 검정색 텍스트
+
 
             likeBtn.addEventListener("click", function() {
-            })
+                 console.log("addEventListener...");
+                //BoardSelectOneApi.getInstance().likeBoard();
 
+
+                if(boardLikeObj.boardLike == 1){ // 이미 boardLike=1일때
+                    console.log("★"+boardLikeObj.userIndex.value);
+                    console.log("★"+boardLikeObj.boardLike.value);
+                    console.log("★"+boardLikeObj.boardIndex.value);
+                    console.log(boardLikeObj.boardLike); //1
+                    BoardSelectOneApi.getInstance().likeBadCancel();
+                    console.log(" boardLike = 1 >> ${boardLikeObj.boardLike} : " + `${boardLikeObj.boardLike}`);
+                    console.log(boardLikeObj);
+
+                    likeBtn.style.backgroundColor = '#000'; // 검정색
+                    likeBtn.style.borderColor = '#000'; // 검정색
+                    likeBtn.style.color = '#000'; // 검정색 텍스트
+
+                    boardLikeObj.boardLike = 0;
+
+
+                }else{ // boardLike != 1일때
+                    BoardSelectOneApi.getInstance().likeBoard();
+                    console.log(" boardLike = 0 >> ${boardLikeObj.boardLike} : " + `${boardLikeObj.boardLike}`);
+                    console.log(boardLikeObj);
+
+                    likeBtn.style.backgroundColor = '#e74c3c'; // 빨간색
+                    likeBtn.style.borderColor = '#e74c3c'; // 빨간색
+                    likeBtn.style.color = '#fff'; // 흰색 텍스트
+
+                    boardLikeObj.boardLike = 1;
+
+                }
+
+
+            })
     //클릭하면 색변경 >> 색깔 지정? 여기서?
     //like api
-    //like bad cancle api
+    //like bad cancel api
 
 
-    }
+    }//end likebutton
 
-    addClickEventBadButton(){
+
+
+   /* addClickEventBadButton(){
+            const likeBtn = document.getElementById('like-btn');
+            const badBtn = document.getElementById('bad-btn');
+
+             console.log(likeBtn.value);
+             console.log(badBtn.value);
+
+             likeBtn.style.backgroundColor = '#000'; // 검정색
+             likeBtn.style.borderColor = '#000'; // 검정색
+             likeBtn.style.color = '#000'; // 검정색 텍스트
+
+             badBtn.style.backgroundColor = '#000'; // 검정색
+             badBtn.style.borderColor = '#000'; // 검정색
+             badBtn.style.color = '#000'; // 검정색 텍스트
     //bad api
-    //like bad cancle api
+    //like bad cancel api
+             likeBtn.addEventListener("click", function() {
+                 BoardSelectOneApi.getInstance().likeBoard();
 
-    }
+                 if(boardLikeObj.boardBad == 1){
+                     BoardSelectOneApi.getInstance().likeBadCancel();
+                     console.log("${boardLikeObj.boardBad} : " + `${boardLikeObj.boardBad}`);
+                     console.log(boardLikeObj);
 
+
+                 }else{
+                     BoardSelectOneApi.getInstance().badBoard();
+                     console.log("${boardLikeObj.boardBad} : " + `${boardLikeObj.boardBad}`);
+                     console.log(boardLikeObj);
+
+                     badBtn.style.backgroundColor = '#3498db'; // 파란색
+                     badBtn.style.borderColor = '#3498db'; // 파란색
+                     badBtn.style.color = '#fff'; // 흰색 텍스트
+                 }
+
+
+             })
+
+    }//end badbutton
+*/
 
 
 

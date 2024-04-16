@@ -124,29 +124,37 @@ class BoardMainService {
         console.log(searchObj);
         const responseData = BoardMainApi.getInstance().searchBoard(searchObj);
         const boardTable = document.querySelector(".board-table tbody");
+        //작성일 계산
+
         console.log(searchObj);
+
 
         boardTable.innerHTML = "";
 
         responseData.forEach((data,index)=> {
             boardTable.innerHTML += `
-            <tr>
+            <tr class="board-row">
                 <td>${data.boardIndex}</td>
-                <td>
-                <a href="/board/selectOne?boardIndex=${data.boardIndex}" value=${data.boardIndex}>${data.boardSubject}</a>
-                </td>
-                <td>${data.userNick}</td>
 
+                <td class="board-info">
+                    <a href="/board/selectOne?boardIndex=${data.boardIndex}&userIndex=10" value=${data.boardIndex}>${data.boardSubject}</a>
+                    <span class = "reply-blue">[${data.replyCount}]</span>
+                    <td class = "board-thumb"><img src="uploadimg/thumb_${data.boardUploadName}" width="50"></td
+
+                </td>
+
+                <td>${data.userNick}</td>
                 <td>${data.boardRegDate}</td>
                 <td>${data.boardVisit}</td>
-                <td>${data.replyCount}</td>
                 <td>${data.boardLike}</td>
-                <td><img src="uploadimg/thumb_${data.boardUploadName}" width="50"></td>
+
 
             </tr>
             `;
         });
         this.loadPageController();
+
+
     }
 
     loadPageController() {
@@ -210,6 +218,42 @@ class BoardMainService {
             }
         });
     }
+
+
+    /*loadBoardRegDate(){
+
+        // 작성일을 계산하여 표시하는 함수
+        function formatTimestamp(timestamp) {
+            const now = new Date(); // 현재 시간
+            const postDate = new Date(timestamp);
+            const timeDiff = now - postDate;
+
+            // 1일 전까지는 날짜를, 그 이후에는 몇 시간 전으로 표시
+            if (timeDiff < 24 * 60 * 60 * 1000) { // 1일 = 24시간 * 60분 * 60초 * 1000밀리초
+                const hoursDiff = Math.floor(timeDiff / (60 * 60 * 1000)); // 시간으로 변환
+                return hoursDiff + "시간 전";
+            } else {
+                // 날짜를 특정 포맷으로 변환하여 반환 (예: 2024-04-13)
+                const year = postDate.getFullYear();
+                const month = String(postDate.getMonth() + 1).padStart(2, '0');
+                const day = String(postDate.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+        }
+
+        // 작성일을 가져와서 포맷팅하여 출력하는 함수
+        function displayFormattedDate(boardRegDate) {
+            const formattedDate = formatTimestamp(boardRegDate);
+            // 작성일을 특정 HTML 요소에 표시
+            const boardRegDateElements = document.querySelectorAll(".board-reg-date");
+            boardRegDateElements.forEach(element => {
+                element.textContent = formattedDate;
+            });
+        }
+
+        // 작성일을 표시
+        displayFormattedDate(data.boardRegDate);
+    }*/
 
 
 
