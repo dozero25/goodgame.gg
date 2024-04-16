@@ -142,8 +142,10 @@ public class BoardApi {
 
     @PostMapping("/like")
     //@Operation(summary = "게시글 좋아요", description = "게시글 좋아요를 완료합니다.")
-    public ResponseEntity<CMRespDto<?>> likeAdd (BoardLikeDTO dto){
+    public ResponseEntity<CMRespDto<?>> likeAdd (@RequestBody BoardLikeDTO dto){
+        log.info("{}",dto);
         boardService.likeAdd(dto);
+
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
@@ -152,7 +154,7 @@ public class BoardApi {
 
     @PostMapping("/bad")
     //@Operation(summary = "게시글 싫어요", description = "게시글 싫어요를 완료합니다.")
-    public ResponseEntity<CMRespDto<?>> badAdd (BoardLikeDTO dto){
+    public ResponseEntity<CMRespDto<?>> badAdd (@RequestBody BoardLikeDTO dto){
         boardService.badAdd(dto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
@@ -161,10 +163,15 @@ public class BoardApi {
     @PostMapping("/cancel")
     //@Operation(summary = "게시글 좋아요 또는 싫어요 취소 ", description = "게시글 좋아요 또는 싫어요 선택을 취소합니다.")
     public ResponseEntity<CMRespDto<?>> likeBadCancel (BoardLikeDTO dto){
+
         boardService.likeBadCancel(dto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
+
+
+
+
 
 
     @GetMapping("/visit")
