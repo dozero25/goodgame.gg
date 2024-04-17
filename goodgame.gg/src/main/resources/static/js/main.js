@@ -1,4 +1,5 @@
 window.onload = () => {
+    HeaderService.getInstance().loadHeader();
     ComponentEvent.getInstance().addClickSearchButton();
 }
 
@@ -70,7 +71,6 @@ class ComponentEvent {
             } else {
                 searchInput.focus();
             }
-            
         }
 
         searchInput.onkeyup = () => {
