@@ -1,5 +1,6 @@
 window.onload = () => {
-    RecordShowInfoService.getInstance().summonerShowInfo();
+    HeaderService.getInstance().loadHeader();
+    // RecordShowInfoService.getInstance().summonerShowInfo();
 }
 
 let gameNameAndTagLine = "";
