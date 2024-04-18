@@ -23,6 +23,9 @@ public class BoardDTO {
     private int replyCount; // 댓글수
     private String userNick; //유저
 
+    private int boardLikeCount;// 좋아요 카운트
+
+
 
 
 }

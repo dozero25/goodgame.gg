@@ -13,6 +13,7 @@ public interface BoardRepository {
 
     public int boardInsert(BoardDTO dto);
     public int boardUpdateByBoardIndex(BoardDTO dto);
+    public BoardDTO updateBoardByBoardIndex(int boardIndex);
     public int boardDeleteByBoardIndex(int boardIndex);
     public BoardDTO boardSelectOneByBoardIndex(int boardIndex);
 
@@ -23,9 +24,13 @@ public interface BoardRepository {
 
 
     /*  public boolean isLiked(BoardLikeDTO dto); // 특정 유저가 좋아요 했는지 안했는지?*/
-    public void likeAdd(BoardLikeDTO dto);
-    public void badAdd(BoardLikeDTO dto);
-    public void likeBadCancel(BoardLikeDTO dto);
+    public int searchLikeOrBadByBoardIndexAndUserIndex(int boardIndex, int userIndex);
+
+    public int searchLikeCountByBoardIndex(int boardIndex);
+    public void likeAdd(int boardIndex, int userIndex);
+    public void likeUpdate(int boardIndex);
+    public void badAdd(int boardIndex, int userIndex);
+    public void likeBadCancel(int boardIndex, int userIndex);
 
     public int boardViewCount(BoardDTO dto);
 
@@ -42,4 +47,7 @@ public interface BoardRepository {
     public int boardReplySequenceCount(int boardIndex);
 
     public void boardReplyInsertByReplyGroup(BoardReplyDTO dto);
+
+
+
 }

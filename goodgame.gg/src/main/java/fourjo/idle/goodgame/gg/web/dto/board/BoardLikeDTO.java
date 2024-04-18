@@ -14,4 +14,11 @@ public class BoardLikeDTO {
     private int userIndex;
     private int boardLike;
     private int boardBad;
+
+//    private void likeCount{
+//
+//        count(boardLikeId);
+//    }
+
+
 }

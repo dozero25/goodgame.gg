@@ -5,12 +5,14 @@ import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
 import fourjo.idle.goodgame.gg.web.dto.board.BoardLikeDTO;
 import fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO;
 import fourjo.idle.goodgame.gg.web.dto.board.BoardSearchDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 
 @Service
+@Slf4j
 public class BoardService {
 
 
@@ -24,6 +26,10 @@ public class BoardService {
 
     public int boardUpdateByBoardIndex(BoardDTO dto) {
         return boardRepository.boardUpdateByBoardIndex(dto);
+    }
+
+    public BoardDTO updateBoardByBoardIndex(int boardIndex) {
+        return boardRepository.updateBoardByBoardIndex(boardIndex);
     }
 
     public int boardDeleteByBoardIndex(int boardIndex) {
@@ -50,17 +56,31 @@ public class BoardService {
 
 
 
-    public void likeAdd(BoardLikeDTO dto) {
-        boardRepository.likeAdd(dto);
+    public int searchLikeOrBadByBoardIndexAndUserIndex(int boardIndex, int userIndex){
+        return boardRepository.searchLikeOrBadByBoardIndexAndUserIndex(boardIndex, userIndex);
+    }
+
+    public int searchLikeCountByBoardIndex(int boardIndex) {
+        return boardRepository.searchLikeCountByBoardIndex(boardIndex);
+    }
+
+
+    public void likeAdd(int boardIndex, int userIndex) {
+        log.info("likeAdd..."+boardIndex);
+        boardRepository.likeAdd(boardIndex, userIndex);
+        boardRepository.likeUpdate(boardIndex);
     };
 
-    public void badAdd(BoardLikeDTO dto) {
-        boardRepository.badAdd(dto);
+    public void badAdd(int boardIndex, int userIndex) {
+        boardRepository.badAdd(boardIndex,userIndex);
+
     };
 
-    public void likeBadCancel(BoardLikeDTO dto) {
-        boardRepository.likeBadCancel(dto);
+    public void likeBadCancel(int boardIndex, int userIndex) {
+        boardRepository.likeBadCancel(boardIndex,userIndex);
+        boardRepository.likeUpdate(boardIndex);
     };
+
 
 
     public int boardViewCount(BoardDTO dto) {
@@ -107,6 +127,7 @@ public class BoardService {
     public List<BoardReplyDTO> boardReplySelectAll(int boardIndex) {
         return boardRepository.boardReplySelectAll(boardIndex);
     }
+
 
 
 }

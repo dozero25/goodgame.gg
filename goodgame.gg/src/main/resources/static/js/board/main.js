@@ -6,6 +6,8 @@ window.onload = () => {
 
     ComponentEvent.getInstance().addClickEventInsertButton();
     ComponentEvent.getInstance().addClickEventsearchButton();
+    ComponentEvent.getInstance().loadViewCountHotButton();
+    ComponentEvent.getInstance().loadlikeCountHotButton();
     //ComponentEvent.getInstance().addClickEventBoardListByBoardGrp();
 }
 
@@ -18,6 +20,8 @@ let searchObj = {
 
 }
 
+
+
 const boardObj = {
     boardIndex: "", // 게시글 번호
     boardSubject: "", // 게시글 제목
@@ -25,13 +29,23 @@ const boardObj = {
     userNick: "", // 작성자 Nick
     replyCount: "", // 댓글 수
     boardContent: "", // 게시글 내용 (필요시)
-    boardVisit: "", // 조회수
+    boardVisit: 0, // 조회수
     boardRegDate: "", // 작성일
+    boardLikeCount:0,
    /* 파일 업로드: "",*/
     boardUploadName: "",
     boardUploadSize: "",
     boardUploadLocation:""
 
+
+}
+
+const boardLikeObj = {
+    boardLikeId: 0,
+    boardIndex: 0,
+    userIndex: 0,
+    boardLike: 0,
+    boardBad: 0
 
 
 }
@@ -99,6 +113,29 @@ class BoardMainApi {
        }
 
 
+       //조회수카운트
+       likeCountBoard(boardLikeObj){
+        let responseData = null;
+
+        $.ajax({
+            async: false,
+            type: "get",
+            url: `http://localhost:8000/api/board/like/count`,
+            data: boardLikeObj,
+            dataType: "json",
+            success: response => {
+                responseData = response.data;
+                console.log("likeCountBoard : "+response.data);
+
+            },
+            error: error => {
+                console.log(error);
+            }
+        });
+        return responseData;
+        }
+
+
 
 
 
@@ -124,20 +161,25 @@ class BoardMainService {
         console.log(searchObj);
         const responseData = BoardMainApi.getInstance().searchBoard(searchObj);
         const boardTable = document.querySelector(".board-table tbody");
-        //작성일 계산
+       
 
-        console.log(searchObj);
+        // //ajax를 못타는듯
+        // const likeData = BoardMainApi.getInstance().likeCountBoard(boardLikeObj);
+        // console.log("LikeData: "+likeData);
 
-
-        boardTable.innerHTML = "";
-
+        boardTable.innerHTML = ''; // 초기화 필수
         responseData.forEach((data,index)=> {
+            
+
+        
+
+
             boardTable.innerHTML += `
             <tr class="board-row">
                 <td>${data.boardIndex}</td>
 
                 <td class="board-info">
-                    <a href="/board/selectOne?boardIndex=${data.boardIndex}&userIndex=10" value=${data.boardIndex}>${data.boardSubject}</a>
+                    <a href="/board/selectOne?boardIndex=${data.boardIndex}" value=${data.boardIndex}>${data.boardSubject}</a>
                     <span class = "reply-blue">[${data.replyCount}]</span>
                     <td class = "board-thumb"><img src="uploadimg/thumb_${data.boardUploadName}" width="50"></td
 
@@ -146,7 +188,7 @@ class BoardMainService {
                 <td>${data.userNick}</td>
                 <td>${data.boardRegDate}</td>
                 <td>${data.boardVisit}</td>
-                <td>${data.boardLike}</td>
+                <td>${data.boardLikeCount}</td>
 
 
             </tr>
@@ -219,7 +261,7 @@ class BoardMainService {
         });
     }
 
-
+     //작성일 계산
     /*loadBoardRegDate(){
 
         // 작성일을 계산하여 표시하는 함수
@@ -257,6 +299,32 @@ class BoardMainService {
 
 
 
+  // javascript 를 이용해서 몇일전, 분, 시간, 일, 년 까지 구하는 함수
+//     function timeForToday(value) {
+//         const today = new Date();
+//         const timeValue = new Date(value);
+
+//         const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+//         if (betweenTime < 1) return '방금전';
+//         if (betweenTime < 60) {
+//             return `${betweenTime}분전`;
+//         }
+
+//         const betweenTimeHour = Math.floor(betweenTime / 60);
+//         if (betweenTimeHour < 24) {
+//             return `${betweenTimeHour}시간전`;
+//         }
+
+//         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+//         if (betweenTimeDay < 365) {
+//             return `${betweenTimeDay}일전`;
+//         }
+
+//         return `${Math.floor(betweenTimeDay / 365)}년전`;
+//  }
+
+
+
 
 
 
@@ -285,6 +353,17 @@ class ComponentEvent{
             const insertButton = document.querySelector(".insert-button");
 
             insertButton.addEventListener("click", function() {
+                
+                //login권한이 없으면 게시글 작성 불가해서 오류가 나버림 아래처럼 안될듯?
+                // if(role.getAuthority() == null){
+                //    window.location.href = "http://localhost:8000/login" ;
+                // }else{
+                //    window.location.href = "http://localhost:8000/board/insert" ;
+                //    console.log('버튼이 클릭되었습니다.');
+                // } 
+               
+               
+               
                 window.location.href = "http://localhost:8000/board/insert" ;
                 console.log('버튼이 클릭되었습니다.');
 
@@ -314,6 +393,57 @@ class ComponentEvent{
 
             console.log('버튼이 클릭되었습니다.');
 
+        });
+
+    }
+
+
+
+
+    loadViewCountHotButton(){
+
+        const likeBtn = document.getElementById("view-btn");
+        likeBtn.addEventListener("click", function(){
+
+            //BoardMainApi.getInstance().searchBoard();
+            
+            //boardObj.boardLikeCount = 50;
+
+            const searchKey = $("#view-btn").val();
+            const searchValue = 50;
+            searchObj.searchKey = searchKey;
+            searchObj.searchValue = searchValue;
+
+            //console.log(boardObj.boardLikeCount);
+            
+            //searchObj.searchKey = boardObj.boardLikeCount;
+            //searchObj.searchValue = 50;
+            
+            //if(boardObj.boardLikeCount >= 50){
+                
+            BoardMainService.getInstance().getLoadAllBoardList();
+            //}
+            
+
+        });
+            
+    }
+
+    loadlikeCountHotButton(){
+
+  
+        const viewBtn = document.getElementById("like-btn");
+        viewBtn.addEventListener("click", function(){
+            
+
+            const searchKey = $("#like-btn").val();
+            const searchValue = 3;
+            searchObj.searchKey = searchKey;
+            searchObj.searchValue = searchValue;
+  
+            BoardMainService.getInstance().getLoadAllBoardList();
+            //}
+            
         });
 
     }

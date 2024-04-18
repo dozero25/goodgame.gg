@@ -34,21 +34,9 @@
                     <input type="text" id= "subject" name="boardSubject" class="boardSubject" placeholder="제목을 입력하세요" autocomplete="off" required>
                 </div>
 
-                <label for="userIndex">유저 인덱스 나중에 지울 것</label>
-                <div>
-                    <input type="number" id="userIndex" name="userIndex" class = "userIndex"  autocomplete="off" required>
-                </div>
 
                 <label>추가기능 추가  ■ strong, italic, underline 117p</label>
-                <!-- <span>
-                    <input type="checkbox"  class="insert-input option" autocomplete="off">
-                </span> -->
-
-
-                <!--  <label>작성일</label>
-                  <span>
-                      <input type="datetime" name="regdate" class="regdate" autocomplete="off">
-                  </span>-->
+                
                 <br>
 
                 <label>내용</label>
@@ -57,7 +45,7 @@
                 </div>
 
 
-                <!-- <input type="file" id="uploadFile"  multiple="multiple"/> -->
+
 
                 <form action="/fileInsert" method="post" enctype="multipart/form-data">
                     <input type="file" id="uploadFile" name="file">
@@ -68,8 +56,8 @@
                 <input type="hidden" class="boardUploadName">
                 <input type="hidden" class="boardUploadName">
 
-                <div class = "insert-btn">
-                    <button type="submit" class="insert-complete">작성완료</button>
+                <div class = "update-btn">
+                    <button type="submit" id = "update-complete" class="update-complete">수정완료</button>
                 </div>
                 <!-- <input type="hidden">
              </div>
@@ -94,7 +82,7 @@
 </main>
 <!-- <script src="/static/js/header.js"></script> -->
 <script src="/static/js/board/update.js"></script>
-<!--<script src="/static/js/account/principal.js"></script> -->
+<script src="/static/js/pricipal.js"></script>
 
 
 </body>
