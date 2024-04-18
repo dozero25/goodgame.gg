@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,8 +33,20 @@ public class BoardController {
    /* @GetMapping("/fileInsert")
     public String fileInsert(){return "board/insert";}*/
 
-    @GetMapping("/update")
-    public String boardUpdate(){return "board/update";}
+    /*@GetMapping({"/update", "/update/{boardIndex}"})
+    public String boardUpdate(@PathVariable(required = false) Integer boardIndex) {
+        // boardIndex가 null이면 "/update"로 요청된 경우이며,
+        // boardIndex가 값이 있는 경우 "/update/{boardIndex}"로 요청된 경우입니다.
+        return "board/update";
+    }*/
+
+   @GetMapping("/update")
+    public String boardUpdate(){return "board/update";} //controller를 수정해야하는지, 아님 selectOne 링크를 수정해야하는지
+   
+//    @GetMapping("/update/{boardIndex}")
+//    public String boardUpdate(){return "board/update";}
+
+
 
 
 

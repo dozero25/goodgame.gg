@@ -6,32 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoodGame.gg</title>
 
-    <!-- jQuery CDN을 이용하여 jQuery를 불러옵니다 -->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <!-- board.js 파일을 불러옵니다 -->
-    <!--  <script src="board/selectOne.js"></script>-->
-<!--
-    <link rel="stylesheet" type="text/css" href="style.css">&lt;!&ndash; 나중에 css파일 연결&ndash;&gt;
--->
-    <link rel="stylesheet" href="/static/css/common.css">
-    <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/board/main.css">
 </head>
-<body>
-   <!-- <header class="header-container">
 
-    </header>-->
+<body>
 
     <main class="container">
+
         <div class="board-container">
             <div class="board-list">
 
             </div>
-            <div class="write-box">
-                <div class="left-items">
+
+                <div class="write-box">
+                    <div class="left-items">
                     <!-- 글 등록 버튼 -->
-                    <button class="insert-button" type = "button">글 등록</button>
+                    <aside class = "quickMenu"> 
+                        <button class="insert-button" type = "button">게시글 작성(로그인이 필요한 작업입니다.)</button>
+                        <button class="view-btn" id="view-btn" type = "button" value = "view">인기글(조회수 >= 50)</button>
+                        <button class="like-btn" id="like-btn" type = "button" value = "like">추천글(추천수 >= 3)</button>
+                    </aside>
                 </div>
+
+
                 <div class="right-items">
                     <select id = "searchKey" name = "searchKey">
                         <option value = "0">전체</option>
@@ -43,7 +40,10 @@
                     <input  type="search" id="searchValue" class="search-input">
                     <button type="button" id = "searchBtn" class="search-button">검색</button>
                 </div>
+
             </div>
+
+
 
             <table class="board-table">
                 <thead>
@@ -54,39 +54,32 @@
                     <th>작성일</th>
                     <th>조회</th>
                     <th>추천</th>
-
                 </tr>
                 </thead>
-                <tbody>
+
+
+                 <tbody>
 
                 </tbody>
             </table>
 
             <div class="page-controller">
 
-            </div>
-            <div class="page-controller1">
 
             </div>
         </div>
+        
     </main>
 
-
-
-
-
-
-<!-- jQuery CDN을 이용하여 jQuery를 불러옵니다
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-
-
+</body>
 
 <!--<input type="button" name="boardList" placeholder="글목록">-->
-<!--<script src="/static/js/account/principal.js"></script>
+<!-- <script src="/static/js/account/principal.js"></script>
 <script src="/static/js/header.js"></script>-->
-
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/static/js/board/main.js"></script>
-</body>
+
+
 </html>
 
 

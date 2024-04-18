@@ -73,10 +73,21 @@ public class BoardApi {
 
     @PostMapping("/update")
     //@Operation(summary = "게시글 수정", description = "조건에 맞으면 게시글 수정됩니다.")
-    public ResponseEntity<CMRespDto<?>> updateBoard (BoardDTO dto){
+    public ResponseEntity<CMRespDto<?>> boardUpdateByBoardIndex (@RequestBody BoardDTO dto){
+        log.info("수정 {}",dto);
+
         boardService.boardUpdateByBoardIndex(dto);
         return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true ));
+    }
+
+    @GetMapping("/update/{boardIndex}")
+    //@Operation(summary = "게시글 수정용 ", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
+    public ResponseEntity<CMRespDto<?>> updateBoardByBoardIndex (@PathVariable("boardIndex") int boardIndex){
+        System.out.println(boardIndex);
+        log.info("업데이트용 "+ boardService.updateBoardByBoardIndex(boardIndex));
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.updateBoardByBoardIndex(boardIndex)));
     }
 
     @PostMapping("/delete")
@@ -86,9 +97,9 @@ public class BoardApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
-    @GetMapping("/selectOne")
+    @GetMapping("/selectOne/{boardIndex}")
     //@Operation(summary = "게시글 상세보기", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
-    public ResponseEntity<CMRespDto<?>> selectOneBoard (int boardIndex){
+    public ResponseEntity<CMRespDto<?>> selectOneBoard (@PathVariable("boardIndex") int boardIndex){
         log.info("selectOne...{}", boardIndex);
         BoardDTO dto2 = boardService.boardSelectOneByBoardIndex(boardIndex);
         log.info(dto2.toString());
@@ -101,7 +112,7 @@ public class BoardApi {
     //@Operation(summary = "게시글 검색", description = "게시글 전체목록, 제목, 닉네임, 내용, 제목+내용에 해당하는 검색목록을 출력합니다.")
     public ResponseEntity<CMRespDto<?>> searchBoard (BoardSearchDTO dto){
         //리스트 빈거
-
+        log.info("search...{}", dto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.boardSearchAllBySubjectAndUserIndexAndContent(dto))); //true면 출력이 안됨
     }
@@ -137,34 +148,54 @@ public class BoardApi {
     }
 
 
+    @GetMapping("/like/count")
+    //@Operation(summary = "게시글 추천수 count", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
+    public ResponseEntity<CMRespDto<?>> searchLikeCountByBoardIndex (int boardIndex){
+        boardIndex = 10;
+        System.out.println(boardService.searchLikeCountByBoardIndex(boardIndex));
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.searchLikeCountByBoardIndex(boardIndex)));
+
+    }
+
+
+
+    @GetMapping("/find/like")
+    //@Operation(summary = " 해당 게시글 및 유저 추천수", description = "해당 boardIndex 조건에 맞는 게시글 추천수 count.")
+    public ResponseEntity<CMRespDto<?>> searchLikeOrBadByBoardIndexAndUserIndex (int boardIndex, int userIndex ){
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.searchLikeOrBadByBoardIndexAndUserIndex(boardIndex, userIndex)));
+
+    }
 
 
 
     @PostMapping("/like")
     //@Operation(summary = "게시글 좋아요", description = "게시글 좋아요를 완료합니다.")
-    public ResponseEntity<CMRespDto<?>> likeAdd (@RequestBody BoardLikeDTO dto){
-        log.info("{}",dto);
-        boardService.likeAdd(dto);
+    public ResponseEntity<CMRespDto<?>> likeAdd (int boardIndex, int userIndex){
+        log.info(""+boardIndex);
 
+        boardService.likeAdd(boardIndex, userIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
+
     //에러페이지 null이 아니면 오류 페이지를 출력한다.
 
 
     @PostMapping("/bad")
     //@Operation(summary = "게시글 싫어요", description = "게시글 싫어요를 완료합니다.")
-    public ResponseEntity<CMRespDto<?>> badAdd (@RequestBody BoardLikeDTO dto){
-        boardService.badAdd(dto);
+    public ResponseEntity<CMRespDto<?>> badAdd (int boardIndex, int userIndex){
+        boardService.badAdd(boardIndex, userIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
     @PostMapping("/cancel")
     //@Operation(summary = "게시글 좋아요 또는 싫어요 취소 ", description = "게시글 좋아요 또는 싫어요 선택을 취소합니다.")
-    public ResponseEntity<CMRespDto<?>> likeBadCancel (BoardLikeDTO dto){
-
-        boardService.likeBadCancel(dto);
+    public ResponseEntity<CMRespDto<?>> likeBadCancel (int boardIndex, int userIndex) {
+        boardService.likeBadCancel(boardIndex,userIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }

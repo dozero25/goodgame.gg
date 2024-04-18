@@ -186,3 +186,15 @@
     width: 40%; /* 제목 열의 너비를 조절합니다. */
 }
 
+
+.search {
+    width: 800px;
+    height: 25px;
+}
+
+.search-button {
+    padding: 25px;
+}
+
+
+

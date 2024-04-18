@@ -8,11 +8,29 @@
     <insert id ="boardInsert"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         insert into board_mst
         values(0, #{boardSubject}, #{userIndex}, #{boardContent}, now(), #{boardVisit},
-       #{boardUploadName},#{boardUploadSize},#{boardUploadLocation});
+       #{boardUploadName},#{boardUploadSize},#{boardUploadLocation}, #{boardLikeCount});
     </insert>
-    <update id ="boardUpdateByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+    <update id ="boardUpdateByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO" >
         update board_mst set boardSubject = #{boardSubject}, boardContent =  #{boardContent} where boardIndex = #{boardIndex};
     </update>
+
+    <select id = "updateBoardByBoardIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        SELECT
+        b.boardIndex, b.boardSubject, u.userNick, u.userId, u.userIndex, b.boardContent, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
+        COUNT(r.replyIndex) AS replyCount , b.boardLikeCount
+
+        FROM
+        board_mst b
+
+        JOIN user_mst u ON b.userIndex = u.userIndex
+
+        LEFT JOIN reply_mst r ON b.boardIndex = r.boardIndex
+
+        where  b.boardIndex = #{boardIndex}
+    </select>
+
+
+
     <delete id ="boardDeleteByBoardIndex" parameterType="integer">
         delete from board_mst where  boardIndex = #{boardIndex}
     </delete>
@@ -22,7 +40,7 @@
     <select id ="boardSelectOneByBoardIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         SELECT
         b.boardIndex, b.boardSubject, u.userNick, u.userId, u.userIndex, b.boardContent, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
-        COUNT(r.replyIndex) AS replyCount
+        COUNT(r.replyIndex) AS replyCount , b.boardLikeCount
 
         FROM
         board_mst b
@@ -53,7 +71,7 @@
         <!-- 댓글수 count하는 DTO따로 만들어야하는지? - swagger에 이 컬럼으로 출력이 안됨/ 아님 boardDto 컬럼 추가?,/// 조회수 count하는 DTO따로 만들어야하는지  -->
         SELECT
         b.boardIndex, b.boardSubject, u.userIndex, u.userId, u.userNick, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
-        COUNT(r.replyIndex) AS replyCount
+        COUNT(r.replyIndex) AS replyCount,b.boardLikeCount
 
         FROM
         board_mst b
@@ -70,6 +88,8 @@
             <when test='searchKey=="3"'> where boardContent like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="4"'> where( boardSubject like CONCAT('%', #{searchValue}, '%')  or
                 boardContent like CONCAT('%', #{searchValue}, '%'))  </when>
+            <when test='searchKey=="view"'> where boardVisit  >= #{searchValue}  </when>
+            <when test='searchKey=="like"'> where boardLikeCount  >= #{searchValue}  </when>
         </choose>
         GROUP BY b.boardIndex, b.boardSubject, u.userId, b.boardRegDate,b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation
             order by boardIndex desc
@@ -105,16 +125,32 @@
             <when test='searchKey=="3"'> where boardContent like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="4"'> where( boardSubject like CONCAT('%', #{searchValue}, '%')  or
                 boardContent like CONCAT('%', #{searchValue}, '%'))  </when>
+            <when test='searchKey=="view"'> where boardVisit  >= #{searchValue}  </when>
+            <when test='searchKey=="like"'> where boardLikeCount  >= #{searchValue}  </when>
+
         </choose>
+    </select>
 
 
+    <select id = "searchLikeOrBadByBoardIndexAndUserIndex" parameterType="integer" resultType="integer">
+        select count(userIndex) from board_like_mst
+        where boardIndex = #{boardIndex} and userIndex = #{userIndex};
+    </select>
 
+    <select id = "searchLikeCountByBoardIndex" parameterType="integer" resultType="integer">
+        select count(boardIndex) from board_like_mst
+        where boardIndex = #{boardIndex};
     </select>
 
 
 
+    <update id ="likeUpdate" parameterType="integer">
+        update board_mst set boardLikeCount = (select count(boardIndex) from lol.board_like_mst
+        where boardIndex = #{boardIndex}) where boardIndex = #{boardIndex}
+    </update>
+
     <!-- 좋아요 -->
-    <insert id ="likeAdd" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardLikeDTO">
+    <insert id ="likeAdd" parameterType="integer">
        insert into board_like_mst (boardLikeId, boardIndex, userIndex, boardLike, boardBad)
         select 0,  #{boardIndex}, #{userIndex}, 1, 0
         from dual
@@ -125,7 +161,7 @@
 
 
     <!-- 싫어요 -->
-    <insert id ="badAdd" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardLikeDTO">
+    <insert id ="badAdd" parameterType="integer">
         insert into board_like_mst (boardLikeId, boardIndex, userIndex, boardLike, boardBad)
         select 0,  #{boardIndex}, #{userIndex}, 0, 1
         from dual
@@ -135,7 +171,7 @@
     </insert>
 
     <!-- 좋아요 또는 싫어요 취소 -->
-    <delete id ="likeBadCancel" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardLikeDTO">
+    <delete id ="likeBadCancel" parameterType="integer">
         delete from board_like_mst where userIndex = #{userIndex} and boardIndex = #{boardIndex}
     </delete>
 
