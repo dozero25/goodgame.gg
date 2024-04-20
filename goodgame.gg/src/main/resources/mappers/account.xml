@@ -56,6 +56,12 @@
         from user_mst where userId = #{userId}
     </select>
 
+    <select id="findNickNameByNickNameForError" parameterType="string" resultType="string">
+        select
+        userNick
+        from user_mst where userNick = #{userNick}
+    </select>
+
     <select id="findEmpByEmpIdForError" parameterType="string" resultType="string">
         select
         empId
