@@ -12,9 +12,6 @@ public class DuoController {
     public String duoMain(){
 
         return "duo/main";}
-    @GetMapping("/insert")
-    public String duoInsert(){
 
-        return "duo/insert";}
 
 }
