@@ -26,6 +26,7 @@ public class DuoApi {
 
 
     @PostMapping("/insert")
+    //    @Operation(summary="듀오 입력",description="듀오 입력에 필요한 데이터를 입력받아 insert합니다")
     public ResponseEntity<CMRespDto<?>> duoInsert(DuoDto duoDto) {
 
 
@@ -35,6 +36,7 @@ public class DuoApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
     @GetMapping("/search")
+    //    @Operation(summary="듀오 찾기",description="게임타입,티어,포지션으로 듀오 리스트를 검색 가능합니다")
     public ResponseEntity<CMRespDto<?>> duoSearchByQueAndTierAndPosition(DuoSearchDto duoSearchDto) {
 
 
@@ -43,6 +45,7 @@ public class DuoApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", duoService.duoSearchByQueAndTierAndPosition(duoSearchDto)));
     }
     @GetMapping("/totalCount")
+    //    @Operation(summary="모든 페이지 수 가져오기",description="페이징에 필요한 전체 페이지 수를 가져옵니다")
     public ResponseEntity<CMRespDto<?>> getDuoTotalCount(DuoSearchDto duoSearchDto) {
 
 
@@ -50,5 +53,13 @@ public class DuoApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", duoService.getDuoTotalCount(duoSearchDto)));
     }
+    @GetMapping("/checkNick")
+    //    @Operation(summary="닉네임 확인",description="듀오 입력할 떄 아이디가 실제로 존재하는지 확인하고 존재하면 0, 없으면 1을 반환합니다")
+    public ResponseEntity<CMRespDto<?>> checkNick(DuoDto duoDto) {
 
+
+
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", duoService.checkNick(duoDto)));
+    }
 }
