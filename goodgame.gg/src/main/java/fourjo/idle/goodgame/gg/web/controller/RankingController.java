@@ -11,7 +11,4 @@ public class RankingController {
     @GetMapping("")
     public String ranking () {return "ranking/main";}
 
-    @GetMapping("/slide")//테스트용
-    public String rotations () {return "ranking/slide";}
-
 }
