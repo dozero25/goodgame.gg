@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class RankingSearchDto {
 
-
     private String queueType;
 
     private String tier;
@@ -21,5 +20,9 @@ public class RankingSearchDto {
     private int count;
 
     private int page;
+
+    public void setIndex() {
+        index = (page-1) * count;
+    }
 
 }

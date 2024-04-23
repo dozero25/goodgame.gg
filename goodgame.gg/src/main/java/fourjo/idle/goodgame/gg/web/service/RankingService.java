@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RankingService {
@@ -28,7 +27,7 @@ public class RankingService {
     private ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient client = HttpClientBuilder.create().build();
 
-    private final String ApiKey = "RGAPI-228aacac-8b37-425e-a132-fa41561cd026";
+    private final String ApiKey = "RGAPI-7171a9b8-8b67-4378-ad6c-53540dcf17d9";
     private final String serverUri = "https://kr.api.riotgames.com";
     private final String serverUriAsia = "https://asia.api.riotgames.com";
 
@@ -135,6 +134,15 @@ public class RankingService {
     public AccountDto accountV1ByPuuid(String puuid) {
         AccountDto accountDto = new AccountDto();
 
+//            try {
+//                URL url = new URL(serverUriAsia + "/riot/account/v1/accounts/by-puuid/" + puuid + "?api_key=" + ApiKey);
+//
+//                accountDto = objectMapper.readValue(url, AccountDto.class);
+//
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+
         try {
             HttpGet request = new HttpGet(serverUriAsia + "/riot/account/v1/accounts/by-puuid/" + puuid + "?api_key=" + ApiKey);
             HttpResponse response = client.execute(request);
@@ -176,17 +184,24 @@ public class RankingService {
 
 
 
-    //highrank_mst
-    public int insertRankingLeagueV4(Map<String,Object> insert) {
+
+
+
+
+
+
+
+    //highrank_mst insert
+    public int insertRankingLeagueV4(RankingDto insert) {
+
         return rankingRepository.insertRankingLeagueV4(insert);
     }
-    public int updateRankingSummonerV4(Map<String,Object> update) {
+    public int updateRankingSummonerV4(RankingDto update) {
         return rankingRepository.updateRankingSummonerV4(update);
     }
-    public int updateRankingAccountV1(Map<String,Object> update) {
+    public int updateRankingAccountV1(RankingDto update) {
         return rankingRepository.updateRankingAccountV1(update);
     }
-
     //highrank_mst DB pulling
     public List<String> pullSummonerIdList() {
         return rankingRepository.pullSummonerIdList();
@@ -199,14 +214,15 @@ public class RankingService {
     }
 
 
-    //lowrank_mst
-    public int insertLowRankingLeagueV4(Map<String,Object> insert) {
+
+    //lowrank_mst insert
+    public int insertLowRankingLeagueV4(RankingDto insert) {
         return rankingRepository.insertRankingLeagueV4(insert);
     }
-    public int updateLowRankingSummonerV4(Map<String,Object> update) {
+    public int updateLowRankingSummonerV4(RankingDto update) {
         return rankingRepository.updateRankingSummonerV4(update);
     }
-    public int updateLowRankingAccountV1(Map<String,Object> update) {
+    public int updateLowRankingAccountV1(RankingDto update) {
         return rankingRepository.updateRankingAccountV1(update);
     }
     //lowrank_mst DB pulling
@@ -228,23 +244,32 @@ public class RankingService {
 
 
     //DB 랭킹 리스트 select ...
-    public List<RankingDto> searchRankingList (RankingSearchDto rankingSearchDto) {
+    public List<RankingDto> getRankingList (RankingSearchDto rankingSearchDto) {
 
-        if (!rankingSearchDto.getGameName().isBlank()) {
-            String[] name = rankingSearchDto.getGameName().split("#");
-
-
-            rankingSearchDto.setGameName(name[0]);
-            rankingSearchDto.setTagLine(name[1]);
-        }
+        rankingSearchDto.setIndex();
 
         System.out.println(rankingSearchDto);
 
 
-
-        return rankingRepository.searchRankingList(rankingSearchDto);
+        return rankingRepository.getRankingList(rankingSearchDto);
     }
 
+    public int getRankingTotalCount(RankingSearchDto rankingSearchDto) {
+
+
+        return rankingRepository.getRankingTotalCount(rankingSearchDto);
+    }
+
+    public int checkNick (String summoner){
+
+        int flag = rankingRepository.checkNick (summoner);
+        if (flag==0){
+            return 0;
+        }else {
+            return 1;
+        }
+
+    }
 
 
 

@@ -5,41 +5,44 @@ import fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface RankingRepository {
 
     //highrank_mst
-    public int insertRankingLeagueV4(Map<String,Object> insert);
+    public int insertRankingLeagueV4(RankingDto insert);
 
-    public int updateRankingSummonerV4(Map<String,Object> update);
+    public int updateRankingSummonerV4(RankingDto update);
 
-    public int updateRankingAccountV1(Map<String,Object> update);
+    public int updateRankingAccountV1(RankingDto update);
 
-    List<String> pullSummonerIdList();
+    public List<String> pullSummonerIdList();
 
-    List<String> pullPuuidList();
+    public List<String> pullPuuidList();
 
     public int truncateTable();
 
 
-    public int insertLowRankingLeagueV4(Map<String,Object> insert);
+    public int insertLowRankingLeagueV4(RankingDto insert);
 
-    public int updateLowRankingSummonerV4(Map<String,Object> update);
+    public int updateLowRankingSummonerV4(RankingDto update);
 
-    public int updateLowRankingAccountV1(Map<String,Object> update);
+    public int updateLowRankingAccountV1(RankingDto update);
 
-    List<String> pullLowSummonerIdList();
+    public List<String> pullLowSummonerIdList();
 
-    List<String> pullLowPuuidList();
+    public List<String> pullLowPuuidList();
 
     public int truncateLowTable();
 
 
 
-    public List<RankingDto> searchRankingList(RankingSearchDto rankingSearchDto);
+    public List<RankingDto> getRankingList(RankingSearchDto rankingSearchDto);
 
+
+    public int getRankingTotalCount(RankingSearchDto rankingSearchDto);
+
+    public int checkNick (String checkSummoner);
 
 
 
