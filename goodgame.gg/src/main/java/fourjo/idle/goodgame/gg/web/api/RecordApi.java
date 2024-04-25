@@ -1,11 +1,11 @@
 package fourjo.idle.goodgame.gg.web.api;
 
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.AccountDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.ChampionMasteryDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.LeagueDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.Matches.MatchDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.SummonerDto;
+import fourjo.idle.goodgame.gg.web.dto.record.AccountDto;
+import fourjo.idle.goodgame.gg.web.dto.record.ChampionMasteryDto;
+import fourjo.idle.goodgame.gg.web.dto.record.LeagueDto;
+import fourjo.idle.goodgame.gg.web.dto.record.matches.MatchDto;
+import fourjo.idle.goodgame.gg.web.dto.record.SummonerDto;
 import fourjo.idle.goodgame.gg.web.service.RecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
