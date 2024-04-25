@@ -29,26 +29,21 @@
         <!-- 게시판 목록이 여기에 표시될 것입니다 -->
         <div class="update-container">
             <div class="update-detail">
-                <label>제목</label>
+                <label class="updateTitle">제목</label>
                 <div>
-                    <input type="text" id= "subject" name="boardSubject" class="boardSubject" placeholder="제목을 입력하세요" autocomplete="off" required>
+                    <input type="text" id= "subject" name="updateBoardSubject" class="updateBoardSubject" placeholder="제목을 입력하세요" autocomplete="off" required>
                 </div>
-
-
-                <label>추가기능 추가  ■ strong, italic, underline 117p</label>
-                
                 <br>
-
-                <label>내용</label>
+                <label class="updateContent">내용</label>
                 <div>
-                    <textarea  id = "content" class="boardContent" name="boardContent" cols="100" rows="30"></textarea>
+                    <textarea  id = "content" class="updateBoardContent" name="boardContent" cols="100" rows="30"></textarea>
                 </div>
 
 
 
-
-                <form action="/fileInsert" method="post" enctype="multipart/form-data">
-                    <input type="file" id="uploadFile" name="file">
+                <!-- action="/fileInsert"-->
+                <form id="uploadForm" method="post" enctype="multipart/form-data">
+                    <input type="file" id="uploadFile"  class="uploadFile" name="file">
                     <input type="submit" value="Upload">
                 </form>
 
@@ -59,21 +54,21 @@
                 <div class = "update-btn">
                     <button type="submit" id = "update-complete" class="update-complete">수정완료</button>
                 </div>
-                <!-- <input type="hidden">
-             </div>
-             <input type="hidden" class="boardIndex" value="boardIndex">
-             <input type="hidden" class="userIndex" value="userIndex">
-             <input type="hidden" class="replyGroup" value="replyGroup">
-             <input type="hidden" class="replySequence" value="replySequence">
+                    <!-- <input type="hidden">
+                </div>
+                <input type="hidden" class="boardIndex" value="boardIndex">
+                <input type="hidden" class="userIndex" value="userIndex">
+                <input type="hidden" class="replyGroup" value="replyGroup">
+                <input type="hidden" class="replySequence" value="replySequence">
 
-             <div class="btn-box">
+                <div class="btn-box">
 
-             </div>
-             <div class="reply-table">
+                </div>
+                <div class="reply-table">
 
-             </div>
-             <div class="reply-box" style="display:none">
-                 <textarea class="reply-textarea" cols="80" rows="8"></textarea>-->
+                </div>
+                <div class="reply-box" style="display:none">
+                    <textarea class="reply-textarea" cols="80" rows="8"></textarea>-->
 
             </div>
         </div>

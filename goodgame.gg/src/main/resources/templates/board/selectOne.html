@@ -5,65 +5,101 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoodGame.gg</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+ 
    
 <!--    <link rel="stylesheet" href="/static/css/common.css">-->
 <!--    <link rel="stylesheet" href="/static/css/reset.css">-->
 <!--    <link rel="stylesheet" href="/static/css/header.css">-->
-<!--    <link rel="stylesheet" href="/static/css/board/insert.css">-->
     <link rel="stylesheet" href="/static/css/board/selectOne.css">
 
 </head>
 <body>
-<header>
-    
-    <h1>GOODGAME.GG</h1>
-    <p>lol-bti부터 듀오찾기까지 goodgame.gg와 함께해보세요</p>
-</header>
+   
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="flip-btn">
+                <div class="front">GG.GG</div>
+                <div class="back">GoodGame</div>
+            </div>
+        </div>
+        <div class="main_content">
+            <div class="header">
+                <div class="top_menu">
+                    <a href="#">HOME</a>
+                    <a href="#">DUO</a>
+                    <a href="#">RANKING</a>
+                    <a href="http://localhost:8000/board">COMMUNITY</a>
+                    <a href="#">LOLBTI</a>
+                </div>
+            </div>
+            <div class="social_media">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="info">
+                <div>
 
-<main>
-    <div class="board-container">
-        <div class="board-header">
-            <h1 class="board-title">게시글 제목</h1>
-            <p class="board-meta">???작성자: 작성자 이름 | 작성일: ??? | 조회수: ?? | 댓글수: ??</p>
-        </div>
-        <div class="board-content">
-            <p>게시글 내용</p>
-        </div>
+                    <main>
+                        <div class="board-container">
+                            <div class="board-header">
+                                <h1 class="board-title">로그인이 필요합니다</h1>
+                                <p class="board-meta"></p>
+                            </div>
+                            <div class="board-content">
+                                
+                                <a href="/login">
+                                    <button type="button" class="returnBoard">로그인 하러가기</button>
+                                </a>
+                                <a href="/board">
+                                    <button type="button" class="returnBoard">목록으로</button>
+                                </a>
+                            </div>
 
-        <div class="button-container">
-            <p>좋아요 버튼</p>
-        </div>
-       
-        <br>
-        <div class="board-reply">
-            <h2>댓글</h2>
-            <!-- 댓글 목록을 보여주는 부분 -->
-            <div class="reply">
-                <p class="reply-user">${userIndex}</p>
-                <p class="reply-content">${replyContent}</p>
-                <p class="reply-date">${replyRegDate}</p>
+                            <div class="button-container">
+                                
+                            </div>
+                        
+                            <div class="board-reply">
+                                
+                                <!-- 댓글 목록을 보여주는 부분 -->
+                                <!-- <div class="reply">
+                                    <p class="reply-user"></p>
+                                    <p class="reply-content">OOPS, you need to Log-in</p>
+                                    <p class="reply-date"></p>
+                                </div> -->
+
+                                
+                                <!-- 댓글 등록, 수정, 삭제 -->
+                                
+                                <div class="reply-box">
+                                    <p class="reply-user"></p>
+                                    <p class="reply-date"></p>
+                                    <textarea class="reply-content" cols="100" rows="5" >내용을 입력해주세요</textarea>
+                                        
+                                    <button type="button" class="repInsert-btn">등록</button>
+                                </div>
+                                <!-- 댓글 목록 -->
+                                <input type="hidden" class="boardIndex" value="boardIndex">
+                                <input type="hidden" class="userIndex" value="userIndex">
+                                <input type="hidden" class="replyGroup" value="replyGroup">
+                                <input type="hidden" class="replySequence" value="replySequence">
+                                
+                                <div class="reply-btns">
+                                </div>
+                                
+                                <div class="reply-table">
+
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
             </div>
-            <!-- ??? -->
-            <input type="hidden" class="boardIndex" value="boardIndex">
-            <input type="hidden" class="userIndex" value="userIndex">
-            <input type="hidden" class="replyGroup" value="replyGroup">
-            <input type="hidden" class="replySequence" value="replySequence">
-            
-            <div class="reply-btns">
-                
-            </div>
-            <div class="reply-table">
-                
-            </div>
-            <div class="reply-box" style="display:none">
-                <textarea class="reply-textarea" cols="80" rows="8"></textarea>
-                <button type="button" class="rep-reg-btn">등록</button>
-            </div>
-            <!-- 다른 댓글들도 동일한 방식으로 추가 -->
         </div>
     </div>
-</main>
+  
 
 <footer>
     <!-- 원하는 푸터 내용 추가 -->
@@ -71,6 +107,7 @@
 
 <!-- 원하는 JavaScript 파일 링크 추가 -->
 </body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/static/js/board/selectOne.js"></script>
 <script src="/static/js/pricipal.js"></script>
 </html>

@@ -14,4 +14,5 @@ public class BoardReplyDTO{
     private int replyGroup; //댓글 reference
     private int replySequence; //대댓글 step, level
     private LocalDateTime replyRegDate;
+    private String userNick;
 }

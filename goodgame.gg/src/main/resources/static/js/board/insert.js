@@ -1,226 +1,203 @@
 window.onload = () => {
-   // HeaderService.getInstance().loadHeader();
+    // HeaderService.getInstance().loadHeader();
+ 
+    // BoardInsertService.getInstance().loadBoardCategoryList();
+ 
+     ComponentEvent.getInstance().addClickEventInsertButton();
+     ComponentEvent.getInstance().addClickEventInsertCancelButton()
+//     ComponentEvent.getInstance().addClickEventEditButton();
+     
+     
+ 
+ 
+ }
+ 
+ const boardObj = {
+     boardIndex: "", // 게시글 번호
+     boardSubject: "", // 게시글 제목
+     userIndex: "", // 작성자 번
+     userId: "", // 작성자 아이디
+     userNick:"",
+     replyCount: "", // 댓글 수
+     boardContent: "", // 게시글 내용 (필요시)
+     boardVisit: "", // 조회수
+     boardLikeCount: "",
+     boardRegDate: "", // 작성일
+    /* 파일 업로드: "",*/
+     boardUploadName: "",
+     boardUploadSize: "",
+     boardUploadLocation:"",
+ 
+ }
+ 
+ 
+ class BoardInsertApi{
+     static #instance = null;
+     static getInstance(){
+         if(this.#instance == null) {
+             this.#instance = new BoardInsertApi();
+         }
+         return this.#instance;
+     }
+ 
+ 
+     insertBoard(){
+         let successFlag = false;
+ 
+ 
+ 
+         $.ajax({
+             async: false,
+             type: "post",
+             url: `http://localhost:8000/api/board/insert`,
+             contentType: "application/json",
+             data: JSON.stringify(boardObj),
+             dataType: "json",
+             success: response => {
 
-   // BoardInsertService.getInstance().loadBoardCategoryList();
-
-    ComponentEvent.getInstance().addClickEventInsertButton();
-    
-    
-
-
-}
-
-const boardObj = {
-    boardIndex: "", // 게시글 번호
-    boardSubject: "", // 게시글 제목
-    userIndex: "", // 작성자 번
-    userId: "", // 작성자 아이디
-    userNick:"",
-    replyCount: "", // 댓글 수
-    boardContent: "", // 게시글 내용 (필요시)
-    boardVisit: "", // 조회수
-    boardLikeCount: "",
-    boardRegDate: "", // 작성일
-   /* 파일 업로드: "",*/
-    boardUploadName: "",
-    boardUploadSize: "",
-    boardUploadLocation:""
-
-}
-
-
-class BoardInsertApi{
-    static #instance = null;
-    static getInstance(){
-        if(this.#instance == null) {
-            this.#instance = new BoardInsertApi();
-        }
-        return this.#instance;
-    }
-
-
-    insertBoard(){
-        let successFlag = false;
-
-
-
-        $.ajax({
-            async: false,
-            type: "post",
-            url: `http://localhost:8000/api/board/insert`,
-            contentType: "application/json",//?
-            data: JSON.stringify(boardObj),//?
-            dataType: "json",
-            success: response => {
                 successFlag = true;
 
-                console.log("====등록 성공====");
-            },
-            error: error => {
-                console.log("====등록 실패====");
-                console.log(error);
-            }
-        });
-
-
-        /*var form = $('#uploadFile')[0].files[0];
-
-        if (form != null) {
-            var formData = new FormData();
-            console.log(form);
-            formData.append('files', form);
-            console.log(formData);
-              *//*var formData = new FormData();
-              const uploadFile = document.getElementById("uploadFile").files[0];
-              formData.append('uploadFile', uploadFile);*//*
-
-            $.ajax({
-                type : 'POST',
-                url: 'http://localhost:8000/api/board/fileInsert',
-                processData : false,
-                contentType : false,
-                data : formData,
-                success : function(result){
-                    alert("Uploaded");
-                }
-            });
-        }*/
-
-
-        return successFlag;
-    }
-
-
-    fileInsertBoard(formData){
-        let successFlag = false;
-
-
-        $.ajax({
-            type : 'POST',
-            url: 'http://localhost:8000/api/board/fileInsert',
-            processData : false,
-            contentType : false,
-            data : formData,
-            success : function(result){
-                alert(" file Api Uploaded");
-                successFlag = true;
-            },
-            /*success: response => {
-                successFlag = true;
-
-                console.log("====등록 성공====");*/
-            /*},*/
-            error: error => {
-                console.log("file Api failed");
-                console.log(error);
-                successFlag = false;
-            }
-
-        });
-
-
+             },
+             error: error => {
+                 console.log(error);
+             }
+         });
+         
          return successFlag;
 
-    }
+     }
+ 
 
-}
+     fileInsertBoard(formData){
+         let successFlag = false;
 
+         $.ajax({
+             async: false,
+             type : 'POST',
+             url: `http://localhost:8000/api/board/fileInsert`,
+             processData : false,
+             contentType : false,
+             data : formData,
+             dataType:"json",
+             success: response => {
+                 successFlag = true;
+             },
+             error: error => {
 
+                 console.log(error);
+             }
+ 
+         });
+ 
+          return successFlag;
+ 
+     }
+ 
+ }
+ 
+ 
+ 
+ 
+ class BoardInsertService{
+     static #instance = null;
+     static getInstance(){
+         if(this.#instance == null) {
+             this.#instance = new BoardInsertService();
+         }
+         return this.#instance;
+     }
+ 
+     setBoardObjValues(){
+        const principal = PrincipalApi.getInstance().getPrincipal(); 
 
+        const formData = new FormData();
+        const uploadFile = document.getElementById("uploadFile").files[0];
+         
+        let insertOK;
+         if(document.getElementById("subject").value == "" || document.getElementById("content").value == ""){
+            insertOK = false;
 
-class BoardInsertService{
-    static #instance = null;
-    static getInstance(){
-        if(this.#instance == null) {
-            this.#instance = new BoardInsertService();
-        }
-        return this.#instance;
-    }
+         }else{
+            if(uploadFile == null){
+                boardObj.boardSubject = document.getElementById("subject").value;
+                boardObj.userIndex = principal.user.userIndex; 
+                boardObj.boardContent = document.getElementById("content").value;
+                boardObj.boardUploadName = document.getElementById("uploadFile").value;
+                insertOK =  BoardInsertApi.getInstance().insertBoard();
+    
+            }else {
+                formData.append('file', uploadFile);
+                formData.append('userIndex', principal.user.userIndex);
+                formData.append('boardSubject',document.getElementById("subject").value);
+                formData.append('boardContent',document.getElementById("content").value);
+                insertOK =  BoardInsertApi.getInstance().fileInsertBoard(formData);
+             }
+         }
+        
+        return insertOK;
+ 
+     }
+ 
 
-    setBoardObjValues(){
-        const principal = PrincipalApi.getInstance().getPrincipal(); //현재 로그인한 사용자
+ 
+ }
+ 
+ 
+ class ComponentEvent{
+     static #instance = null;
+     static getInstance(){
+         if(this.#instance == null) {
+             this.#instance = new ComponentEvent();
+         }
+         return this.#instance;
+     }
+ 
+ 
+     addClickEventInsertButton(){
+        
+        const insertButton = document.querySelector(".insert-complete");
 
-        boardObj.boardSubject = document.getElementById("subject").value;
-        boardObj.userIndex = principal.user.userIndex; // 닉으로 보여야할지 고민임
-        boardObj.boardContent = document.getElementById("content").value;
-        boardObj.boardUploadName = document.getElementById("uploadFile").value;
+            insertButton.onclick = () => {
+                
+            let insertSuccess;
+            insertSuccess = BoardInsertService.getInstance().setBoardObjValues();
 
-    }
+            console.log(insertSuccess);
+                if(insertSuccess) {
+                    alert("등록이 완료되었습니다.");
+                location.href="http://localhost:8000/board";
+                } else {
+                    alert("제목과 내용은 공백일 수 없습니다.");
+                location.reload();
+                }
 
-    setFileInsertBoard(){
+            }
+ 
+     }
+     addClickEventInsertCancelButton(){
 
-    }
+      const insertCancelButton = document.querySelector(".insert-cancel");
 
-}
+      insertCancelButton.addEventListener('click', function() {
+          window.location.href = 'http://localhost:8000/board'; // 게시물 목록 페이지의 URL로 이동
+      });
+     }
 
+//     addClickEventEditButton(){
+//       // Bold, Italic, Underline 버튼에 대한 이벤트 처리
+//             document.getElementById('bold-btn').addEventListener('click', function() {
+//                 document.execCommand('bold');
+//             });
+//
+//             document.getElementById('italic-btn').addEventListener('click', function() {
+//                 document.execCommand('italic');
+//             });
+//
+//             document.getElementById('underline-btn').addEventListener('click', function() {
+//                 document.execCommand('underline');
+//             });
+//     }
 
-class ComponentEvent{
-    static #instance = null;
-    static getInstance(){
-        if(this.#instance == null) {
-            this.#instance = new ComponentEvent();
-        }
-        return this.#instance;
-    }
-
-
-    addClickEventInsertButton(){
-
-            const insertButton = document.querySelector(".insert-complete");
-
-
-
-                    insertButton.onclick = () => {
-
-                    //const insertBoardUploadName = document.querySelector(".boardUploadName");
-
-                    BoardInsertService.getInstance().setBoardObjValues();
-                    
-                    //1.분기처리 해보고 안되면 //2.그냥 값할당해보기
-                    //const successFlag =  BoardInsertApi.getInstance().insertBoard();
-
-                    //var form = $('#uploadFile')[0].files[0];
-                    const form = $('#uploadFile')[0].files[0];
-
-                    let successFlag;
-
-                    if (form != null) {
-
-                        /*const formData = new FormData();
-                        console.log(form);
-                        formData.append('files', form);
-                        console.log(formData);*/
-                            const formData = new FormData();
-                            console.log(form);
-                            //const uploadFile = document.getElementById("uploadFile").files[0];
-                            formData.append('uploadFile', form);
-                            for (let key of formData.keys()) {
-                                console.log(key);
-                            }
-                            for (let value of formData.values()) {
-                                console.log(value);
-                            }
-                       successFlag =  BoardInsertApi.getInstance().fileInsertBoard(formData);
-
-                    }else{
-                       successFlag =  BoardInsertApi.getInstance().insertBoard();
-                    }
-
-                    console.log(boardObj);
-                    if(successFlag) {
-                        alert("등록이 완료되었습니다.");
-                        location.href="http://localhost:8000/board";
-                    } else {
-                        alert(" 컴포넌트 등록 실패");
-                        location.reload();
-                     }
-
-
-                    }//insertButton.onclick
-
-
-    }
-
-
-
-}
+ 
+ 
+ }
