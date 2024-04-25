@@ -6,7 +6,7 @@ html, body, header, main, footer, div, p, h1, h2 {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #2f2e33;
     color: #333;
 }
 
@@ -21,9 +21,43 @@ header, footer {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #37353b; 
+    border-radius: 5px; 
+    box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.board-container:hover {
+    box-shadow: 0 20px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22),  0 -10px 10px rgba(0,0,0,0.15);
+  }
+
+.boardContent-box {
+    margin-left: 20px;
+} 
+
+.updateDeleteBtn{
+    margin-left: 20px;
+
+}
+.update-btn{
+    margin-left: 20px;
+}
+.update-btn, .delete-btn{
+   background-color:black;
+   color:white;
+}
+
+.sub{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.selectOne-hr{
+    border: none; /* 기본 선 스타일 제거 */
+    border-top: 2px solid #000000; /* 원하는 선 스타일 지정 */
+
+}
+.boardFile{
+  margin-left: 20px;
 }
 
 .board-header {
@@ -33,7 +67,28 @@ header, footer {
 .board-title {
     font-size: 24px;
     margin-bottom: 10px;
+    color: rgb(194, 194, 194);
 }
+.selectOne-hr{
+    font-size:5px;
+}
+
+.returnBoard {
+    padding: 10px; /* 패딩 조정 */
+    border: 2px solid #0c0c0c;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    background-color: #464646; /* 기본 배경색 */
+    color: hsl(0, 0%, 100%); /* 기본 글자색 */
+    font-weight: bold; /* 글자 두껍게 설정 */
+}
+
+.returnBoard:hover {
+    background-color: #888; /* 호버 배경색 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 그림자 효과 */
+}
+
 
 .board-meta {
     font-size: 14px;
@@ -43,6 +98,18 @@ header, footer {
 .board-content {
     margin-bottom: 20px;
     line-height: 1.6;
+}
+
+.boardContent {
+    width: 712px;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 20px;
+    background-color: #2e2e2e;
+    color:white;
+    border: 2px solid #262130;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .board-reply {
@@ -79,6 +146,80 @@ header, footer {
 }
 
 
+
+.replyUpdate-btn {
+  background-color: #202A48;
+  color: white;
+  border: none;
+  
+  width: 50px;
+  height: 20px;
+  border-radius: 20px;
+
+}
+
+.replyDelete-btn {
+    background-color: #202A48;
+    color: white;
+    border: none;
+    
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+
+}
+
+
+
+
+.replyGroupUpdateBtn {
+    background-color: #202A48;
+    color: white;
+    border: none;
+    
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+
+}
+
+.replyGroupDeleteBtn {
+    background-color: #202A48;
+    color: white;
+    border: none;
+    
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+
+}
+
+
+.replySequenceUpdateBtn {
+    background-color: #686b72;
+    color: white;
+    border: none;
+    
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 0.5em;
+
+}
+
+.replySequenceDeleteBtn {
+    background-color: #686b72;
+    color: white;
+    border: none;
+    
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 0.5em;
+
+}
+
+
 /* 버튼 호버 효과 */
 .button:hover {
     background-color: #666;
@@ -87,13 +228,12 @@ header, footer {
 
 /* 좋아요 버튼 스타일 */
 #like-btn {
+
+    padding : 5px;
     margin-right: 10px;
+    border-radius: 20px;
 }
 
-/* 싫어요 버튼 스타일 */
-#bad-btn {
-    margin-left: 10px;
-}
 
 /* 이모지 스타일 */
 .emoji {
@@ -106,6 +246,282 @@ header, footer {
     align-items: center;
 }
 
-.button {
-    margin: 0 10px;
+
+
+
+.reply-table table{
+    display:flex;
+    flex-direction:column;
+    margin: auto;
+    align-items:left;
+    table-layout:fixed;
+    
+    width: 700px;
+    padding: 20px;
+    border: 2px solid #000000; /*테두리 스타일 및 색상 지정*/
+    border-radius: 10px;
+    /*border-left: 3px solid black;*/ /* 왼쪽 선 */
+    /*border-right: 3px solid black;*/ /* 오른쪽 선 */
+
 }
+
+.reply-table thead{
+    color: #707070;
+}
+.reply-squTable{
+    background-color: #2c272e;
+    width: 550px;
+}
+
+
+
+.GroupRegDate{
+    font-weight: normal;
+}
+
+
+.rply-update-input{
+    background-color: rgb(0, 0, 0);
+    color:rgb(250, 250, 250);
+    width:500px;
+    height:36px;
+    border-radius: 5px;
+    margin-left: 20px;
+
+}
+
+.rply-update-btn{
+   background-color : #666666;
+   color: rgb(0, 0, 0);
+   font-weight: Bold;
+   height:36px;
+   border-radius: 10px;
+
+}
+
+
+
+.reply-content {
+   
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 20px;
+    background-color: #2e2e2e;
+    color:white;
+    border: 2px solid #262130;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+  
+.reply-content:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
+.reply-box{
+
+    margin-left: 20px;
+}
+
+.repInsert-btn {
+    padding: 10px;
+    border: 3px solid #2e2e2e;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #000000;
+    color: rgb(211, 211, 211);
+}
+
+.reply-content,
+.repInsert-btn {
+    vertical-align: top; /* 텍스트 상자와 버튼을 상단 정렬 */
+    height: 100px; /* 높이를 원하는 크기로 설정 */
+}
+
+.replyGroupBtn-box {
+    margin-left:30px;
+}
+
+
+.replyGroup-input{
+    background-color: rgb(156, 156, 156);
+    color:black;
+    width:600px;
+    height:40px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 20px;
+}
+
+.reg-gro-btn{
+   background-color : #000000;
+   color: white;
+   height:40px;
+   border-radius: 10px;
+}
+
+.repInsert-btn:hover {
+    border: 3px solid #636363;
+    background-color: #39045c;
+    color: #ffffff;
+    font-weight: 700;  
+}
+
+.repInsert-btn:active {
+    background-color: #39045c;
+    color: #f8f8f8; /* 클릭하면 검정색 배경에 흰색 글자로 변경 */
+    font-weight: 700;
+}
+
+.GroupContent, .SquenceContent{
+    color: white;
+}
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+   background-color: #2f2e33;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .sidebar{
+  width: 200px;
+  height: 60px;
+  background: rgb(36, 37, 38);
+  padding: 30px 0px;
+  position: fixed;
+}
+
+.wrapper .sidebar h2{
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  bottom: 7px;
+}
+
+.wrapper .main_content .social_media{
+  position: absolute;
+  top: 770px;
+  left: 87px;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .main_content .social_media a{
+  display: block;
+  width: 40px;
+  background: #414045;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #0AC8B9;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info{
+  margin: 20px;
+  color: #ababab;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+
+.wrapper .main_content .header .top_menu {
+   <!-- float: right; -->
+   width: 110px;
+   height: 60px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   transition: 500ms;
+}
+.wrapper .main_content .header .top_menu a{
+  margin: 40px;
+  display: block;
+  padding: 23px;
+  background-color: #ffffff;
+}
+.wrapper .main_content .header .top_menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.wrapper .main_content .header .top_menu a:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+.wrapper .sidebar{
+    position: absolute;
+    left: 93px;
+    top: 0%;
+    transform: translate(-50%, -50%);
+    perspective: 1000px;
+}
+
+.wrapper .sidebar .flip-btn{
+    width: 200px;
+    height: 100px;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    transform-style: preserve-3d;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.wrapper .sidebar .flip-btn:hover{
+    transform:rotateX(-90deg) ;
+}
+
+.wrapper .sidebar .flip-btn .front{
+    background-color: rgb(36, 37, 38);
+    height: 100px;
+    transform: translateZ(50px);
+    font-weight: Bold;
+    font-size: 20px;
+}
+.wrapper .sidebar .flip-btn .back{
+    background-color: rgb(36, 37, 38);
+    height: 100px;
+    transform: rotateX(90deg) translateZ(150px);
+}
+
+

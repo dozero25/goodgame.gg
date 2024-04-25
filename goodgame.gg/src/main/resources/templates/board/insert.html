@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/static/css/common.css">
     <!-- <link rel="stylesheet" href="/static/css/header.css"> -->
      <link rel="stylesheet" href="/static/css/board/selectOne.css">
+     <link rel="stylesheet" href="/static/css/board/insert.css">
 
  </head>
  <body>
@@ -27,35 +28,29 @@
          <!-- 인터셉터 로그인 -->
         <div class="board-container">
             <div class="board-detail">
-                <label>제목</label>
+                <label class="insertTitle">제목</label>
                 <div>
                     <input type="text" id= "subject" name="boardSubject" class="boardSubject" placeholder="제목을 입력하세요" autocomplete="off" required>
                 </div>
-
-
-                <label>추가기능 추가  ■ strong, italic, underline 117p</label>
-                <!-- <span>
-                    <input type="checkbox"  class="insert-input option" autocomplete="off">
-                </span> -->
-
-
-              <!--  <label>작성일</label>
-                <span>
-                    <input type="datetime" name="regdate" class="regdate" autocomplete="off">
-                </span>-->
+<!--                <div class="text-editor-container">-->
+<!--                    <div class="editor-buttons">-->
+<!--                        <button id="bold-btn">Bold</button>-->
+<!--                        <button id="italic-btn">Italic</button>-->
+<!--                        <button id="underline-btn">Underline</button>-->
+<!--                    </div>-->
+<!--                    <div id="editor" contenteditable="true"></div>-->
+<!--                </div>-->
                 <br>
-
-                <label>내용</label>
+                <label class="insertContent">내용</label>
                 <div>
-                    <textarea  id = "content" class="boardContent" name="boardContent" cols="100" rows="30"></textarea>
+                    <textarea id = "content" class="boardContent" name="boardContent" cols="100" rows="30"></textarea>
                 </div>
 
 
                 <!-- <input type="file" id="uploadFile"  multiple="multiple"/> -->
 
-                <form action="/fileInsert" method="post" enctype="multipart/form-data">
-                    <input type="file" id="uploadFile" name="file">
-                    <input type="submit" value="Upload">
+                <form id="uploadForm" method="post" enctype="multipart/form-data">
+                    <input type="file" id="uploadFile"  class="uploadFile" name="file">
                 </form>
 
                 <input type="hidden" class="boardUploadName">
@@ -64,6 +59,7 @@
 
                 <div class = "insert-btn">
                     <button type="submit" class="insert-complete">작성완료</button>
+                    <button type="button" class="insert-cancel">작성취소</button>
                 </div>
                <!-- <input type="hidden">
             </div>

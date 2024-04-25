@@ -161,7 +161,30 @@ class BoardMainService {
         console.log(searchObj);
         const responseData = BoardMainApi.getInstance().searchBoard(searchObj);
         const boardTable = document.querySelector(".board-table tbody");
-       
+
+        //작성날짜계산
+        const formatTimeAgo = timestamp => {
+            const currentTime = new Date();
+            const previousTime = new Date(timestamp);
+        
+            const timeDifference = currentTime - previousTime;
+        
+            // 밀리초(ms)를 초(s)로 변환
+            const seconds = Math.floor(timeDifference / 1000);
+        
+            if (seconds < 60) {
+                return '방금 전';
+            } else if (seconds < 3600) {
+                const minutes = Math.floor(seconds / 60);
+                return `${minutes}분 전`;
+            } else if (seconds < 86400) {
+                const hours = Math.floor(seconds / 3600);
+                return `${hours}시간 전`;
+            } else {
+                const days = Math.floor(seconds / 86400);
+                return `${days}일 전`;
+            }
+        };
 
         // //ajax를 못타는듯
         // const likeData = BoardMainApi.getInstance().likeCountBoard(boardLikeObj);
@@ -169,9 +192,7 @@ class BoardMainService {
 
         boardTable.innerHTML = ''; // 초기화 필수
         responseData.forEach((data,index)=> {
-            
-
-        
+            const formattedRegDate = formatTimeAgo(data.boardRegDate);
 
 
             boardTable.innerHTML += `
@@ -179,14 +200,14 @@ class BoardMainService {
                 <td>${data.boardIndex}</td>
 
                 <td class="board-info">
-                    <a href="/board/selectOne?boardIndex=${data.boardIndex}" value=${data.boardIndex}>${data.boardSubject}</a>
+                    <a href="/board/selectOne?boardIndex=${data.boardIndex}" class="board-href" value=${data.boardIndex}>${data.boardSubject}</a>
                     <span class = "reply-blue">[${data.replyCount}]</span>
-                    <td class = "board-thumb"><img src="uploadimg/thumb_${data.boardUploadName}" width="50"></td
+                    <td class = "board-thumb"><img src="/static/image/board/gg.png" alt="GG" width="35" height="35"></td>
 
                 </td>
 
                 <td>${data.userNick}</td>
-                <td>${data.boardRegDate}</td>
+                <td>${formattedRegDate}</td>
                 <td>${data.boardVisit}</td>
                 <td>${data.boardLikeCount}</td>
 
@@ -349,23 +370,21 @@ class ComponentEvent{
     }
 
     addClickEventInsertButton(){
-
+            
             const insertButton = document.querySelector(".insert-button");
+            
 
             insertButton.addEventListener("click", function() {
-                
-                //login권한이 없으면 게시글 작성 불가해서 오류가 나버림 아래처럼 안될듯?
-                // if(role.getAuthority() == null){
-                //    window.location.href = "http://localhost:8000/login" ;
-                // }else{
-                //    window.location.href = "http://localhost:8000/board/insert" ;
-                //    console.log('버튼이 클릭되었습니다.');
-                // } 
-               
-               
-               
-                window.location.href = "http://localhost:8000/board/insert" ;
-                console.log('버튼이 클릭되었습니다.');
+                const responseData = BoardMainApi.getInstance().searchBoard();
+                const principal = PrincipalApi.getInstance().getPrincipal();
+                console.log(principal);
+
+                if(principal === null){
+                     window.location.href = "http://localhost:8000/login";
+                }else{
+                    window.location.href = "http://localhost:8000/board/insert";
+                    console.log('버튼이 클릭되었습니다.');
+                }   
 
             });
 

@@ -163,8 +163,10 @@ class BoardUpdateService{
 
         console.log(responseData);
         console.log(responseData.data.boardSubject);
+        console.log("?????"+responseData.data.boardUploadName);
 
         const updateDetail = document.querySelector(".update-detail");
+       
        
     
             
@@ -172,27 +174,31 @@ class BoardUpdateService{
 
             
             
-            <label>제목</label>
+            <label class="updateTitle">제목</label>
             <div>
-                <input type="text" id="boardSubject" class="boardSubject" autocomplete="off" value=${responseData.data.boardSubject}>
+                <input type="text" id="boardSubject" class="updateBoardSubject" autocomplete="off" value=${responseData.data.boardSubject}>
             </div>
-            <label>작성자</label>
-            <span>
-                <input type="text" class="userNick" id="userNick" autocomplete="off" value="${responseData.data.userNick}" readonly>
-            </span>
-            <label>작성일</label>
-            <span>
-                <input type="datetime" id="boardRegDate" class="boardRegDate" autocomplete="off" value="${responseData.data.boardRegDate}" readonly>
-            </span>
-            <br>
-            <label>내용</label>
+            <div class ="updateUserNickAndContent">
+                <label class="updateUserNick">작성자</label>
+                <span>
+                    <input type="text" class="userNickView" id="userNick" autocomplete="off" value="${responseData.data.userNick}" readonly>
+                </span>
+                <label>작성일</label>
+                <span>
+                    <input type="datetime" id="boardRegDate" class="boardRegDateView" autocomplete="off" value="${responseData.data.boardRegDate}" readonly>
+                </span>
+            </div>
+           <label class="updateContent">내용</label>
             <div>
-                <textarea class="boardContent" id = "boardContent" cols="100" rows="30">${responseData.data.boardContent}</textarea>
+                <textarea class="updateBoardContent" id = "boardContent" cols="100" rows="30">${responseData.data.boardContent}</textarea>
             </div>
-            <input type="file" class="boardUploadName" value="${responseData.data.boardUploadName}">
+            <input type="file" class="boardUploadName" value="${responseData.data.boardUploadName}" placeholder="${responseData.data.boardUploadName}">
             <input type="hidden" value="${responseData.data.boardIndex}"> 
             <div class = "update-btn">
                     <button type="submit" id = "update-complete" class="update-complete">수정완료</button>
+                    <a href = "http://localhost:8000/board/selectOne?boardIndex=${responseData.data.boardIndex}">
+                    <button type="button" class = "update-cancel"  value="${responseData.data.boardIndex}">수정취소</button>
+                    </a>
             </div>
             
     
@@ -209,11 +215,12 @@ class BoardUpdateService{
         const responseData = BoardUpdateApi.getInstance().loadUpdateBoard();
         
        
-        
-        boardObj.boardSubject = document.querySelector(".boardSubject").value;
-        boardObj.userNick = document.querySelector(".userNick").value;
-        boardObj.boardRegDate = document.querySelector(".boardRegDate").value;
-        boardObj.boardContent = document.querySelector(".boardContent").value;
+        //수정 class 이름 바꿈 파일수정완료하고 적용되는지 테스트하기
+        boardObj.boardSubject = document.querySelector("boardSubject").value;
+        boardObj.userNick = document.querySelector("userNick").value;
+        boardObj.boardRegDate = document.querySelector("boardRegDate").value;
+        boardObj.boardContent = document.querySelector("boardContent").value;
+        boardObj.boardUploadName = document.querySelector(".boardUploadName").value;
         boardObj.boardIndex = responseData.data.boardIndex;
 
         

@@ -3,6 +3,7 @@ package fourjo.idle.goodgame.gg.web.dto.board;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class BoardDTO {
     private String boardUploadLocation; //위치
     private int replyCount; // 댓글수
     private String userNick; //유저
-
+    private MultipartFile file;
     private int boardLikeCount;// 좋아요 카운트
 
 
