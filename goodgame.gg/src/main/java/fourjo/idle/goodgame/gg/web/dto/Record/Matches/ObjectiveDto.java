@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto.Record.Matches;
+package fourjo.idle.goodgame.gg.web.dto.record.matches;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fourjo.idle.goodgame.gg.exception.CustomRiotResponseCodeException;
-import fourjo.idle.goodgame.gg.web.dto.Record.AccountDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.ChampionMasteryDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.LeagueDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.Matches.MatchDto;
-import fourjo.idle.goodgame.gg.web.dto.Record.SummonerDto;
+import fourjo.idle.goodgame.gg.web.dto.record.AccountDto;
+import fourjo.idle.goodgame.gg.web.dto.record.ChampionMasteryDto;
+import fourjo.idle.goodgame.gg.web.dto.record.LeagueDto;
+import fourjo.idle.goodgame.gg.web.dto.record.matches.MatchDto;
+import fourjo.idle.goodgame.gg.web.dto.record.SummonerDto;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,7 +24,7 @@ public class RecordService {
 
     private ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
 
-    private final String mykey = "RGAPI-5bab831b-3837-44d1-a8d7-065567d5f042";
+    private final String mykey = "RGAPI-d78700f3-6c6c-4408-be4f-0f0d41ca154a";
     private final String serverUrl = "https://kr.api.riotgames.com";
     private final String severUrlAsia = "https://asia.api.riotgames.com/";
     private final HttpClient c = HttpClientBuilder.create().build();

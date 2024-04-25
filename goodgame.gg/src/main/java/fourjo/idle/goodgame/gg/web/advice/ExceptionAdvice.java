@@ -34,6 +34,12 @@ public class ExceptionAdvice {
                 .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "Password Error", e.getErrorMap()));
     }
 
+    @ExceptionHandler(CustomSameNickNameException.class)
+    public ResponseEntity<?> sameUserNickNameError(CustomSameNickNameException e){
+        return ResponseEntity.badRequest()
+                .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "SameNickName Error", e.getErrorMap()));
+    }
+
     @ExceptionHandler(CustomInputUserGenderException.class)
     public ResponseEntity<?> inputUserGenderError(CustomInputUserGenderException e){
         return ResponseEntity.badRequest()
