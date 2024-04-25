@@ -7,61 +7,38 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ParticipantDto {
 
-    // 어시스트 수
     private int assists;
-    // 바론 킬
+
     private int baronKills;
-    // 현상금 레 벨
     private int bountyLevel;
-    // 챔피언 경험치
+
     private int champExperience;
-    // 챔피언 레벨
     private int champLevel;
-    // 챔피언 아이디
     private int championId;
-    // 챔피언 이름
     private String championName;
-
     private int championTransform;
-
     private int consumablesPurchased;
-    // 간측믈 딜
+
     private int damageDealtToBuildings;
-    // 오브젝트 딜
     private int damageDealtToObjectives;
-    // 타워딜
     private int damageDealtToTurrets;
-
     private int damageSelfMitigated;
-    // 죽은 수
     private int deaths;
-
     private int detectorWardsPlaced;
-    // 더블킬
     private int doubleKills;
-    // 드래곤 킬
     private int dragonKills;
 
-    // 퍼블 어시
     private boolean firstBloodAssist;
-    // 퍼블
     private boolean firstBloodKill;
-    // 타워 퍼블 어시스트
     private boolean firstTowerAssist;
-    // 타워 퍼블
     private boolean firstTowerKill;
-    // 15서렌인지 아닌지
+
     private boolean gameEndedInEarlySurrender;
-    // 서렌인지 아닌지
     private boolean gameEndedInSurrender;
-    // 획득 골드
     private int goldEarned;
-    // 골드 사용
     private int goldSpent;
 
-    // 개인 포티션
     private String individualPosition;
-    // 억제기
     private int inhibitorKills;
     private int inhibitorTakedowns;
     private int inhibitorsLost;
@@ -74,9 +51,7 @@ public class ParticipantDto {
     private int item6;
     private int itemsPurchased;
 
-    // 킬링 스프리 횟수
     private int killingSprees;
-    // 킬
     private int kills;
 
     private String lane;
@@ -85,9 +60,7 @@ public class ParticipantDto {
     private int largestMultiKill;
     private int longestTimeSpentLiving;
 
-    // AP 딜
     private int magicDamageDealt;
-    // 챔프한테 가한 AP딜
     private int magicDamageDealtToChampions;
     private int magicDamageTaken;
 
@@ -100,13 +73,9 @@ public class ParticipantDto {
     private int objectivesStolenAssists;
 
     private int participantId;
-    // 펜타킬 유무
     private int pentaKills;
     private PerksDto perks;
-
-    // AD 딜
     private int physicalDamageDealt;
-    // 챔프한테 가한 AD딜
     private int physicalDamageDealtToChampions;
     private int physicalDamageTaken;
     private int playerAugment1;
@@ -117,10 +86,9 @@ public class ParticipantDto {
     private int profileIcon;
     private String puuid;
 
-    // 쿼드라 킬
     private int quadraKills;
 
-    private String riotIdName;
+    private String riotIdGameName;
     private String riotIdTagline;
     private String role;
 
@@ -145,9 +113,7 @@ public class ParticipantDto {
     private int totalDamageDealt;
     private int totalDamageDealtToChampions;
     private int totalDamageShieldedOnTeammates;
-    // 받은 피해
     private int totalDamageTaken;
-    // 전체 회복
     private int totalHeal;
     private int totalHealsOnTeammates;
     private int totalMinionsKilled;

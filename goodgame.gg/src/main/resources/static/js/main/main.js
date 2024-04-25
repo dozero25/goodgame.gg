@@ -45,7 +45,6 @@ class MainService{
         return this.#instance;
     }
 
-
 }
 
 class ComponentEvent {
@@ -63,7 +62,6 @@ class ComponentEvent {
 
         seachButton.onclick = () => {
             gameNameAndTagLine = searchInput.value;
-            // gameNameAndTagLine = "hide on bush#kr1";
             gameNameAndTagLine = gameNameAndTagLine.replace("#", "-");
             let successFlag = MainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
             
@@ -81,6 +79,4 @@ class ComponentEvent {
             }
         }
     }
-
-
 }
