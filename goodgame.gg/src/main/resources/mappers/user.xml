@@ -6,7 +6,7 @@
 
     <insert id="registerUser" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
         insert into user_mst
-        values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail}, 1)
+        values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail})
     </insert>
 
 </mapper>

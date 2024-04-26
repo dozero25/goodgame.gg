@@ -6,66 +6,63 @@
 
     <insert id="insertBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         insert into board_mst
-        values(0, #{board_subject}, #{user_index}, #{board_content}, now(),
-          0, 0, 0, #{board_upload_name}, #{board_upload_size}, #{board_upload_trans})
+        values(0, #{boardSubject}, #{userIndex}, #{boardContent}, now(),
+          0, #{boardUploadName}, #{boardUploadSize}, #{boardUploadLocation})
     </insert>
 
     <update id="updateBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         update board_mst set board_subject=#{board_subject},board_content=#{board_content}
-        where board_index=#{board_index}
+        where boardIndex=#{boardIndex}
     </update>
 
     <delete id="deleteBoard" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-        delete from board_mst where board_index=#{board_index}
+        delete from board_mst where boardIndex=#{boardIndex}
     </delete>
 
     <select id="selectAllBoard" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-        select * from board_mst order by board_index desc
+        select * from board_mst order by boardIndex desc
     </select>
 
     <select id="selectOneBoard" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         select * from board_mst where
-        board_index=#{board_index}
+        boardIndex=#{boardIndex}
     </select>
 
-    <select id="searchListBoard" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-        select * from board_mst where user_index like #{searchWord}
+    <select id="searchMyPostListByIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from board_mst where userIndex =${userIndex}
     </select>
-    <select id="searchListID"
-            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-        select * from board_mst where id like #{searchWord}
+
+    <select id="searchMyReplyListByIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        select * from reply_mst where userIndex =${userIndex}
     </select>
-    <select id="searchListNAME"
-            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+
+    <select id="searchListNAME" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         select * from board_mst where name like #{searchWord}
     </select>
 
-    <select id="selectAllPageBlock"
-            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+    <select id="selectAllPageBlock" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         select * from board_mst
-        order by board_index desc limit #{startRow},#{pageBlock}
+        order by boardIndex desc limit #{startRow},#{pageBlock}
     </select>
-    <select id="searchListID_PAGE"
-            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+    <select id="searchListID_PAGE" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         select * from board_mst
         where id like #{searchWord}
         order by num desc limit #{startRow},#{pageBlock}
     </select>
-    <select id="searchListNAME_PAGE"
-            resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+    <select id="searchListNAME_PAGE" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         select * from board_mst
         where name like #{searchWord}
         order by num desc limit #{startRow},#{pageBlock}
     </select>
 
-    <select id="getTotalRows"	resultType="int">
-        select count(*) total_rows from board_mst
+    <select id="getTotalRows" resultType="int">
+        select count(*) totalRows from board_mst
     </select>
-    <select id="search_total_rows_id"	resultType="int">
-        select count(*) total_rows from board_mst  where id like #{searchWord}
+    <select id="search_totalRows_id" resultType="int">
+        select count(*) totalRows from board_mst  where id like #{searchWord}
     </select>
-    <select id="search_total_rows_name"	resultType="int">
-        select count(*) total_rows from board_mst  where name like #{searchWord}
+    <select id="search_totalRows_name" resultType="int">
+        select count(*) totalRows from board_mst  where name like #{searchWord}
     </select>
 
 <!--    =================================================-->

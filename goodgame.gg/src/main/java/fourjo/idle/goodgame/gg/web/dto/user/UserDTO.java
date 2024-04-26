@@ -14,22 +14,8 @@ public class UserDTO {
     private String userGender;
     private LocalDateTime userRegDate;
     private String userEmail;
-    private int roleId;
-
-    public UserDTO getMemberId() {
-        return null;
-    }
-    public byte[] getMemberPw() {
-        return new byte[0];
-    }
 
 
-    // public String getMemberPw() {
-   //     return null;
-   // }
-   // public UserDTO getMemberId() {
-    //    return null;
-   // }
 
 
 

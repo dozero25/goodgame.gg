@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Effects</title>
+    <link rel="stylesheet" href="bbb.css">
+</head>
+<body>
+    <script>
+        let body = document.querySelector('body');
+        body.addEventListener('click',function(event){
+        spark.classList.add('spark');
+        body.appendChild(spark);    
+        })
+    </script>
+</body>
+</html>

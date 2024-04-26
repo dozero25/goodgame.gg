@@ -11,19 +11,22 @@ public class MypageController {
     public String mypage(){return "/mypage/main.html";}
 
     @GetMapping("/update")
-    public String update(){return "main/update.html";}
+    public String update(){return "/main/update.html";}
 
     @GetMapping("/delete")
-    public String delete(){return "main/delete.html";}
+    public String delete(){return "/main/delete.html";}
 
     @GetMapping("/post")
-    public String post(){return "main/post.html";}
+    public String post(){return "/main/post.html";}
 
     @GetMapping("/reply")
-    public String reply(){return "main/reply.html";}
+    public String reply(){return "/main/reply.html";}
 
     @GetMapping("/mbti")
-    public String mbti(){return "main/mbti.html";}
+    public String mbti(){return "/main/mbti.html";}
+
+    @GetMapping("/css")
+    public String css(){return "/mypage/css.html";}
 
 
 }

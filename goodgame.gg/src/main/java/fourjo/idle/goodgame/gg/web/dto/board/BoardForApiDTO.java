@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Data
-public class BoardDTO {
+public class BoardForApiDTO {
 
     private int boardIndex;
     private String boardSubject;

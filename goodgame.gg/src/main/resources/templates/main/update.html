@@ -1,19 +1,214 @@
+<!--
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:class="http://www.w3.org/1999/xhtml">
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+   background-color: #2f2e33;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .sidebar{
+  width: 200px;
+  height: 100%;
+  background: rgb(36, 37, 38);
+  padding: 30px 0px;
+  position: fixed;
+}
+
+.wrapper .sidebar h2{
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li{
+  padding: 15px;
+  border-bottom: 1px solid #e7e6eb;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.wrapper .sidebar ul li a{
+  color: #e7e6eb;
+  display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+  width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+  background-color: #0397AB;
+}
+
+.wrapper .sidebar ul li:hover a{
+  color: #fff;
+}
+
+.wrapper .sidebar .social_media{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .sidebar .social_media a{
+  display: block;
+  width: 40px;
+  background: #414045;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #0AC8B9;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info{
+  margin: 20px;
+  color: #ababab;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+
+.wrapper .main_content .header .top_menu {
+   &lt;!&ndash;float: right;&ndash;&gt;
+   width: 110px;
+   height: 20PX;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   transition: 500ms;
+}
+.wrapper .main_content .header .top_menu a{
+  margin: 40px;
+  display: block;
+  padding: 23px;
+  background-color: #ffffff;
+}
+.wrapper .main_content .header .top_menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+
+.wrapper .main_content .header .top_menu a:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+
+</style>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>main</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
-<form action="update.html" method="post" name="updateForm">
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Gg.gg</h2>
+        <ul>
+            <li><a href="http://localhost:8000/mypage"><i class="fas fa-regular fa-user"></i> 내 정보</a></li>
+            <li><a href="http://localhost:8000/post"><i class="fas fa-regular fa-file"></i> 내 포스트 목록</a></li>
+            <li><a href="http://localhost:8000/reply"><i class="fas fa-regular fa-tag"></i> 내 댓글 목록</a></li>
+            &lt;!&ndash;<li><a href="http://localhost:8000/update"><i class="fas fa-regular fa-address-book"></i> 회원정보 수정</a></li>&ndash;&gt;
+            <li><a href="http://localhost:8000/delete"><i class="fas fa-regular fa-code"></i> 회원탈퇴</a></li>
+        </ul>
+        <div class="social_media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <div class="top_menu">
+                <a href="#">HOME</a>
+                <a href="#">DUO</a>
+                <a href="#">RANKING</a>
+                <a href="#">COMMUNITY</a>
+                <a href="#">LOLBTI</a>
+            </div>
+        </div>
+        <div class="info">
 
-    userId: <input type="text" name="userId" value="userId">
-    userPw: <input type="text" name="userPw" value="userPw">
-    userNick: <input type="text" name="userNick" value="userNick">
-    userGender: <input type="text" name="userGender" value="userGender">
-    userEmail: <input type="text" name="userEmail" value="userEmail">
-    <input type="button" value="수정">
-</form>
+            &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+
+            <header class="header-container">
+                <div class="MyPage wrap">
+                    <div class="MyPage inner">
+                        <h1><span class="My-Page">마이페이지</span></h1>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="my-page">
+                    <div class="container">
+                        <div class="content-left">
+                            <div class="img-form">
+                                <div class="img-container">
+                                    <img src="/static/images/MyPage-Profile.png" class="Profile-img">
+                                </div>
+                                <input type="file" name="file" class="img-file">
+                            </div>
+                        </div>
+                        <div class="content-right">
+                            <div class="user-modify">
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modify-btn-box">
+                        <button type="submit" class="modification-button">수정하기</button>
+                    </div>
+
+            </main>
+        </div>
+    </div>
+</div>
 </body>
-<h2>ooo</h2>
+<script src="/static/js/principal.js"></script>
+<script src="/static/js/updateUserInfo.js"></script>
 </html>
+-->

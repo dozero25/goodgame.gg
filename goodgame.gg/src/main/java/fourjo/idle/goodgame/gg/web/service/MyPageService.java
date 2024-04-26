@@ -7,6 +7,8 @@ import fourjo.idle.goodgame.gg.web.dto.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MyPageService {
 
@@ -20,16 +22,11 @@ public class MyPageService {
     }
 
     /*1. 회원탈퇴*/
-    /*public int deleteUserAllData(UserDTO userDTO) {
+    public int deleteUserAllData(int userIndex) {
 
-        return myPageRepository.deleteUserAllData(userDTO);
-    }*/
-
-    public int deleteUserAllData(UserDTO userDTO) {
-
-        return myPageRepository.deleteUserAllData(userDTO);
+        return myPageRepository.deleteUserAllData(userIndex);
     }
-    public String pwCheck(String userId) {
+    public String pwCheck(int userId) {
 
         return myPageRepository.pwCheck(userId);
     }
@@ -41,14 +38,25 @@ public class MyPageService {
     }
 
     /*3. 내가 쓴 글 목록*/
-    public BoardDTO searchMyPostListByIndex(int userIndex) {
+    public List<BoardDTO> searchMyPostListByIndex(int userIndex) {
 
         return myPageRepository.searchMyPostListByIndex(userIndex);
     }
 
    /* 4. 내가 쓴 댓글 목록*/
-    public ReplyDTO searchMyReplyListByIndex(int userIndex){
+    public List<ReplyDTO> searchMyReplyListByIndex(int userIndex){
+        System.out.println(userIndex);
         return myPageRepository.searchMyReplyListByIndex(userIndex);
+    }
+
+    /*5. 일단 하나만 불러오자*/
+    public UserDTO selectOneData(int userIndex){
+        return myPageRepository.selectOneData(userIndex);
+    }
+
+
+    public List<BoardDTO> selectAllData(int userIndex,BoardDTO boardDTO){
+        return myPageRepository.selectAllData(userIndex, boardDTO);
     }
 
 

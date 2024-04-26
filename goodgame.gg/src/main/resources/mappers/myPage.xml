@@ -6,51 +6,63 @@
 
     <!--0. 더미데이터 생성-->
     <insert id="insertUserData" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
-        insert into user_mst
-        values(0, #{userId}, #{userPw}, #{userNick}, #{userGender}, now(), #{userEmail}, #{roleId})
+        INSERT INTO user_mst (userIndex, userId, userPw, userNick, userGender, userRegDate, userEmail)
+        VALUES (0, #{userId}, #{userPw}, #{userNick}, #{userGender},now(),#{userEmail});
     </insert>
 
     <!--1. 회원탈퇴-->
     <!--<delete id="deleteUserAllData" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
         delete from user_mst where userId=#{userId}
     </delete>-->
-
-    <delete id="deleteUserAllData">
+    <delete id="deleteUserAllData" parameterType="integer">
         delete from user_mst WHERE userIndex = #{userIndex}
     </delete>
     <select id="pwCheck" resultType="java.lang.String">
-        select userPw from user_mst where userId=#{userId}
+        select userPw from user_mst WHERE userIndex = #{userIndex}
     </select>
 
 
 
     <!--===================================================================-->
-    <!--2. 회원정보 수정-->
     <!--//BindingException : Parameter '파라미터명' not found. Available parameters are [arg1, arg0, param1, param2]
     발생원인 : MyBatis를 이용한 SQL Mapper의 메소드는 하나의 파라미터만을 읽음. 즉, 파라미터의 개수가 2개 이상일 때 발생
     발생 예시: 하나의 파라미터만 읽기 때문에 2개 이상에 파라미터를 주는 경우 해당데이터가 어떤 것인지를 명시하지 않으면 에러 발생
     해결 방안: @Param 어노테이션을 사용하여 명시-->
+    <!--===================================================================-->
+
+    <!--2. 회원정보 수정-->
     <update id="updateMypageInfo" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
-        update user_mst set userPw=#{userPw},userNick=#{userNick},userGender=#{userGender},userEmail=#{userEmail}
-        where userId=#{userId}
+        UPDATE user_mst SET
+        userNick = #{userNick},
+        userEmail = #{userEmail},
+        userGender = #{userGender}
+        WHERE
+        userIndex = #{userIndex}
     </update>
+
 
     <!--3. 내가 쓴 글 목록-->
     <select id="searchMyPostListByIndex" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-        select * from board_mst bm
-        inner join user_mst um on (bm.userIndex = um.userIndex)
-        where
-        bm.userIndex = #{userIndex}
+        SELECT bm.boardIndex, bm.boardSubject, bm.boardContent, bm.boardRegDate, bm.userIndex
+        FROM board_mst bm
+        INNER JOIN user_mst um ON bm.userIndex = um.userIndex
+        WHERE bm.userIndex = #{userIndex}
     </select>
 
     <!--4. 내가 쓴 댓글 목록-->
-    <select id="searchMyReplyListByIndex" resultType="fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO">
-        select boardIndex=#{boardIndex}, replyContent=#{replyContent},  replyRegDate=#{replyRegDate}
-        from
-        reply_mst rm
-        inner join user_mst um on (rm.userIndex = um.userIndex)
-        where
-        rm.userIndex = #{userIndex}
+    <select id="searchMyReplyListByIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO">
+        SELECT * FROM reply_mst
+        WHERE userIndex = #{userIndex}
+    </select>
+
+    <!--5. 일단 하나만 불러오자-->
+    <select id="selectOneData" resultType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+        select * from User_mst where userIndex=#{userIndex}
+    </select>
+
+    <!--6. selectAllData-->
+    <select id="selectAllData" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO" resultType="integer">
+        SELECT COUNT(*) FROM board_mst WHERE userIndex = #{userIndex}
     </select>
 
 </mapper>
