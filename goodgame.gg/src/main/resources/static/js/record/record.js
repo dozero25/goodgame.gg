@@ -217,6 +217,8 @@ class RecordShowInfoService{
 
         const matchInfo = RecordApi.getInstance().searchMatchInfoByMatchId();
 
+        console.log(matchInfo);
+
         matchInfo.forEach((data, index) => {
 
             const startEndTime = new Date(matchInfo[index].info.gameDuration * 1000);
@@ -294,7 +296,6 @@ class RecordShowInfoService{
                 loseBot:0,
                 loseSur:0
             }
-
             
             participantsInfo.forEach((data, index1) => {
                 if(participantsInfo[index1].puuid == summonerData.puuid){
@@ -1485,8 +1486,6 @@ class RecordShowInfoService{
             count++;
         });
     }
-
-
 }
 
 class ComponentEvent {
