@@ -1,0 +1,23 @@
+input, table, td, th{
+    border: 1px solid rgb(36, 37, 38);
+}
+label {
+        color: #ffffff;
+}
+input {
+    padding: 5px;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    background: rgb(36, 37, 38);
+}
+

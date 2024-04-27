@@ -1,0 +1,47 @@
+body {
+    color: #ffffff;
+    font: 600 16px/18px 'Open Sans', sans-serif;
+    width: 100%;
+    height: 100%;
+
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+.main-box {
+    width: 100%;
+    height: 900px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+.input-box {
+    display: flex;
+    width: 800px;
+
+    background-color: #ffffff;
+    border-radius: 30px;
+}
+
+.search {
+    border: none;
+    background: transparent;
+
+    margin-left: 20px;
+    width: 100%;
+    font-size: 18px;
+
+}
+
+.search-button {
+    background: transparent;
+    border: none;
+    padding: 25px;
+}
