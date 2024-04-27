@@ -1,16 +1,17 @@
-@import url(//cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0/all.min.css);
 
-.body{
-    font-family: 'Apple SD Gothic Neo','sans-serif';
-    font-weight: normal;
+body {
+    font: 600 16px/18px 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #1c1c1f;
+} 
+
+main {
+    font-weight: normal;
 }
 
 .content-header{
     display: block;
-    background-color: #31313C;
     min-width: 900px;
 
 }
@@ -19,11 +20,10 @@
 
 .header-h1{
     width: 900px;
-    height: 32px;
     margin: auto;
     padding-top: 16px;
     padding-bottom: 16px;
-    font-size: 24px;
+    font-size: 40px;
     color: white;
 }
 
@@ -35,7 +35,6 @@
     content: "";
     display: block;
     height: 1px;
-    background: black;
     margin-top: 16px;
 
 }
@@ -65,11 +64,12 @@
     margin: 0 auto;
     font-weight: normal;
 
+    border: 1px solid #393939;
+    border-radius: 4px;
 
 }
 
 .queue-solo:hover, .queue-flex:hover {
-    border-radius: 4px;
     background-color: #202020;
 }
 
@@ -96,7 +96,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    margin-top: 8px;
+    margin-top: 4px;
     margin-bottom: 4px;
     color: #9E9EB1;
 }
@@ -422,7 +422,7 @@ thead tr:first-child th:last-child {
     margin-bottom: 50px;
 }
 
-.page-controller,.page-controller2 {
+.page-controller {
     display: flex; /* Flexbox를 사용하여 내부 요소들을 가로로 정렬 */
     align-items: center; /* 요소들을 세로 축 중앙 정렬 */
     justify-content: center;
@@ -433,7 +433,7 @@ thead tr:first-child th:last-child {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 28px;
+    width: 50px;
     height: 22px;
     margin: 0px 4px;
     border: 1px solid #7B7A8E;
@@ -444,6 +444,10 @@ thead tr:first-child th:last-child {
     cursor: pointer;
 }
 
+.pre {
+    transform: rotate(180deg);
+    size: 20px;
+ }
 
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
 
@@ -494,8 +498,8 @@ thead tr:first-child th:last-child {
 }
 
 .page-numbers .disabled {
-    background-color: #5383e8;
-    border: 1px solid #5383e8;
+    background-color: #515151;
+    border: 1px solid #515151;
     color: white;
     cursor: auto;
 }

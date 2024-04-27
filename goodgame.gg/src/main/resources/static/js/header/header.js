@@ -13,15 +13,16 @@ class HeaderService {
 
         headerbox.innerHTML += `
         <div class="logo-box">
-            <a href="/main"><h1>GG.GG</h1></a>
+            <a href="/main"><span class="header-logo">GG.GG</span></a>
         </div>
         <div class="menu-box">
             <nav>
                 <ul class="menu-li">
                     <li class="li-list"><a href="/main">홈</a></li>
                     <li class="li-list"><a href="/record">전적검색</a></li>
-                    <li class="li-list"><a href="">랭킹</a></li>
-                    <li class="li-list"><a href="">듀오찾기</a></li>
+                    <li class="li-list"><a href="/ranking">랭킹</a></li>
+                    <li class="li-list"><a href="/duo">듀오찾기</a></li>
+                    <li class="li-list"><a href="/lolbti">lol-bti</a></li>
                     <li class="li-list"><a href="">커뮤니티</a></li>
                     ${principal == null
                         ?`

@@ -1,11 +1,10 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 body{
-    background-color: #1c1c1f;
     color: white;
 
 }
 
-.container {
+.slide-container {
     font-family: 'Spoqa Han Sans Neo','sans-serif';
     font-weight: normal;
     min-width: 1125px;
@@ -158,6 +157,7 @@ body{
     align-items: center;
     font-size: 28px;
     padding-left: 15px;
+    margin-top: 10px;
 }
 
 .swiper-slide-active .champion-title{

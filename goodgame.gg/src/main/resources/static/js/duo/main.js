@@ -1,4 +1,5 @@
 window.onload = () => {
+    HeaderService.getInstance().loadHeader();
 
     DuoMainService.getInstance().getLoadAllDuoList();                   //듀오 글 전체 불러오기
 
@@ -9,6 +10,7 @@ window.onload = () => {
     ComponentEvent.getInstance().addClickEventTierButton();             //티어 검색 클릭
     ComponentEvent.getInstance().addClickEventPositionButton();         //포지션 검색 클릭
     ComponentEvent.getInstance().addClickEventQueButton();              //게임 타입 검색 클릭
+    ComponentEvent.getInstance().addClickATag();
 }
 //검색하기 위한 Obj
 let searchObj = {
@@ -48,6 +50,8 @@ let checkOpenedObj = {
     positionDoubleIn: 0,
 
 }
+
+let gameNameAndTagLine ="";
 
 class DuoMainApi {
 
@@ -147,6 +151,27 @@ class DuoMainApi {
         });
         return returnData;
     }
+
+    searchSummonerInfoByGameNameAndTagLine(){
+        let returnData = null;
+
+        $.ajax({
+            async: false,
+            type: "post",
+            url: `http://localhost:8000/api/record/search/summoner/${gameNameAndTagLine}`,
+            contentType: "application/json",
+            data: JSON.stringify(gameNameAndTagLine),
+            dataType: "json",
+            success: responese => {
+                returnData = responese.data;
+            }, 
+            error: error => {
+                alert("입력데이터를 다시 확인해주세요.");
+            }
+        });
+
+        return returnData;
+    }
 }
 
 class DuoMainService {
@@ -172,10 +197,10 @@ class DuoMainService {
             : Math.floor(totalcount / searchObj.count) + 1;
 
         pageController.innerHTML = `
-            <a href="javascript:void(0)" class="pre-button disabled">이전</a>
+            <span class="pre-button disabled"><i class="fa-solid fa-play pre"></i></span>
             <ul class="page-numbers">
             </ul>
-            <a href="javascript:void(0)" class="next-button disabled">다음</a>
+            <span class="next-button disabled"><i class="fa-solid fa-play next"></i></span>
         `;
 
         if (searchObj.page != 1) {
@@ -208,7 +233,7 @@ class DuoMainService {
 
         for (let i = startIndex; i <= endIndex; i++) {
             pageNumbers.innerHTML += ` 
-                <a href="javascript:void(0)"class ="page-button ${i == searchObj.page ? "disabled" : ""}"><li>${i}</li></a>
+                <li><span class ="page-button ${i == searchObj.page ? "disabled" : ""}">${i}</span></li>
             `;
         }
 
@@ -264,12 +289,10 @@ class DuoMainService {
                <span> ${data.duoContent} </span>
              </div>
              <div id="miniBoardD" >
-                  <img src="static/images/duo/position/${data.duoPosition}.png" width=30px height=30px>
+                  <img src="static/images/duo/position/${data.duoPosition}.png">
                 
-                  <a href="/record/${data.duoGameId.replaceAll(" ", "%20").replaceAll("#", "-")}" class="nicknameClick">${data.duoGameId}</a>
-                 
-                      
-                    
+                  <a target="_target" href="#" class="nicknameClick">${data.duoGameId}</a>
+                  <input type="hidden" class="mini-board-value" value = ${data.duoGameId.replaceAll(" ", "~").replaceAll("#", "-")}>  
              </div>
              <div id="miniBoardE" >
                 <img src="static/images/duo/tier/${data.duoTier}.png" class="miniBoardEImg"><br>
@@ -665,6 +688,22 @@ class ComponentEvent {
             checkOpenedObj.queDoubleIn = 0;
         });
 
+    }
+
+    addClickATag(){
+        const aTag = document.querySelectorAll(".nicknameClick");
+        const inputValue = document.querySelectorAll(".mini-board-value");
+        
+        aTag.forEach((tag, index) =>{
+            tag.onclick = () =>{
+                gameNameAndTagLine = inputValue[index].defaultValue.replaceAll("~", " ");
+                let successFlag = DuoMainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
+
+                if(successFlag){
+                    location.href = `/record/${gameNameAndTagLine}`;
+                } 
+            }
+        });
     }
 }
 

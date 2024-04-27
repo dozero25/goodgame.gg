@@ -1,10 +1,3 @@
-window.onload = () => {
-
-    RotationsService.getInstance().loadRotationsChampion();
-
-
-
-}
 
 let ddragonUrl = "https://ddragon.leagueoflegends.com/cdn";
 

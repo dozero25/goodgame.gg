@@ -1,8 +1,10 @@
 window.onload = () => {
+    HeaderService.getInstance().loadHeader();
     RankingMainService.getInstance().getLoadAllRankingList();
 
     ComponentEvent.getInstance().addClickEventSearchButton();
     ComponentEvent.getInstance().addClickEventsCssButton();
+    ComponentEvent.getInstance().addClickATag();
 }
 
 
@@ -24,6 +26,7 @@ let searchRankingObj = {
     page : 1
 }
 
+let gameNameAndTagLine ="";
 
 
 class RankingMainApi {
@@ -102,6 +105,26 @@ class RankingMainApi {
         return returnData;
     }
 
+    searchSummonerInfoByGameNameAndTagLine(){
+        let returnData = null;
+
+        $.ajax({
+            async: false,
+            type: "post",
+            url: `http://localhost:8000/api/record/search/summoner/${gameNameAndTagLine}`,
+            contentType: "application/json",
+            data: JSON.stringify(gameNameAndTagLine),
+            dataType: "json",
+            success: responese => {
+                returnData = responese.data;
+            }, 
+            error: error => {
+                alert("입력데이터를 다시 확인해주세요.");
+            }
+        });
+
+        return returnData;
+    }
 
 
 
@@ -130,10 +153,10 @@ class RankingMainService {
 
 
         pageController.innerHTML = `
-        <span class="pre-button disabled">이전</span>
+        <span class="pre-button disabled"><i class="fa-solid fa-play pre"></i></span>
         <ul class="page-numbers">
         </ul>
-        <span class="next-button disabled">다음</span>
+        <span class="next-button disabled"><i class="fa-solid fa-play next"></i></span>
         `;
 
 
@@ -211,8 +234,9 @@ class RankingMainService {
             <tr>
                 <td class="td-num">${data.rankingRowNum}</td>
                 <td class="td-name"> 
-                    <a class="summoner-link" href="/record/${data.gameName.replaceAll(" ", "%20")}-${data.tagLine}" style="text-decoration: none; color: inherit;">
-                    <img style="border-radius: 50%" src="${ddragonUrl}/14.8.1/img/profileicon/${data.profileIconId}.png" width="32" height="32">
+                    <a target="_target" class="summoner-link" href="#" style="text-decoration: none; color: inherit;">
+                    <input type="hidden" class="td-name-link-value" value = ${data.gameName.replaceAll(" ", "~")+"-"+data.tagLine}>  
+                    <img style="border-radius: 50%" src="${ddragonUrl}/14.8.1/img/profileicon/${data.profileIconId}.png" width="32px" height="32px">
                     <div>
                         <span class="td-name-span">${data.gameName}</span> 
                         <span>#${data.tagLine}</span>
@@ -241,14 +265,7 @@ class RankingMainService {
             `;
         });
         this.loadPageController();
-
-
     }
-
-
-
-
-
 }
 
 class ComponentEvent {
@@ -418,8 +435,24 @@ class ComponentEvent {
                 arrow.textContent = '▼'; // 화살표 방향 초기화
             }
         });
+    }
 
+    addClickATag(){
+        const aTag = document.querySelectorAll(".summoner-link");
+        const inputValue = document.querySelectorAll(".td-name-link-value");
+        
+        aTag.forEach((tag, index) =>{
+            
 
+            tag.onclick = () =>{
+                gameNameAndTagLine = inputValue[index].defaultValue.replaceAll("~", " ");
+                console.log(gameNameAndTagLine);
+                let successFlag = RankingMainApi.getInstance().searchSummonerInfoByGameNameAndTagLine();
 
+                if(successFlag){
+                    location.href = `/record/${gameNameAndTagLine}`;
+                } 
+            }
+        });
     }
 }

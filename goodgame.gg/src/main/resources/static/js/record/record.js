@@ -217,8 +217,6 @@ class RecordShowInfoService{
 
         const matchInfo = RecordApi.getInstance().searchMatchInfoByMatchId();
 
-        console.log(matchInfo);
-
         matchInfo.forEach((data, index) => {
 
             const startEndTime = new Date(matchInfo[index].info.gameDuration * 1000);
@@ -275,6 +273,7 @@ class RecordShowInfoService{
             
             }
             const winTeam = {
+                winIndex : 0,
                 teamId : 0,
                 teamName : "",
                 maxGold : 0,
@@ -287,6 +286,7 @@ class RecordShowInfoService{
             }
 
             const loseTeam = {
+                loseIndex : 0,
                 teamName : "",
                 maxGold : 0,
                 maxKill : 0,
@@ -315,6 +315,7 @@ class RecordShowInfoService{
                         participantObj.maxContinuityKill = "펜타킬";
                     }
                 }
+
                 if(participantsInfo[index1].win == "true"){
                     participantObj.sumAllKill += participantsInfo[index1].kills;
                     
@@ -417,60 +418,55 @@ class RecordShowInfoService{
                     }
                     
                 }
-            });
 
-            // if(matchInfo[index].info.queueId == 450){
-            //     participantsInfo.forEach((data, index4) => {
 
-            //         if(participantsInfo[index4].win == "true"){
-            //             winTeam.teamName = participantsInfo[index4].teamId == 100 ? "블루팀" : "레드팀"
-            //             winTeam.maxGold += participantsInfo[index4].goldEarned;
-            //             winTeam.maxKill += participantsInfo[index4].kills;
+            });  
+
+            if(matchInfo[index].info.queueId == 450){
+                participantsInfo.forEach((data, index4) => {
+
+                    if(participantsInfo[index4].win == "true"){
+                        winTeam.teamName = participantsInfo[index4].teamId == 100 ? "블루팀" : "레드팀"
+                        winTeam.maxGold += participantsInfo[index4].goldEarned;
+                        winTeam.maxKill += participantsInfo[index4].kills;
     
-            //             if(participantsInfo[index4].individualPosition == "TOP"){
-            //                 winTeam.winTop = index4;
-            //                 winTeam.winJun = index4;
-            //                 winTeam.winMid = index4;
-            //                 winTeam.winBot = index4;
-            //                 winTeam.winSur = index4;
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "JUNGLE"){
-                            
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "MIDDLE"){
-                            
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "BOTTOM"){
-                            
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "UTILITY"){
-                            
-            //             }
-            //         }
-            //         if(participantsInfo[index4].win == "false"){
-            //             loseTeam.teamName = participantsInfo[index3].teamId == 100 ? "블루팀" : "레드팀"
-            //             loseTeam.maxGold += participantsInfo[index3].goldEarned;
-            //             loseTeam.maxKill += participantsInfo[index3].kills;
+                        if(participantsInfo[index4].lane == "TOP"){
+                            winTeam.winTop = index4;
+                            winTeam.winJun = index4;
+                            winTeam.winMid = index4;
+                            winTeam.winBot = index4;
+                            winTeam.winSur = index4;
+
+                        }
+                    }
+                    
+                    if(index4== 0 || index4 == 5 && participantsInfo[index4].win == "true"){
+                        winTeam.winIndex = index4;
+                    }
+                    if(participantsInfo[index4].win == "false"){
+                        loseTeam.teamName = participantsInfo[index4].teamId == 100 ? "블루팀" : "레드팀"
+                        loseTeam.maxGold += participantsInfo[index4].goldEarned;
+                        loseTeam.maxKill += participantsInfo[index4].kills;                    
+                    }
+                    if(index4== 0 || index4 == 5 && participantsInfo[index4].win == "false"){
+                        loseTeam.loseIndex = index4;
+                    }
+                });
+            }
+
+            if(matchInfo[index].info.queueId == 450){
+                winTeam.winTop = winTeam.winIndex;
+                winTeam.winJun = winTeam.winIndex+1;
+                winTeam.winMid = winTeam.winIndex+2;
+                winTeam.winBot = winTeam.winIndex+3;
+                winTeam.winSur = winTeam.winIndex+4;
     
-            //             if(participantsInfo[index4].individualPosition == "TOP"){
-            //                 loseTeam.loseTop = index3;
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "JUNGLE"){
-            //                 loseTeam.loseJun = index3;
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "MIDDLE"){
-            //                 loseTeam.loseMid = index3;
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "BOTTOM"){
-            //                 loseTeam.loseBot = index3;
-            //             }
-            //             if(participantsInfo[index4].individualPosition == "UTILITY"){
-            //                 loseTeam.loseSur = index3;
-            //             }
-                        
-            //         }
-            //     });
-            // }
+                loseTeam.loseTop = loseTeam.loseIndex;
+                loseTeam.loseJun = loseTeam.loseIndex+1;
+                loseTeam.loseMid = loseTeam.loseIndex+2;
+                loseTeam.loseBot = loseTeam.loseIndex+3;
+                loseTeam.loseSur = loseTeam.loseIndex+4;
+            }
 
             if(matchInfo[index].info.queueId == 420 || matchInfo[index].info.queueId == 490 || matchInfo[index].info.queueId == 490){
                 daedkkeInfo.innerHTML += `
@@ -1935,7 +1931,7 @@ class RecordShowInfoService{
                                             </div>
 
                                             <div class="iafoul">
-                                               <img src="/static/images/position/top.png" alt="" class="position-img">
+                                               <img src="/static/images/position/middle.png" alt="" class="position-img">
                                             </div>
 
                                             <div class="win-game-info">
@@ -2082,7 +2078,7 @@ class RecordShowInfoService{
                                             </div>
 
                                             <div class="iafoul">
-                                               <img src="/static/images/position/jungle.png" alt="" class="position-img">
+                                               <img src="/static/images/position/middle.png" alt="" class="position-img">
                                             </div>
 
                                             <div class="win-game-info">
@@ -2376,7 +2372,7 @@ class RecordShowInfoService{
                                             </div>
 
                                             <div class="iafoul">
-                                               <img src="/static/images/position/bottom.png" alt="" class="position-img">
+                                               <img src="/static/images/position/middle.png" alt="" class="position-img">
                                             </div>
 
                                             <div class="win-game-info">
@@ -2523,7 +2519,7 @@ class RecordShowInfoService{
                                             </div>
 
                                             <div class="iafoul">
-                                               <img src="/static/images/position/utility.png" alt="" class="position-img">
+                                               <img src="/static/images/position/middle.png" alt="" class="position-img">
                                             </div>
 
                                             <div class="win-game-info">

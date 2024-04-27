@@ -19,7 +19,7 @@ class PrincipalApi {
                 responseData = response.data;
             },
             error : error => {
-                console.log(error);
+                
             }
         });
         
