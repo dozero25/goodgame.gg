@@ -35,9 +35,31 @@ public class MainController {
         return "lolbti/lolbti";
     }
 
-    @GetMapping("/slide")
-    public String slide () {return "rotations/slide";}
+    @GetMapping("/board")
+    public String board(){return "board/main";}
 
+    @GetMapping("/board/selectOne")
+    public String boardList(){return "board/selectOne";}
 
+    @GetMapping("/board/insert")
+    public String boardInsert(){return "board/insert";}
+
+    @GetMapping("/board/update")
+    public String boardUpdate(){return "board/update";}
+
+    @GetMapping("/mypage")
+    public String myPageMain(){return "/mypage/main.html";}
+
+    @GetMapping("/mypage/update")
+    public String myPageUpdate(){return "/mypage/update.html";}
+
+    @GetMapping("/mypage/delete")
+    public String myPageDelete(){return "/mypage/delete.html";}
+
+    @GetMapping("/mypage/post")
+    public String myPagePost(){return "/mypage/board.html";}
+
+    @GetMapping("/mypage/reply")
+    public String myPageReply(){return "/mypage/reply.html";}
 
 }

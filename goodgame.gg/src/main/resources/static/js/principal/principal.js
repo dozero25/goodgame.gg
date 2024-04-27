@@ -22,7 +22,7 @@ class PrincipalApi {
                 
             }
         });
-        
+
         return responseData;
     }
 }

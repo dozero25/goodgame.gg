@@ -4,6 +4,7 @@ input, table, td, th{
 label {
         color: #ffffff;
 }
+
 input {
     padding: 5px;
     cursor: pointer;
@@ -21,4 +22,5 @@ body {
     background: rgb(36, 37, 38);
     font: 600 16px/18px 'Open Sans', sans-serif;
 }
+
 

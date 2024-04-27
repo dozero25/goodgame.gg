@@ -23,12 +23,12 @@ class HeaderService {
                     <li class="li-list"><a href="/ranking">랭킹</a></li>
                     <li class="li-list"><a href="/duo">듀오찾기</a></li>
                     <li class="li-list"><a href="/lolbti">lol-bti</a></li>
-                    <li class="li-list"><a href="">커뮤니티</a></li>
+                    <li class="li-list"><a href="/board">커뮤니티</a></li>
                     ${principal == null
                         ?`
                         <li class="li-list"><a href="/login">로그인</a></li>
                         `:`
-                        <li class="li-list"><a href="">MyPage</a></li>
+                        <li class="li-list"><a href="/mypage">MyPage</a></li>
                         <li class="li-list"><a href="/logout">로그아웃</a></li>
                         `
                     }

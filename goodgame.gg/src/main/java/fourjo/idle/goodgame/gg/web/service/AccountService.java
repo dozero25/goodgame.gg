@@ -23,9 +23,9 @@ public class AccountService {
 
     public UserDto registerUser(UserDto userDto) {
         nullValueCheck(userDto);
-        duplicateUserId(userDto.getUserId());
-        checkPassword(userDto.getUserPw());
-        inputUserGender(userDto.getUserGender());
+//        duplicateUserId(userDto.getUserId());
+//        checkPassword(userDto.getUserPw());
+//        inputUserGender(userDto.getUserGender());
 
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
         accountRepository.registerUser(userDto);

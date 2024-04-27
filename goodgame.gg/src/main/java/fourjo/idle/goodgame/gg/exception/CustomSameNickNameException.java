@@ -9,4 +9,6 @@ import java.util.Map;
 @Getter
 public class CustomSameNickNameException extends RuntimeException{
     private Map<String, String> errorMap;
+
+
 }
