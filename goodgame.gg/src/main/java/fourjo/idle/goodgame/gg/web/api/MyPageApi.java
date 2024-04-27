@@ -1,30 +1,18 @@
 package fourjo.idle.goodgame.gg.web.api;
 
 import ch.qos.logback.core.boolex.EvaluationException;
-import ch.qos.logback.core.boolex.Matcher;
 import fourjo.idle.goodgame.gg.security.PrincipalDetails;
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
-import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.board.BoardForApiDTO;
-import fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO;
-import fourjo.idle.goodgame.gg.web.dto.user.UserDTO;
+import fourjo.idle.goodgame.gg.web.dto.mypage.*;
 import fourjo.idle.goodgame.gg.web.service.MyPageService;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
 import java.util.List;
 
@@ -129,13 +117,10 @@ public class MyPageApi {
     }
 
     /*3. 내가 쓴 글 목록*/
-    @GetMapping("/searchList/post")
-    public ResponseEntity<CMRespDto<?>> searchMyPostListByIndex(int userIndex, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println("userIndex:"+userIndex);
-        System.out.println("principalDetails>>>userIndex:"+principalDetails.getUser().getUserIndex());
-       // List<BoardDTO> boardDTO =  myPageService.searchMyPostListByIndex(userIndex);
-        List<BoardDTO> boardDTO =  myPageService.searchMyPostListByIndex(principalDetails.getUser().getUserIndex());
-        System.out.println("boardDTO:"+boardDTO);
+    @GetMapping("/searchList/board")
+    public ResponseEntity<CMRespDto<?>> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println(boardSearchDTO);
+        List<BoardDTO> boardDTO =  myPageService.searchMyBoardListByIndex(boardSearchDTO);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardDTO));
 
@@ -143,10 +128,9 @@ public class MyPageApi {
 
     /*4. 내가 쓴 댓글 목록*/
     @GetMapping("/searchList/reply")
-    public ResponseEntity<CMRespDto<?>> searchMyReplyListByIndex(int userIndex, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<CMRespDto<?>> searchMyReplyListByIndex(ReplySearchDTO replySearchDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        System.out.println("principalDetails>>>userIndex:"+principalDetails.getUser().getUserIndex());
-        List<ReplyDTO> replyDTO = myPageService.searchMyReplyListByIndex(principalDetails.getUser().getUserIndex());
+        List<ReplyDTO> replyDTO = myPageService.searchMyReplyListByIndex(replySearchDTO);
         System.out.println("replyDTO:"+replyDTO);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", replyDTO));
@@ -165,15 +149,22 @@ public class MyPageApi {
 
 
     /*6*/
-    @GetMapping("/selectAll/{userIndex}")
-    public ResponseEntity<CMRespDto<?>> selectAllData(@PathVariable("userIndex") int userIndex,BoardDTO boardDTO ) {
+    @GetMapping("/getTotalBoardCount")
+    public ResponseEntity<CMRespDto<?>> totalBoardCount(int userIndex, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println("selectAllData>>>userIndex:"+userIndex);
 
         return ResponseEntity.ok()
-                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", myPageService.selectAllData(userIndex, boardDTO)));
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", myPageService.totalBoardCount(userIndex)));
 
     }
+    @GetMapping("/getTotalReplyCount")
+    public ResponseEntity<CMRespDto<?>> totalReplyCount(int userIndex, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println("selectAllData>>>userIndex:"+userIndex);
 
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", myPageService.totalReplyCount(userIndex)));
+
+    }
 
 
 }

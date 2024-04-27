@@ -157,18 +157,24 @@ th{
   padding: 20px 15px;
   text-align: left;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   color: #fff;
   text-transform: uppercase;
 }
-td{
+.mp-board-td{
   padding: 15px;
   text-align: left;
   vertical-align:middle;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 14px;
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+.ahref{
+    text-decoration-line: none;
+
 }
 
 
@@ -223,4 +229,75 @@ section{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 
+/*//////////// 페이징 CSS///////////////////////////*/
+.page-controller {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
+    align-items: center;
+}
 
+.page-controller a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+    margin: 0px 5px;
+    border: 1px solid #dbdbdb;
+    background-color: #f0f0f0;
+    width: 40px;
+    height: 28px;
+
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.page-numbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+
+}
+
+.page-numbers li {
+    list-style-type: none;
+}
+
+.page-numbers li span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px; /* 너비 */
+    height: 22px;
+    margin: 0px 4px;
+
+    border: 1px solid #7B7A8E;
+    border-radius: 3px;
+    padding: 2px;
+
+    font-weight: bold;
+    text-decoration: none;
+    color: #9E9EB1;
+
+    cursor: pointer;
+
+}
+
+
+.page-controller a:hover {
+    background-color: #202020;
+}
+
+.page-controller .disabled {
+    color: #9E9EB1;
+    cursor: auto;
+}
+
+.page-numbers .disabled {
+    background-color: #5383e8;
+    border: 1px solid #5383e8;
+    color: white;
+    cursor: auto;
+}

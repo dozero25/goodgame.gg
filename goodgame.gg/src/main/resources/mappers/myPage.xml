@@ -5,13 +5,13 @@
 <mapper namespace="fourjo.idle.goodgame.gg.repository.MyPageRepository">
 
     <!--0. 더미데이터 생성-->
-    <insert id="insertUserData" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+    <insert id="insertUserData" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.UserDTO">
         INSERT INTO user_mst (userIndex, userId, userPw, userNick, userGender, userRegDate, userEmail)
         VALUES (0, #{userId}, #{userPw}, #{userNick}, #{userGender},now(),#{userEmail});
     </insert>
 
     <!--1. 회원탈퇴-->
-    <!--<delete id="deleteUserAllData" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+    <!--<delete id="deleteUserAllData" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.UserDTO">
         delete from user_mst where userId=#{userId}
     </delete>-->
     <delete id="deleteUserAllData" parameterType="integer">
@@ -31,7 +31,7 @@
     <!--===================================================================-->
 
     <!--2. 회원정보 수정-->
-    <update id="updateMypageInfo" parameterType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+    <update id="updateMypageInfo" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.UserDTO">
         UPDATE user_mst SET
         userNick = #{userNick},
         userEmail = #{userEmail},
@@ -42,27 +42,37 @@
 
 
     <!--3. 내가 쓴 글 목록-->
-    <select id="searchMyPostListByIndex" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+    <select id="searchMyBoardListByIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardDTO">
         SELECT bm.boardIndex, bm.boardSubject, bm.boardContent, bm.boardRegDate, bm.userIndex
         FROM board_mst bm
         INNER JOIN user_mst um ON bm.userIndex = um.userIndex
         WHERE bm.userIndex = #{userIndex}
+        <if test='limit == "Y"'>
+                limit #{index},#{count}
+        </if>
+
     </select>
 
     <!--4. 내가 쓴 댓글 목록-->
-    <select id="searchMyReplyListByIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO">
+    <select id="searchMyReplyListByIndex"  parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.ReplySearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.ReplyDTO">
         SELECT * FROM reply_mst
         WHERE userIndex = #{userIndex}
+        <if test='limit == "Y"'>
+            limit #{index},#{count}
+        </if>
     </select>
 
     <!--5. 일단 하나만 불러오자-->
-    <select id="selectOneData" resultType="fourjo.idle.goodgame.gg.web.dto.user.UserDTO">
+    <select id="selectOneData" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.UserDTO">
         select * from User_mst where userIndex=#{userIndex}
     </select>
 
     <!--6. selectAllData-->
-    <select id="selectAllData" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO" resultType="integer">
+    <select id="totalBoardCount" parameterType="integer" resultType="integer">
         SELECT COUNT(*) FROM board_mst WHERE userIndex = #{userIndex}
     </select>
 
+    <select id="totalReplyCount" parameterType="integer" resultType="integer">
+        SELECT COUNT(*) FROM reply_mst WHERE userIndex = #{userIndex}
+    </select>
 </mapper>

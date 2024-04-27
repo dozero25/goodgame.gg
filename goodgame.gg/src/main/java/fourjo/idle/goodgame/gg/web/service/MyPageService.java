@@ -1,9 +1,7 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.MyPageRepository;
-import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO;
-import fourjo.idle.goodgame.gg.web.dto.user.UserDTO;
+import fourjo.idle.goodgame.gg.web.dto.mypage.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +12,7 @@ public class MyPageService {
 
     @Autowired
     private MyPageRepository myPageRepository;
+
 
     /*0. 더미데이터 생성*/
     public int insertUserData(UserDTO userDTO) {
@@ -38,15 +37,17 @@ public class MyPageService {
     }
 
     /*3. 내가 쓴 글 목록*/
-    public List<BoardDTO> searchMyPostListByIndex(int userIndex) {
+    public List<BoardDTO> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO) {
 
-        return myPageRepository.searchMyPostListByIndex(userIndex);
+       boardSearchDTO.setIndex();
+        return myPageRepository.searchMyBoardListByIndex(boardSearchDTO);
     }
 
    /* 4. 내가 쓴 댓글 목록*/
-    public List<ReplyDTO> searchMyReplyListByIndex(int userIndex){
-        System.out.println(userIndex);
-        return myPageRepository.searchMyReplyListByIndex(userIndex);
+    public List<ReplyDTO> searchMyReplyListByIndex(ReplySearchDTO replySearchDTO){
+
+        replySearchDTO.setIndex();
+        return myPageRepository.searchMyReplyListByIndex(replySearchDTO);
     }
 
     /*5. 일단 하나만 불러오자*/
@@ -55,10 +56,12 @@ public class MyPageService {
     }
 
 
-    public List<BoardDTO> selectAllData(int userIndex,BoardDTO boardDTO){
-        return myPageRepository.selectAllData(userIndex, boardDTO);
+    public int totalBoardCount(int userIndex){
+        return myPageRepository.totalBoardCount(userIndex);
     }
 
-
+    public int totalReplyCount(int userIndex){
+        return myPageRepository.totalReplyCount(userIndex);
+    }
 
 }

@@ -2,31 +2,32 @@ package fourjo.idle.goodgame.gg.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
+@RequestMapping("/mypage")
 public class MypageController {
 
-    @GetMapping("/mypage")
+    @GetMapping("")
     public String mypage(){return "/mypage/main.html";}
 
     @GetMapping("/update")
-    public String update(){return "/main/update.html";}
+    public String update(){return "/mypage/update.html";}
 
     @GetMapping("/delete")
-    public String delete(){return "/main/delete.html";}
+    public String delete(){return "/mypage/delete.html";}
 
     @GetMapping("/post")
-    public String post(){return "/main/post.html";}
+    public String post(){return "/mypage/board.html";}
 
     @GetMapping("/reply")
-    public String reply(){return "/main/reply.html";}
+    public String reply(){return "/mypage/reply.html";}
+//
+//    @GetMapping("/mbti")
+//    public String mbti(){return "/mypage/mbti.html";}
 
-    @GetMapping("/mbti")
-    public String mbti(){return "/main/mbti.html";}
 
-    @GetMapping("/css")
-    public String css(){return "/mypage/css.html";}
 
 
 }

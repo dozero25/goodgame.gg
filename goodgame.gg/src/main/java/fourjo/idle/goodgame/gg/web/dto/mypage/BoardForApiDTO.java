@@ -1,4 +1,4 @@
-package fourjo.idle.goodgame.gg.web.dto.board;
+package fourjo.idle.goodgame.gg.web.dto.mypage;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Data
-public class BoardDTO {
+public class BoardForApiDTO {
 
     private int boardIndex;
     private String boardSubject;
