@@ -9,4 +9,6 @@ import java.util.Map;
 @Getter
 public class CustomValidationException extends RuntimeException{
     private Map<String, String> errorMap;
+
+
 }

@@ -1,11 +1,17 @@
-package fourjo.idle.goodgame.gg.web.dto;
+package fourjo.idle.goodgame.gg.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class UserDto {
+public class UserMst {
     private int userIndex;
     private String userId;
     private String userPw;
@@ -14,4 +20,5 @@ public class UserDto {
     private LocalDateTime userRegDate;
     private String userEmail;
     private int roleId;
+    private String roleName;
 }

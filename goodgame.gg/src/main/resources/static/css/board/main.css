@@ -1,0 +1,479 @@
+
+
+body{
+    background-color: #1c1c1f;
+ }
+
+.main-bar{
+
+    top: 0; /* 화면의 맨 위에 배치합니다. */
+    left: 0; /* 좌측 정렬합니다. */
+    width: 100%; /* 화면 전체 너비를 사용합니다. */
+    height: 100px; /* 바의 높이를 지정합니다. */
+    background-color: #0000ff; /* 바의 배경색을 지정합니다. */
+    color : white;
+
+    
+} 
+
+ 
+
+.container {
+    display: flex;
+    justify-content: center;
+    background-color:#1c1c1f;
+
+    width: 100%;
+    font-size: 15px;
+}
+.board-container {
+    width: 1050px;
+}
+
+.board-info .board-href{
+    text-align: center;  
+    text-decoration: none; 
+    color: inherit; 
+
+  
+}
+
+
+.board-table {
+    background-color: #31313C; 
+    color: rgb(204, 204, 204);
+    border-radius: 5px; 
+    box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+  
+.board-table:hover {
+    box-shadow: 0 20px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22),  0 -10px 10px rgba(0,0,0,0.15);
+  }
+
+.board-table thead tr th{
+    background-color: #17171a;
+    border-radius: 6px;
+    border-top: 1px solid #c5bbbb;
+    border-left: none;
+    border-right: none;
+    padding: 20px 15px;
+}
+
+.write-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.write-btn {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #dbdbdb;
+}
+
+.write-btn:hover {
+    background-color: #345ae0;
+    color: #ffffff;
+}
+
+.search-select, .search-input {
+    padding: 10px;
+   margin-top: 80;
+}
+
+
+.search-button {
+    padding: 10px;
+    border: 3px solid #2e2e2e;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #000000;
+    color: rgb(211, 211, 211);
+}
+
+.search-button:hover {
+
+    border: 3px solid #636363;
+    background-color: #39045c;
+    color: #ffffff;
+    font-weight: 700;
+    
+}
+
+.search-button:active {
+    background-color: #39045c;
+    color: #f8f8f8; 
+    font-weight: 700;
+}
+
+.right-items {
+    padding: 10px;
+    margin-top: 80px; /* 아래로 조금 이동 */
+}
+
+.board-table thead tr th:nth-child(1){width: 150px;}
+.board-table thead tr th:nth-child(2){width: 250px;}
+.board-table thead tr th:nth-child(3){width: 250px;}
+.board-table thead tr th:nth-child(4){width: 200px;}
+.board-table thead tr th:nth-child(5){width: 200px;}
+.board-table thead tr th:nth-child(6){width: 200px;}
+
+.board-table tbody tr td{
+    padding: 15px;
+    border-left: none;
+    border-right: none;
+    border-bottom: 0.1px solid #000000;
+    padding: 10px;
+
+    text-align: center;
+    font-size: 14px;
+}
+
+
+
+
+
+.page-controller {
+    display: flex;
+    justify-content: center;
+
+    margin: 10px 0px;
+}
+
+.page-numbers {
+    display: flex;
+}
+
+.page-controller a {
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+
+    
+    text-decoration: none;
+    margin: 0px 5px;
+    border: 2px solid #000000;
+    background-color: #afafaf;
+    width: 40px;
+    height: 28px;
+
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.page-controller li {
+    list-style-type: none;
+    border-radius: 5px;
+}
+
+.page-controller a:hover {
+    background-color: #2f2d38;
+    color: rgb(228, 228, 228);
+}
+
+.page-controller .disabled {
+    border-radius: 5px;
+    background-color: #31313C;
+    color: rgb(126, 126, 126);
+    cursor: default;
+}
+
+
+
+
+
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container .right-items {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.search-container select,
+.search-container input[type="search"],
+.search-container button {
+   
+    font-size: 14px; 
+    height: 25px;
+}
+
+
+
+.reply-blue {
+    font-weight: bold;
+    color: #99ccff;
+}
+
+
+
+.board-thumb {
+    margin-left: auto; 
+}
+
+.board-info {
+    flex-grow: 1;
+    padding-right: 20px; 
+    width: 40%; 
+}
+
+
+
+
+
+
+.left-items {
+    padding: 8px;
+    margin: 100px 0px 0px; 
+}
+
+.insert-button,
+.view-btn,
+.like-btn {
+    padding: 10px; 
+    border: 2px solid #0c0c0c;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    background-color: #464646; 
+    color: #000000; 
+    font-weight: bold; 
+}
+
+.insert-button:active,
+.view-btn:active,
+.like-btn:active {
+    background-color: #333; 
+}
+
+
+.insert-button:hover {
+    background-color: #636363;
+    color : white;
+}
+
+.view-btn,
+.like-btn {
+    background-color: #999; 
+    color: rgb(0, 0, 0); 
+}
+
+.insert-button:hover,
+.view-btn:hover,
+.like-btn:hover {
+    background-color: #888; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+}
+
+
+
+
+
+
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+.page-numbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+
+}
+
+.page-numbers li {
+    list-style-type: none;
+}
+
+.page-numbers li span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px; /* 너비 */
+    height: 22px;
+    margin: 0px 4px;
+
+    border: 1px solid #d4d4d4;
+    border-radius: 3px;
+    padding: 2px;
+
+    font-weight: bold;
+    text-decoration: none;
+    color: #31313C;
+
+    cursor: pointer;
+
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+
+
+.page-controller a:hover {
+    background-color: #202020;
+}
+
+.page-controller .disabled {
+    color: #9E9EB1;
+    cursor: auto;
+}
+
+.page-numbers .disabled {
+    background-color: #31313C;
+    border: 1px solid #7f7f86;
+    color: white;
+    cursor: auto;
+}
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+   background-color: #1c1c1f;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .sidebar{
+  width: 200px;
+  height: 60px;
+  background: rgb(36, 37, 38);
+  padding: 30px 0px;
+  position: fixed;
+}
+
+.wrapper .sidebar h2{
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  bottom: 7px;
+}
+
+.wrapper .main_content .social_media{
+  position: absolute;
+  top: 770px;
+  left: 87px;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .main_content .social_media a{
+  display: block;
+  width: 40px;
+  background: #414045;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #0AC8B9;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info{
+  margin: 20px;
+  color: #ababab;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+
+.wrapper .main_content .header .top_menu {
+   <!-- float: right; -->
+   width: 110px;
+   height: 60px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   transition: 500ms;
+}
+.wrapper .main_content .header .top_menu a{
+  margin: 40px;
+  display: block;
+  padding: 23px;
+  background-color: #ffffff;
+}
+.wrapper .main_content .header .top_menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.wrapper .main_content .header .top_menu a:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+.wrapper .sidebar{
+    position: absolute;
+    left: 93px;
+    top: 0%;
+    transform: translate(-50%, -50%);
+    perspective: 1000px;
+}
+
+.wrapper .sidebar .flip-btn{
+    width: 200px;
+    height: 100px;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    transform-style: preserve-3d;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.wrapper .sidebar .flip-btn:hover{
+    transform:rotateX(-90deg) ;
+}
+
+.wrapper .sidebar .flip-btn .front{
+    background-color: rgb(36, 37, 38);
+    height: 100px;
+    transform: translateZ(50px);
+    font-weight: Bold;
+    font-size: 20px;
+}
+.wrapper .sidebar .flip-btn .back{
+    background-color: rgb(36, 37, 38);
+    height: 100px;
+    transform: rotateX(90deg) translateZ(150px);
+}
+
+
