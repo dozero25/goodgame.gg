@@ -1,7 +1,7 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.repository.UserRepository;
-import fourjo.idle.goodgame.gg.web.dto.user.UserDTO;
+import fourjo.idle.goodgame.gg.web.dto.mypage.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

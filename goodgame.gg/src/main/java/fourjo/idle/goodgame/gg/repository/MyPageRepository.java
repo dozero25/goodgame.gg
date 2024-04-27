@@ -1,9 +1,9 @@
 package fourjo.idle.goodgame.gg.repository;
 
-import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
-import fourjo.idle.goodgame.gg.web.dto.user.ReplyDTO;
-import fourjo.idle.goodgame.gg.web.dto.user.UserDTO;
+import fourjo.idle.goodgame.gg.web.dto.mypage.*;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface MyPageRepository {
@@ -12,20 +12,25 @@ public interface MyPageRepository {
     public int insertUserData(UserDTO userDTO);
 
     /*1. 회원탈퇴*/
-    /*public int deleteUserAllData(UserDTO userDTO);*/
-    public int deleteUserAllData(UserDTO userDTO);
-    public String pwCheck(String userId);
+    public int deleteUserAllData(int userIndex);
+    public String pwCheck(int userIndex);
 
     //========================================
     /*2. 회원정보 수정*/
     public int updateMypageInfo(UserDTO userDTO);
 
     /*3. 내가 쓴 글 목록*/
-    public BoardDTO searchMyPostListByIndex(int userIndex);
+    public List<BoardDTO> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO);
 
     /*4. 내가 쓴 댓글 목록*/
-    public ReplyDTO searchMyReplyListByIndex(int userIndex);
+    public List<ReplyDTO> searchMyReplyListByIndex(ReplySearchDTO replySearchDTO);
 
+    /*5. 일단 하나만 불러오자*/
+    public UserDTO selectOneData(int userIndex);
 
+    /*6.*/
+    public int totalBoardCount(int userIndex);
+
+    public int totalReplyCount(int userIndex);
 
 }
