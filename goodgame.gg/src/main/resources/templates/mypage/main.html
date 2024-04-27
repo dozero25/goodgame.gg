@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:class="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <link rel="stylesheet" href="/static/css/mypage/style_delete.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Gg.gg</h2>
+        <ul>
+            <li><a href="http://localhost:8000/mypage"><i class="fas fa-regular fa-user"></i> 내 정보</a></li>
+            <li><a href="http://localhost:8000/post"><i class="fas fa-regular fa-file"></i> 내 포스트 목록</a></li>
+            <li><a href="http://localhost:8000/reply"><i class="fas fa-regular fa-tag"></i> 내 댓글 목록</a></li>
+            <!-- <li><a href="http://localhost:8000/update"><i class="fas fa-regular fa-address-book"></i> 회원정보 수정</a></li>-->
+            <li><a href="http://localhost:8000/delete"><i class="fas fa-regular fa-code"></i> 회원탈퇴</a></li>
+        </ul>
+        <div class="social_media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <div class="top_menu">
+                <a href="#">HOME</a>
+                <a href="#">DUO</a>
+                <a href="#">RANKING</a>
+                <a href="#">COMMUNITY</a>
+                <a href="#">LOLBTI</a>
+            </div>
+        </div>
+        <div class="info">
+<!-- --------------------------------------------- -->
+
+            <header class="header-container">
+                <div class="MyPage wrap">
+                    <div class="MyPage inner">
+                        <h1><span class="My-Page">마이페이지</span></h1>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="my-page">
+                    <div class="container">
+                        <div class="content-left">
+                            <div class="img-form">
+                                <div class="img-container">
+                                    <img src="/static/images/MyPage-Profile.png" class="Profile-img">
+                                </div>
+                                <!--<input type="file" name="file" class="img-file">-->
+                            </div>
+                        </div>
+                        <div class="content-right">
+                            <div class="user-modify">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="modify-btn-box">
+                        <button type="submit" class="modification-button" >수정하기</button>
+                        <button type="submit" class="modificationOK-button" disabled>수정완료</button>
+                    </div>
+                </div>
+            </main>
+            <!-- --------------------------------------------- -->
+        </div>
+    </div>
+</div>
+</body>
+<script src="/static/js/principal.js"></script>
+<script src="/static/js/updateUserInfo.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</html>

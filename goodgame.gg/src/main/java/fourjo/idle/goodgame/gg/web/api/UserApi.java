@@ -1,8 +1,9 @@
 package fourjo.idle.goodgame.gg.web.api;
 
 import fourjo.idle.goodgame.gg.web.dto.CMRespDto;
-import fourjo.idle.goodgame.gg.web.dto.UserDto;
+import fourjo.idle.goodgame.gg.web.dto.mypage.UserDTO;
 import fourjo.idle.goodgame.gg.web.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class UserApi {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<CMRespDto<?>> registerUser (@RequestBody UserDto userDto, BindingResult bindingResult){
+    @Operation()
+    public ResponseEntity<CMRespDto<?>> registerUser (@RequestBody UserDTO userDto, BindingResult bindingResult){
         userService.registerUser(userDto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
