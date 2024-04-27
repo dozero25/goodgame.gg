@@ -1,38 +1,35 @@
 window.onload = () => {
 
     BoardMainService.getInstance().getLoadAllBoardList();
-    //BoardMainService.getInstance().getWriteButtonRequirement();
-   // BoardMainService.getInstance().getLoadBoardCategoryButton();
 
     ComponentEvent.getInstance().addClickEventInsertButton();
     ComponentEvent.getInstance().addClickEventsearchButton();
     ComponentEvent.getInstance().loadViewCountHotButton();
     ComponentEvent.getInstance().loadlikeCountHotButton();
-    //ComponentEvent.getInstance().addClickEventBoardListByBoardGrp();
+
 }
 
 let searchObj = {
-    page: 1, // 조회하고자 하는 페이지 번호 1
-    searchKey: "", // 검색 키: 제목, 작성자, 내용 등
-    searchValue: "", // 검색 값: 사용자가 입력한 검색어
-    limit: "Y", // 결과 제한 여부
-    count: 10, // 한 페이지에 표시할 데이터 수 10
+    page: 1, 
+    searchKey: "", 
+    searchValue: "", 
+    limit: "Y",
+    count: 10, 
 
 }
 
 
 
 const boardObj = {
-    boardIndex: "", // 게시글 번호
-    boardSubject: "", // 게시글 제목
-    userIndex: "", // 작성자 번호
-    userNick: "", // 작성자 Nick
-    replyCount: "", // 댓글 수
-    boardContent: "", // 게시글 내용 (필요시)
-    boardVisit: 0, // 조회수
-    boardRegDate: "", // 작성일
+    boardIndex: "", 
+    boardSubject: "", 
+    userIndex: "", 
+    userNick: "", 
+    replyCount: "", 
+    boardContent: "", 
+    boardVisit: 0, 
+    boardRegDate: "", 
     boardLikeCount:0,
-   /* 파일 업로드: "",*/
     boardUploadName: "",
     boardUploadSize: "",
     boardUploadLocation:""
@@ -50,72 +47,68 @@ const boardLikeObj = {
 
 }
 
-//서버와 통신하기 위한 API 호출 //AJAX 요청을 보내고 서버로부터 데이터를 받아옴
-class BoardMainApi {
 
-       //<!-- 클래스의 정적 프로퍼티와 정적 메서드를 사용하여 싱글톤 패턴을 구현하는 방법 -->
+class BoardMainApi {
         static #instance = null;
-        static getInstance(){ //  getInstance() 메서드를 호출하여 클래스의 인스턴스를 얻을 수 있고, 해당 인스턴스는 애플리케이션 전체에서 공유
+        static getInstance(){ 
             if(this.#instance == null) {
                 this.#instance = new BoardMainApi();
             }
             return this.#instance;
         }
 
+    searchBoard(searchObj){
+            let returnData = null;
+
+        $.ajax({
+            async : false,
+            type: "get",
+            url: `http://localhost:8000/api/board/search`,
+            data: searchObj, 
+            dataType: "json",
+            success : response => { 
+                console.log("Ajax 요청 성공:");
+                console.log(response);
+                returnData = response.data;
+            },
+            error: error => {
+                console.error("ajax 요청 오류");
+                console.log(error);
+            }
+        });
+        return returnData;
+    }
 
 
-       searchBoard(searchObj){
+
+    //페이징
+    searchBoardTotalCount(){
                 let returnData = null;
 
-                $.ajax({
-                    async : false,
-                    type: "get",
-                    url: `http://localhost:8000/api/board/search`,
-                    data: searchObj, // data : 서버로 보낼 데이터를 담은 객체
-                    dataType: "json",
-                    success : response => { //'fuction' 키워드 대신 '=>'로 함수 정의 (return 암묵적)
-                        console.log("Ajax 요청 성공:");
-                        console.log(response);
-                        returnData = response.data;
-                    },
-                    error: error => {
-                        console.error("ajax 요청 오류");
-                        console.log(error);
-                    }
-                });
-                return returnData;
-       }
+        $.ajax({
+            async : false,
+            type: "get",
+            url: `http://localhost:8000/api/board/totalCount`,
+            data: {"searchKey":searchObj.searchKey,
+            "searchValue":searchObj.searchValue}, 
+            dataType: "json",
+            success : response => { 
+                console.log("Ajax 요청 성공:");
+                console.log(response);
+                returnData = response.data;
+            },
+            error: error => {
+                console.error("ajax 요청 오류");
+                console.log(error);
+            }
+        });
+        return returnData;
+    }
 
 
-
-         //페이징
-       searchBoardTotalCount(){
-                 let returnData = null;
-
-                 $.ajax({
-                     async : false,
-                     type: "get",
-                     url: `http://localhost:8000/api/board/totalCount`,
-                     data: {"searchKey":searchObj.searchKey,
-                     "searchValue":searchObj.searchValue}, // data : 서버로 보낼 데이터를 담은 객체
-                     dataType: "json",
-                     success : response => { //'fuction' 키워드 대신 '=>'로 함수 정의 (return 암묵적)
-                         console.log("Ajax 요청 성공:");
-                         console.log(response);
-                         returnData = response.data;
-                     },
-                     error: error => {
-                         console.error("ajax 요청 오류");
-                         console.log(error);
-                     }
-                 });
-                 return returnData;
-       }
-
-
-       //조회수카운트
-       likeCountBoard(boardLikeObj){
-        let responseData = null;
+    //조회수카운트
+    likeCountBoard(boardLikeObj){
+    let responseData = null;
 
         $.ajax({
             async: false,
@@ -131,9 +124,9 @@ class BoardMainApi {
             error: error => {
                 console.log(error);
             }
-        });
+    });
         return responseData;
-        }
+    }
 
 
 
@@ -145,8 +138,6 @@ class BoardMainApi {
 
 }
 
-// 비즈니스 로직을 처리 // API 클래스에서 받아온 데이터를 가공하고 뷰에 필요한 형태로 변환
-//게시판 목록을 불러오는 메서드, 게시글 작성 버튼을 표시하는 메서드 등을 포함
 class BoardMainService {
      static #instance = null;
      static getInstance(){
@@ -158,18 +149,17 @@ class BoardMainService {
 
 
     getLoadAllBoardList(){
-        console.log(searchObj);
         const responseData = BoardMainApi.getInstance().searchBoard(searchObj);
         const boardTable = document.querySelector(".board-table tbody");
 
-        //작성날짜계산
+ 
         const formatTimeAgo = timestamp => {
             const currentTime = new Date();
             const previousTime = new Date(timestamp);
         
             const timeDifference = currentTime - previousTime;
         
-            // 밀리초(ms)를 초(s)로 변환
+
             const seconds = Math.floor(timeDifference / 1000);
         
             if (seconds < 60) {
@@ -186,9 +176,7 @@ class BoardMainService {
             }
         };
 
-        // //ajax를 못타는듯
-        // const likeData = BoardMainApi.getInstance().likeCountBoard(boardLikeObj);
-        // console.log("LikeData: "+likeData);
+
 
         boardTable.innerHTML = ''; // 초기화 필수
         responseData.forEach((data,index)=> {
@@ -224,7 +212,7 @@ class BoardMainService {
         const pageController = document.querySelector(".page-controller");
 
         const totalcount = BoardMainApi.getInstance().searchBoardTotalCount(searchObj);
-        console.log(totalcount);
+  
         const maxPageNumber = totalcount % searchObj.count == 0
             ? Math.floor(totalcount / searchObj.count)
             : Math.floor(totalcount / searchObj.count) + 1;
@@ -232,6 +220,7 @@ class BoardMainService {
         pageController.innerHTML = `
             <a href="javascript:void(0)" class="pre-button disabled">이전</a>
             <ul class="page-numbers">
+            
             </ul>
             <a href="javascript:void(0)" class="next-button disabled">다음</a>
         `;
@@ -282,84 +271,11 @@ class BoardMainService {
         });
     }
 
-     //작성일 계산
-    /*loadBoardRegDate(){
-
-        // 작성일을 계산하여 표시하는 함수
-        function formatTimestamp(timestamp) {
-            const now = new Date(); // 현재 시간
-            const postDate = new Date(timestamp);
-            const timeDiff = now - postDate;
-
-            // 1일 전까지는 날짜를, 그 이후에는 몇 시간 전으로 표시
-            if (timeDiff < 24 * 60 * 60 * 1000) { // 1일 = 24시간 * 60분 * 60초 * 1000밀리초
-                const hoursDiff = Math.floor(timeDiff / (60 * 60 * 1000)); // 시간으로 변환
-                return hoursDiff + "시간 전";
-            } else {
-                // 날짜를 특정 포맷으로 변환하여 반환 (예: 2024-04-13)
-                const year = postDate.getFullYear();
-                const month = String(postDate.getMonth() + 1).padStart(2, '0');
-                const day = String(postDate.getDate()).padStart(2, '0');
-                return `${year}-${month}-${day}`;
-            }
-        }
-
-        // 작성일을 가져와서 포맷팅하여 출력하는 함수
-        function displayFormattedDate(boardRegDate) {
-            const formattedDate = formatTimestamp(boardRegDate);
-            // 작성일을 특정 HTML 요소에 표시
-            const boardRegDateElements = document.querySelectorAll(".board-reg-date");
-            boardRegDateElements.forEach(element => {
-                element.textContent = formattedDate;
-            });
-        }
-
-        // 작성일을 표시
-        displayFormattedDate(data.boardRegDate);
-    }*/
-
-
-
-  // javascript 를 이용해서 몇일전, 분, 시간, 일, 년 까지 구하는 함수
-//     function timeForToday(value) {
-//         const today = new Date();
-//         const timeValue = new Date(value);
-
-//         const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-//         if (betweenTime < 1) return '방금전';
-//         if (betweenTime < 60) {
-//             return `${betweenTime}분전`;
-//         }
-
-//         const betweenTimeHour = Math.floor(betweenTime / 60);
-//         if (betweenTimeHour < 24) {
-//             return `${betweenTimeHour}시간전`;
-//         }
-
-//         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-//         if (betweenTimeDay < 365) {
-//             return `${betweenTimeDay}일전`;
-//         }
-
-//         return `${Math.floor(betweenTimeDay / 365)}년전`;
-//  }
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
 
 
-// 사용자 동작에 대한 이벤트 ( 검색버튼 클릭 > 검색기능 실행, 카테고리 버튼 클릭 > 해당 카테고리에 대한 게시글 목록 불러오기)
 class ComponentEvent{
     static #instance = null;
     static getInstance() {
@@ -377,7 +293,6 @@ class ComponentEvent{
             insertButton.addEventListener("click", function() {
                 const responseData = BoardMainApi.getInstance().searchBoard();
                 const principal = PrincipalApi.getInstance().getPrincipal();
-                console.log(principal);
 
                 if(principal === null){
                      window.location.href = "http://localhost:8000/login";
@@ -402,13 +317,8 @@ class ComponentEvent{
             const searchValue = $("#searchValue").val();
             searchObj.searchKey = searchKey;
             searchObj.searchValue = searchValue;
-            console.log(searchKey);
-            console.log(searchValue);
 
-            // BoardMainService.getInstance().getLoadSearchBoardList();
              BoardMainService.getInstance().getLoadAllBoardList();
-
-
 
             console.log('버튼이 클릭되었습니다.');
 
@@ -424,25 +334,14 @@ class ComponentEvent{
         const likeBtn = document.getElementById("view-btn");
         likeBtn.addEventListener("click", function(){
 
-            //BoardMainApi.getInstance().searchBoard();
-            
-            //boardObj.boardLikeCount = 50;
-
             const searchKey = $("#view-btn").val();
             const searchValue = 50;
             searchObj.searchKey = searchKey;
             searchObj.searchValue = searchValue;
 
-            //console.log(boardObj.boardLikeCount);
-            
-            //searchObj.searchKey = boardObj.boardLikeCount;
-            //searchObj.searchValue = 50;
-            
-            //if(boardObj.boardLikeCount >= 50){
-                
+
             BoardMainService.getInstance().getLoadAllBoardList();
-            //}
-            
+
 
         });
             
@@ -461,15 +360,10 @@ class ComponentEvent{
             searchObj.searchValue = searchValue;
   
             BoardMainService.getInstance().getLoadAllBoardList();
-            //}
             
         });
 
     }
-
-
-
-
 
 
 }

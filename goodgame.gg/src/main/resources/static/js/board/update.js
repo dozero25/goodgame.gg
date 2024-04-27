@@ -9,17 +9,16 @@ window.onload = () => {
 }
 
 const boardObj = {
-    boardIndex: 0, // 게시글 번호
-    boardSubject: "", // 게시글 제목
-    userIndex: 0, // 작성자 번
-    userId: "", // 작성자 아이디
+    boardIndex: 0, 
+    boardSubject: "", 
+    userIndex: 0, 
+    userId: "", 
     userNick:"",
-    replyCount: 0, // 댓글 수
-    boardContent: "", // 게시글 내용 (필요시)
-    boardVisit: 0, // 조회수
-    boardRegDate: "", // 작성일
+    replyCount: 0, 
+    boardContent: "", 
+    boardVisit: 0, 
+    boardRegDate: "", 
     boardLikeCount:0,
-   /* 파일 업로드: "",*/
     boardUploadName: "",
     boardUploadSize: "",
     boardUploadLocation:""
@@ -68,7 +67,7 @@ class BoardUpdateApi{
 
 
     updateBoard(){
-        let successFlag = null;
+        let successFlag = false;
         console.log(boardObj);
 
         $.ajax({
@@ -93,6 +92,30 @@ class BoardUpdateApi{
 
     }
     
+    fileUpdateBoard(formData){
+        let successFlag = false;
+
+         $.ajax({
+             async: false,
+             type : 'POST',
+             url: `http://localhost:8000/api/board/fileUpdate`,
+             processData : false,
+             contentType : false,
+             data : formData,
+             dataType:"json",
+             success: response => {
+                 successFlag = true;
+             },
+             error: error => {
+
+                 console.log(error);
+             }
+ 
+         });
+ 
+          return successFlag;
+
+    }
 
 
     loadUpdateBoard(){
@@ -105,7 +128,7 @@ class BoardUpdateApi{
             dataType: "json",
             success: response => {
                 responseData = response;
-                
+
                 console.log(responseData);
             },
             error: error => {
@@ -117,23 +140,7 @@ class BoardUpdateApi{
     }
 
 
-
-
-
-
-
-
-
-
-}//end BoardUpdateApi
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -152,8 +159,8 @@ class BoardUpdateService{
     setBoardUpdateBoardIndex() {
         const URLSearch = new URLSearchParams(location.search);
         boardObj.boardIndex = URLSearch.get("boardIndex");
-        console.log("맨처음 setBoardUpdateBoardIndex: " + boardObj.boardIndex);
-        const principal = PrincipalApi.getInstance().getPrincipal(); // 여기 가장 먼저
+
+        const principal = PrincipalApi.getInstance().getPrincipal();
         
     }
 
@@ -161,14 +168,8 @@ class BoardUpdateService{
     getLoadBoard(){    
         const responseData = BoardUpdateApi.getInstance().loadUpdateBoard();
 
-        console.log(responseData);
-        console.log(responseData.data.boardSubject);
-        console.log("?????"+responseData.data.boardUploadName);
-
         const updateDetail = document.querySelector(".update-detail");
-       
-       
-    
+
             
             updateDetail.innerHTML = `
 
@@ -176,24 +177,27 @@ class BoardUpdateService{
             
             <label class="updateTitle">제목</label>
             <div>
-                <input type="text" id="boardSubject" class="updateBoardSubject" autocomplete="off" value=${responseData.data.boardSubject}>
+                <input type="text" id="boardSubject" class="updateBoardSubject" autocomplete="off" value="${responseData.data.boardSubject}">
             </div>
             <div class ="updateUserNickAndContent">
-                <label class="updateUserNick">작성자</label>
+                <label class="updateUserNick">작성자&nbsp;</label>
                 <span>
                     <input type="text" class="userNickView" id="userNick" autocomplete="off" value="${responseData.data.userNick}" readonly>
                 </span>
-                <label>작성일</label>
+                <label class="updateRegDate">&nbsp;작성일&nbsp;</label>
                 <span>
                     <input type="datetime" id="boardRegDate" class="boardRegDateView" autocomplete="off" value="${responseData.data.boardRegDate}" readonly>
                 </span>
             </div>
-           <label class="updateContent">내용</label>
+            <label class="updateContent">내용</label>
             <div>
                 <textarea class="updateBoardContent" id = "boardContent" cols="100" rows="30">${responseData.data.boardContent}</textarea>
             </div>
-            <input type="file" class="boardUploadName" value="${responseData.data.boardUploadName}" placeholder="${responseData.data.boardUploadName}">
-            <input type="hidden" value="${responseData.data.boardIndex}"> 
+    
+            <form id="uploadForm" method="post" enctype="multipart/form-data">
+                <input type="file" id="updateUploadFile"  class="updateUploadFile" value1="${responseData.data.boardUploadName}" value2="${responseData.data.boardIndex}" name="file">
+            </form>
+           
             <div class = "update-btn">
                     <button type="submit" id = "update-complete" class="update-complete">수정완료</button>
                     <a href = "http://localhost:8000/board/selectOne?boardIndex=${responseData.data.boardIndex}">
@@ -205,37 +209,61 @@ class BoardUpdateService{
             `;
      
 
-      
-
+  
     }
 
     setUpdateBoardObjValues(){
-        console.log("setUpdateBoardObjValues...");
+        const principal = PrincipalApi.getInstance().getPrincipal();
 
         const responseData = BoardUpdateApi.getInstance().loadUpdateBoard();
-        
-       
-        //수정 class 이름 바꿈 파일수정완료하고 적용되는지 테스트하기
-        boardObj.boardSubject = document.querySelector("boardSubject").value;
-        boardObj.userNick = document.querySelector("userNick").value;
-        boardObj.boardRegDate = document.querySelector("boardRegDate").value;
-        boardObj.boardContent = document.querySelector("boardContent").value;
-        boardObj.boardUploadName = document.querySelector(".boardUploadName").value;
-        boardObj.boardIndex = responseData.data.boardIndex;
+        console.log(responseData.data.boardContent);
+  
+        const formData = new FormData();
+        const uploadFile = document.getElementById("updateUploadFile").files[0];
 
+        let updateOK = 0;
+
+        if(document.getElementById("boardSubject").value == "" || document.getElementById("boardContent").value == ""){
+            updateOK = 1;
+        }else{
+            if(uploadFile == null){
+                
+                boardObj.userNick = document.getElementById("userNick").value;
+                boardObj.boardSubject = document.getElementById("boardSubject").value;
+                boardObj.boardRegDate = document.getElementById("boardRegDate").value;
+                boardObj.boardContent = document.getElementById("boardContent").value;
+                boardObj.boardIndex = responseData.data.boardIndex;
+                BoardUpdateApi.getInstance().updateBoard() == true? updateOK = 0 : updateOK = 3;
+    
+            }else {
+                let fileCheck = document.getElementById("updateUploadFile").value.split(".");
+
+                let extension = ["png","img","jpg","jpeg","gif","bmp"];
+
+                if(!extension.includes(fileCheck[fileCheck.length-1])){
+                    updateOK=2;
+                
+                }else{
+
+                    formData.append('file', uploadFile);
+                    formData.append('userNick', principal.user.userNick);
+                    formData.append('boardSubject',document.getElementById("boardSubject").value);
+                    formData.append('boardRegDate', document.getElementById("boardRegDate").value);
+                    formData.append('boardContent',document.getElementById("boardContent").value);
+                    formData.append('boardIndex', responseData.data.boardIndex);
+                    BoardUpdateApi.getInstance().fileUpdateBoard(formData) == true? updateOK = 0 : updateOK = 3;
+             
+                }
+            }
         
+        }
+        
+        return updateOK;
     }
 
 
 
-}//end BoardUpdateService
-
-
-
-
-
-
-
+}
 
 
 
@@ -255,24 +283,27 @@ class ComponentEvent{
 
         updateButton.addEventListener("click", function () {
 
-           BoardUpdateService.getInstance().setUpdateBoardObjValues();
-           const successFlag = BoardUpdateApi.getInstance().updateBoard();
-
-            if(successFlag) {
-                console.log(boardObj);
-                console.log(boardObj.boardIndex);
-                alert("수정이 완료되었습니다.");
-                
-                location.href=`http://localhost:8000/board/selectOne?boardIndex=${boardObj.boardIndex}` // board? selectOne?
-            } else {
-                location.reload();
-                alert("수정이 실패되었습니다.");
-            }
+            let updateSuccess;
+            updateSuccess = BoardUpdateService.getInstance().setUpdateBoardObjValues();
+       
+                console.log(updateSuccess);
+                if(updateSuccess == 0) {
+                    alert("수정이 완료되었습니다.");
+                    location.href=`http://localhost:8000/board/selectOne?boardIndex=${boardObj.boardIndex}` 
+                } else if (updateSuccess ==1 ){
+                    alert("제목과 내용은 공백일 수 없습니다.");
+                    
+                } else if (updateSuccess ==2 ){
+                    alert("첨부파일 형식을 확인해주세요 \n (png, img, jpg, jpeg, gif, bmp)");
+                   
+                } else if (updateSuccess ==3){
+                    alert("수정이 실패했습니다. 관리자에게 문의바랍니다.")
+                }    
             
         })
         
     }        
   
 
-}//end ComponentEvent
+}
 

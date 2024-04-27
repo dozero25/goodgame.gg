@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- 웹 페이지가 Internet Explorer의 최신 버전으로 렌더링되도록 지시 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoodGame.gg</title>
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
@@ -11,87 +11,59 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="sidebar">
-            <div class="flip-btn">
-                <div class="front">GG.GG</div>
-                <div class="back">GoodGame</div>
-            </div>
-        </div>
-        <div class="main_content">
-            <div class="header">
-                <div class="top_menu">
-                    <a href="#">HOME</a>
-                    <a href="#">DUO</a>
-                    <a href="#">RANKING</a>
-                    <a href="http://localhost:8000/board">COMMUNITY</a>
-                    <a href="#">LOLBTI</a>
-                </div>
-            </div>
-            <div class="social_media">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="info">
-                <div>
-                    <!-- 폼 콘텐츠는 여기에 위치합니다 -->
-                    <main class="container">
-                        <div class="board-container">
-                            <div class="board-list">
-    
-                            </div>
-                            <div class="write-box">
-                                <div class="left-items">
-                                    <!-- 글 등록 버튼 -->
-                                    <aside class="quickMenu">
-                                        <button class="insert-button" type="button">게시글 작성</button>
-                                        <button class="view-btn" id="view-btn" type="button" value="view">인기글 ▾</button>
-                                        <button class="like-btn" id="like-btn" type="button" value="like">추천글 ▾</button>
-                                    </aside>
-                                </div>
-                                <div class="right-items">
-                                    <select id="searchKey" name="searchKey" class ="search-select">
-                                        <option value="0">전체</option>
-                                        <option value="1">제목</option>
-                                        <option value="2">작성자</option>
-                                        <option value="3">내용</option>
-                                        <option value="4">제목+내용</option>
-                                    </select>
-                                    <input type="search" id="searchValue" class="search-input">
-                                    <button type="button" id="searchBtn" class="search-button">검색</button>
-                                </div>
-                            </div>
-    
-                            <table class="board-table">
-                                <thead>
-                                <tr>
-                                    <th>번호</th>
-                                    <th colspan="2">제목[댓글]</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회</th>
-                                    <th>추천</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-    
-                                </tbody>
-                            </table>
-    
-                            <div class="page-controller"></div>
-                            <div class="page-controller1"></div>
-                        </div>
-                    </main>
-                </div>
-            </div>
-        </div>
+    <div class = "main-bar">
+        <h1>커뮤니티 게시판</h1>       
     </div>
-    </body>
+    
+        <main class="container">
+            <div class="board-container">
+                <div class="write-box">
+                    <div class="left-items">
+                        
+                        <aside class="quickMenu">
+                            <button class="insert-button" type="button">게시글 작성</button>
+                            <button class="view-btn" id="view-btn" type="button" value="view">인기글 ▾</button>
+                            <button class="like-btn" id="like-btn" type="button" value="like">추천글 ▾</button>
+                        </aside>
+                    </div>
+                    <div class="right-items">
+                        <select id="searchKey" name="searchKey" class ="search-select">
+                            <option value="0">전체</option>
+                            <option value="1">제목</option>
+                            <option value="2">작성자</option>
+                            <option value="3">내용</option>
+                            <option value="4">제목+내용</option>
+                        </select>
+                        <input type="search" id="searchValue" class="search-input">
+                        <button type="button" id="searchBtn" class="search-button">검색</button>
+                    </div>
+                </div>
 
-<!--<input type="button" name="boardList" placeholder="글목록">-->
-<!-- <script src="/static/js/account/principal.js"></script>
-<script src="/static/js/header.js"></script>-->
+                <table class="board-table">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th colspan="2">제목[댓글]</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                        <th>추천</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <div class="page-controller">
+
+                </div>
+            </div>
+        </main>
+                
+</body>
+
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/static/js/board/main.js"></script>
 <script src="/static/js/pricipal.js"></script> 

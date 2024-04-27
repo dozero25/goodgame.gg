@@ -1,11 +1,9 @@
 window.onload = () => {
     // HeaderService.getInstance().loadHeader();
- 
-    // BoardInsertService.getInstance().loadBoardCategoryList();
- 
+
      ComponentEvent.getInstance().addClickEventInsertButton();
      ComponentEvent.getInstance().addClickEventInsertCancelButton()
-//     ComponentEvent.getInstance().addClickEventEditButton();
+
      
      
  
@@ -13,17 +11,16 @@ window.onload = () => {
  }
  
  const boardObj = {
-     boardIndex: "", // 게시글 번호
-     boardSubject: "", // 게시글 제목
-     userIndex: "", // 작성자 번
-     userId: "", // 작성자 아이디
+     boardIndex: "",
+     boardSubject: "", 
+     userIndex: "", 
+     userId: "", 
      userNick:"",
-     replyCount: "", // 댓글 수
-     boardContent: "", // 게시글 내용 (필요시)
-     boardVisit: "", // 조회수
+     replyCount: "", 
+     boardContent: "", 
+     boardVisit: "",
      boardLikeCount: "",
-     boardRegDate: "", // 작성일
-    /* 파일 업로드: "",*/
+     boardRegDate: "", 
      boardUploadName: "",
      boardUploadSize: "",
      boardUploadLocation:"",
@@ -113,24 +110,37 @@ window.onload = () => {
         const formData = new FormData();
         const uploadFile = document.getElementById("uploadFile").files[0];
          
-        let insertOK;
+        let insertOK = 0;
          if(document.getElementById("subject").value == "" || document.getElementById("content").value == ""){
-            insertOK = false;
+            insertOK = 1;
 
          }else{
             if(uploadFile == null){
-                boardObj.boardSubject = document.getElementById("subject").value;
                 boardObj.userIndex = principal.user.userIndex; 
+                boardObj.boardSubject = document.getElementById("subject").value;
                 boardObj.boardContent = document.getElementById("content").value;
-                boardObj.boardUploadName = document.getElementById("uploadFile").value;
-                insertOK =  BoardInsertApi.getInstance().insertBoard();
-    
+                BoardInsertApi.getInstance().insertBoard() == true? insertOK = 0 : insertOK = 3;
+                
+              
             }else {
-                formData.append('file', uploadFile);
-                formData.append('userIndex', principal.user.userIndex);
-                formData.append('boardSubject',document.getElementById("subject").value);
-                formData.append('boardContent',document.getElementById("content").value);
-                insertOK =  BoardInsertApi.getInstance().fileInsertBoard(formData);
+                let fileCheck = document.getElementById("uploadFile").value.split(".");
+          
+                let extension = ["png","img","jpg","jpeg","gif","bmp"];
+                console.log(typeof extension[0]);
+              console.log(extension[0]);
+
+                if(!extension.includes(fileCheck[fileCheck.length-1])){
+                    insertOK=2;
+                }else{
+                    formData.append('file', uploadFile);
+                    formData.append('userIndex', principal.user.userIndex);
+                    formData.append('boardSubject',document.getElementById("subject").value);
+                    formData.append('boardContent',document.getElementById("content").value);
+                    
+                    BoardInsertApi.getInstance().fileInsertBoard(formData) == true? insertOK = 0 : insertOK = 3;
+                   
+                }
+               
              }
          }
         
@@ -161,14 +171,20 @@ window.onload = () => {
                 
             let insertSuccess;
             insertSuccess = BoardInsertService.getInstance().setBoardObjValues();
-
+            
+            
             console.log(insertSuccess);
-                if(insertSuccess) {
+                if(insertSuccess == 0) {
                     alert("등록이 완료되었습니다.");
-                location.href="http://localhost:8000/board";
-                } else {
+                    location.href="http://localhost:8000/board";
+                } else if (insertSuccess ==1 ){
                     alert("제목과 내용은 공백일 수 없습니다.");
-                location.reload();
+                    
+                } else if (insertSuccess ==2 ){
+                    alert("첨부파일 형식을 확인해주세요 \n (png, img, jpg, jpeg, gif, bmp)");
+                   
+                } else if (insertSuccess ==3){
+                    alert("등록이 실패했습니다. 관리자에게 문의바랍니다.")
                 }
 
             }
@@ -179,25 +195,9 @@ window.onload = () => {
       const insertCancelButton = document.querySelector(".insert-cancel");
 
       insertCancelButton.addEventListener('click', function() {
-          window.location.href = 'http://localhost:8000/board'; // 게시물 목록 페이지의 URL로 이동
+          window.location.href = 'http://localhost:8000/board'; 
       });
      }
 
-//     addClickEventEditButton(){
-//       // Bold, Italic, Underline 버튼에 대한 이벤트 처리
-//             document.getElementById('bold-btn').addEventListener('click', function() {
-//                 document.execCommand('bold');
-//             });
-//
-//             document.getElementById('italic-btn').addEventListener('click', function() {
-//                 document.execCommand('italic');
-//             });
-//
-//             document.getElementById('underline-btn').addEventListener('click', function() {
-//                 document.execCommand('underline');
-//             });
-//     }
-
- 
  
  }

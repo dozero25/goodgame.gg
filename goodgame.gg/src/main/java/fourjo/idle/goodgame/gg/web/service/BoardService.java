@@ -69,7 +69,11 @@ public class BoardService {
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시글 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     public int boardUpdateOKByBoardIndex(BoardDTO boardDTO) {
+        return boardRepository.boardUpdateOKByBoardIndex(boardDTO);
+    }
 
+
+    public int boardFileUpdate(BoardDTO boardDTO){
         String boardUploadName = boardDTO.getFile().getOriginalFilename(); // insert할때도 파일이름, 사이즈는 board에 들어감
         log.info("getOriginalFilename:"+boardUploadName);
 
@@ -91,9 +95,8 @@ public class BoardService {
         boardDTO.setBoardUploadName(boardUploadName);
         boardDTO.setBoardUploadSize(boardUploadSize);
         boardDTO.setBoardUploadLocation(boardUploadLocation);
+        return boardRepository.boardFileUpdate(boardDTO);
 
-
-        return boardRepository.boardUpdateOKByBoardIndex(boardDTO);
     }
 
     public BoardDTO loadUpdatePageByBoardIndex(int boardIndex) {
@@ -142,15 +145,10 @@ public class BoardService {
         boardRepository.likeUpdate(boardIndex);
     };
 
-    public void likeBadCancel(int boardIndex, int userIndex) {
-        boardRepository.likeBadCancel(boardIndex,userIndex);
+    public void likeCancel(int boardIndex, int userIndex) {
+        boardRepository.likeCancel(boardIndex,userIndex);
         boardRepository.likeUpdate(boardIndex);
     };
-
-//    public void badAdd(int boardIndex, int userIndex) {
-//        boardRepository.badAdd(boardIndex,userIndex);
-//
-//    };
 
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ조회수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//

@@ -1,14 +1,27 @@
 
 
 body{
-    background-color: #2f2e33;
+    background-color: #1c1c1f;
  }
+
+.main-bar{
+
+    top: 0; /* 화면의 맨 위에 배치합니다. */
+    left: 0; /* 좌측 정렬합니다. */
+    width: 100%; /* 화면 전체 너비를 사용합니다. */
+    height: 100px; /* 바의 높이를 지정합니다. */
+    background-color: #0000ff; /* 바의 배경색을 지정합니다. */
+    color : white;
+
+    
+} 
+
  
 
 .container {
     display: flex;
     justify-content: center;
-    background-color:#2f2e33;
+    background-color:#1c1c1f;
 
     width: 100%;
     font-size: 15px;
@@ -19,37 +32,16 @@ body{
 
 .board-info .board-href{
     text-align: center;  
-    text-decoration: none; /* 링크의 밑줄 제거 */  
-    color: inherit; /* 링크의 색상 제거 */
+    text-decoration: none; 
+    color: inherit; 
 
   
 }
 
-.board-list {
-    display: flex;
-    justify-content: center;
-    margin: 50px 0px;
-}
-
-.board-list div {
-    padding: 0px 20px;
-}
-
-.board-list div button{
-    padding: 15px;
-    font-size: 16px;
-    background-color: #4063ff;
-    border: 1px solid #2f55ff;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.board-list div button:hover {
-    background-color: #0f397a;
-}
 
 .board-table {
-    background-color: #2b2931; 
+    background-color: #31313C; 
+    color: rgb(204, 204, 204);
     border-radius: 5px; 
     box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -112,7 +104,7 @@ body{
 
 .search-button:active {
     background-color: #39045c;
-    color: #f8f8f8; /* 클릭하면 검정색 배경에 흰색 글자로 변경 */
+    color: #f8f8f8; 
     font-weight: 700;
 }
 
@@ -138,6 +130,11 @@ body{
     text-align: center;
     font-size: 14px;
 }
+
+
+
+
+
 .page-controller {
     display: flex;
     justify-content: center;
@@ -179,10 +176,14 @@ body{
 
 .page-controller .disabled {
     border-radius: 5px;
-    background-color: #202020;
-    color: rgb(80, 80, 80);
+    background-color: #31313C;
+    color: rgb(126, 126, 126);
     cursor: default;
 }
+
+
+
+
 
 
 .search-container {
@@ -201,8 +202,8 @@ body{
 .search-container input[type="search"],
 .search-container button {
    
-    font-size: 14px; /* 폰트 크기 설정 */
-    height: 25px; /* 높이 설정 */
+    font-size: 14px; 
+    height: 25px;
 }
 
 
@@ -215,13 +216,13 @@ body{
 
 
 .board-thumb {
-    margin-left: auto; /* 오른쪽 여백 설정하여 사진을 행의 오른쪽에 위치 */
+    margin-left: auto; 
 }
 
 .board-info {
-    flex-grow: 1; /* 남은 공간을 행의 다른 요소와 동일한 크기로 설정하여 길이를 조절 */
-    padding-right: 20px; /* 제목과 댓글 수 사이 여백 설정 */
-    width: 40%; /* 제목 열의 너비를 조절합니다. */
+    flex-grow: 1;
+    padding-right: 20px; 
+    width: 40%; 
 }
 
 
@@ -231,48 +232,106 @@ body{
 
 .left-items {
     padding: 8px;
-    margin: 100px 0px 0px; /* 아래로 조금 이동 */
+    margin: 100px 0px 0px; 
 }
 
 .insert-button,
 .view-btn,
 .like-btn {
-    padding: 10px; /* 패딩 조정 */
+    padding: 10px; 
     border: 2px solid #0c0c0c;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-    background-color: #464646; /* 기본 배경색 */
-    color: #000000; /* 기본 글자색 */
-    font-weight: bold; /* 글자 두껍게 설정 */
+    background-color: #464646; 
+    color: #000000; 
+    font-weight: bold; 
 }
 
 .insert-button:active,
 .view-btn:active,
 .like-btn:active {
-    background-color: #333; /* 클릭했을 때 배경색 */
+    background-color: #333; 
 }
 
 
 .insert-button:hover {
-    background-color: #636363; /* 호버 배경색 */
+    background-color: #636363;
     color : white;
 }
 
 .view-btn,
 .like-btn {
-    background-color: #999; /* 기본 배경색 */
-    color: rgb(0, 0, 0); /* 기본 글자색 */
+    background-color: #999; 
+    color: rgb(0, 0, 0); 
 }
 
 .insert-button:hover,
 .view-btn:hover,
 .like-btn:hover {
-    background-color: #888; /* 호버 배경색 */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 그림자 효과 */
+    background-color: #888; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
 }
 
 
+
+
+
+
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+.page-numbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+
+}
+
+.page-numbers li {
+    list-style-type: none;
+}
+
+.page-numbers li span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px; /* 너비 */
+    height: 22px;
+    margin: 0px 4px;
+
+    border: 1px solid #d4d4d4;
+    border-radius: 3px;
+    padding: 2px;
+
+    font-weight: bold;
+    text-decoration: none;
+    color: #31313C;
+
+    cursor: pointer;
+
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+
+
+.page-controller a:hover {
+    background-color: #202020;
+}
+
+.page-controller .disabled {
+    color: #9E9EB1;
+    cursor: auto;
+}
+
+.page-numbers .disabled {
+    background-color: #31313C;
+    border: 1px solid #7f7f86;
+    color: white;
+    cursor: auto;
+}
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
 
 *{
@@ -285,7 +344,7 @@ body{
 }
 
 body{
-   background-color: #2f2e33;
+   background-color: #1c1c1f;
 }
 
 .wrapper{

@@ -4,7 +4,6 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.BoardRepository">
 
-    <!-- mysql에서 auto-increment 설정해서 0해도 자동증가 AI-->
 
     <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시글 작성ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <insert id ="boardInsert"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
@@ -25,6 +24,14 @@
     <update id ="boardUpdateOKByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO" >
         update board_mst set boardSubject = #{boardSubject}, boardContent =  #{boardContent} where boardIndex = #{boardIndex};
     </update>
+
+    <update id="boardFileUpdate" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
+        update board_mst
+        set boardSubject = #{boardSubject}, boardContent =  #{boardContent},
+            boardUploadName = #{boardUploadName}, boardUploadSize = #{boardUploadSize}, boardUploadLocation = #{boardUploadLocation}
+        where boardIndex = #{boardIndex};
+    </update>
+
 
     <select id = "loadUpdatePageByBoardIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         SELECT
@@ -71,19 +78,7 @@
 
     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시물 검색 및 목록ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <select id ="boardSearchAllBySubjectAndUserIndexAndContent" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
-     <!--   select boardIndex, boardSubject, user_mst.userId, boardRegDate,boardVisit, boardUploadName, boardUploadSize, boardUploadLocation
-        from board_mst
-        join user_mst on (board_mst.userIndex = user_mst.userIndex)
 
-     &lt;!&ndash;   <if test='searchKey != null and searchKey == "", searchValue != null and searchValue != ""'>
-            and (
-            board_mst.user_index like CONCAT('%', #{searchValue}, '%')
-            or board_subject like CONCAT('%', #{searchValue}, '%')
-            or board_content like CONCAT('%', #{searchValue}, '%')
-            )
-        </if>&ndash;&gt;-->
-
-        <!-- 댓글수 count하는 DTO따로 만들어야하는지? - swagger에 이 컬럼으로 출력이 안됨/ 아님 boardDto 컬럼 추가?,/// 조회수 count하는 DTO따로 만들어야하는지  -->
         SELECT
         b.boardIndex, b.boardSubject, u.userIndex, u.userId, u.userNick, b.boardRegDate, b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation,
         COUNT(r.replyIndex) AS replyCount,b.boardLikeCount
@@ -97,7 +92,6 @@
 
 
         <choose>
-            <!-- 숫자가 용량이 작긴하지만 프론트단 들고갈때 헷갈릴까봐 스트링으로 정리하기 -->
             <when test='searchKey=="1"'> where boardSubject like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="2"'> where u.userNick like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="3"'> where boardContent like CONCAT('%', #{searchValue}, '%') </when>
@@ -129,7 +123,6 @@
         LEFT JOIN
         reply_mst r ON b.boardIndex = r.boardIndex
         <choose>
-            <!-- 숫자가 용량이 작긴하지만 프론트단 들고갈때 헷갈릴까봐 스트링으로 정리하기 -->
             <when test='searchKey=="1"'> where boardSubject like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="2"'> where u.userNick like CONCAT('%', #{searchValue}, '%') </when>
             <when test='searchKey=="3"'> where boardContent like CONCAT('%', #{searchValue}, '%') </when>
@@ -174,19 +167,9 @@
         )
     </insert>
 
-    <delete id ="likeBadCancel" parameterType="integer">
+    <delete id ="likeCancel" parameterType="integer">
         delete from board_like_mst where userIndex = #{userIndex} and boardIndex = #{boardIndex}
     </delete>
-
-    <!-- 싫어요 -->
-<!--    <insert id ="badAdd" parameterType="integer">-->
-<!--        insert into board_like_mst (boardLikeId, boardIndex, userIndex, boardLike, boardBad)-->
-<!--        select 0,  #{boardIndex}, #{userIndex}, 0, 1-->
-<!--        from dual-->
-<!--        where NOT EXISTS(-->
-<!--        select 1 from board_like_mst where boardIndex = #{boardIndex} and userIndex = #{userIndex}-->
-<!--        )-->
-<!--    </insert>-->
 
 
     <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ조회수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
@@ -214,6 +197,7 @@
         set replyContent = #{replyContent}
         where replyIndex = #{replyIndex}
     </update>
+
 
     <select id="boardReplyUpdateSelectOneByReplyIndex"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
         select replyIndex, boardIndex, user_mst.userIndex, user_mst.userId, user_mst.userNick, replyContent, replyGroup, replySequence, replyRegDate

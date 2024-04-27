@@ -20,6 +20,7 @@ public interface BoardRepository {
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시글 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     public int boardUpdateOKByBoardIndex(BoardDTO dto);
+    public int boardFileUpdate(BoardDTO boardDTO);
     public BoardDTO loadUpdatePageByBoardIndex(int boardIndex);
 
 
@@ -46,8 +47,7 @@ public interface BoardRepository {
     public int likeCountByBoardIndex(int boardIndex);
     public void likeAdd(int boardIndex, int userIndex);
     public void likeUpdate(int boardIndex);
-    public void likeBadCancel(int boardIndex, int userIndex);
-//    public void badAdd(int boardIndex, int userIndex);
+    public void likeCancel(int boardIndex, int userIndex);
     
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ조회수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//

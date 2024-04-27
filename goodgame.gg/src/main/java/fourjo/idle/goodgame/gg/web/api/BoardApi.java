@@ -43,7 +43,7 @@ public class BoardApi {
     }
 
     @PostMapping("/fileInsert")
-    public ResponseEntity<CMRespDto<?>> boardFileInsert (BoardDTO boardDTO) { // index값만 따로 받아서 boardIndex값 추출
+    public ResponseEntity<CMRespDto<?>> boardFileInsert (BoardDTO boardDTO) {
 
         boardService.registerBoardImg(boardDTO);
         return ResponseEntity.ok()
@@ -69,9 +69,16 @@ public class BoardApi {
 
     
     //update file upload용 API 예정
-    
+    @PostMapping("/fileUpdate")
+    public ResponseEntity<CMRespDto<?>> boardFileUpdate (BoardDTO boardDTO) {
 
-    
+        boardService.boardFileUpdate(boardDTO);
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
+    }
+
+
+
     @GetMapping("/update/{boardIndex}")
     //@Operation(summary = "게시글 수정용 ", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
     public ResponseEntity<CMRespDto<?>> loadUpdatePageByBoardIndex (@PathVariable("boardIndex") int boardIndex){
@@ -165,7 +172,7 @@ public class BoardApi {
     @PostMapping("/cancel")
     //@Operation(summary = "게시글 좋아요 또는 싫어요 취소 ", description = "게시글 좋아요 또는 싫어요 선택을 취소합니다.")
     public ResponseEntity<CMRespDto<?>> likeBadCancel (int boardIndex, int userIndex) {
-        boardService.likeBadCancel(boardIndex,userIndex);
+        boardService.likeCancel(boardIndex,userIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
