@@ -1,9 +1,12 @@
 window.onload = () => {
+    MyPageHeaderService.getInstance().loadHeader();
+    SidebarService.getInstance().loadSidebar();
+    
+    MyPageService.getInstance().popupForCheckUserPw();
 
     ComponentEvent.getInstance().ClickEventPopupForCheckUserPw();
     ComponentEvent.getInstance().ClickEventDeleteButton();
 
-    MyPageService.getInstance().popupForCheckUserPw()
 }
 
 //1.삭제할 데이터 선택

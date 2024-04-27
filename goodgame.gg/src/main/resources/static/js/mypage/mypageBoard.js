@@ -1,9 +1,10 @@
 window.onload = () => {
-    console.log("aaaaaaaaaaa");
+    MyPageHeaderService.getInstance().loadHeader();
+    SidebarService.getInstance().loadSidebar();
 
     //MyPageService.getInstance().setMyPageObjValues();
 //   MyPageApi.getInstance().printBoardList();
-MyPageService.getInstance().printBoardElement();
+    MyPageService.getInstance().printBoardElement();
 }
 //1.데이터를 저장할 변수 추가하기
 let BoardObj = {

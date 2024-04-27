@@ -101,8 +101,6 @@ body{
 }
 
 .wrapper .main_content .header .top_menu {
-   <!--float: right;-->
-   width: 110px;
    height: 20PX;
    display: flex;
    justify-content: center;

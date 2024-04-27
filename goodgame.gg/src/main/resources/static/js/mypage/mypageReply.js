@@ -1,8 +1,9 @@
 window.onload = () => {
-    console.log("aaaaaaaaaaa");
+    MyPageHeaderService.getInstance().loadHeader();
+    SidebarService.getInstance().loadSidebar();
 
     //MyPageService.getInstance().setMyPageObjValues();
-  MyPageService.getInstance().printReplyElement();
+    MyPageService.getInstance().printReplyElement();
 
 }
 //1.데이터를 저장할 변수 추가하기

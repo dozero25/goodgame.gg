@@ -1,37 +1,5 @@
-* {
 
-
-input, table, td, th{
-    border: 1px solid rgb(36, 37, 38);
-}
-label {
-        color: #ffffff;
-}
-
-input {
-    padding: 5px;
-    cursor: pointer;
-}
-
-img {
-    width: 100%;
-}
-
-button {
-    cursor: pointer;
-}
-
-body {
-
-    background: rgb(36, 37, 38);
-}
-
-
-
-
-/* */
-
-containerhtml, body, header, main, footer, div, p, h1, h2 {
+.containerhtml, body, header, main, footer, div, p, h1, h2 {
     margin: 0;
     padding: 0;
 }
@@ -49,10 +17,6 @@ containerhtml, body, header, main, footer, div, p, h1, h2 {
     color : white;
 }
 
-
-.updateMain{
-    background-color: #1c1c1f;
-}
 .update-detail {
     max-width: 800px;
     margin: 20px auto;

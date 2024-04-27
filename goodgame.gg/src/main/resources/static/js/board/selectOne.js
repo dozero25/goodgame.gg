@@ -571,7 +571,7 @@ class BoardSelectOneService {
                     </tfoot>
                 </table>
                 <div class="replyGroupBtn-box">
-                    <input class="replyGroup-input" value = "댓글을 입력하세요" maxlength="300">
+                    <input class="replyGroup-input" value = "" maxlength="300" placeholder = "댓글을 입력하세요">
                     <button id= "rply" class="reg-gro-btn" onclick="reply_insert(${data.replyGroup})" value="${data.replyGroup}">답글쓰기✔</button>
                 </div>` 
                  : `` 

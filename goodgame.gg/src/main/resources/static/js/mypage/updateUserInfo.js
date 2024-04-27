@@ -1,4 +1,7 @@
 window.onload = () => {
+    MyPageHeaderService.getInstance().loadHeader();
+    SidebarService.getInstance().loadSidebar();
+
     MyPageService.getInstance().printMyPage();
 //   MyPageService.getInstance().setMyPageObjValues();
 

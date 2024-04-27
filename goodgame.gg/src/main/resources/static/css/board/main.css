@@ -11,12 +11,9 @@
     
 } 
 
- 
-
 .container {
     display: flex;
     justify-content: center;
-    background-color:#1c1c1f;
 
     width: 100%;
     font-size: 15px;
@@ -325,22 +322,10 @@
     background-color: #31313C;
     border: 1px solid #7f7f86;
     color: white;
+   
     cursor: auto;
 }
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-  font-family: 'Josefin Sans', sans-serif;
-}
-
-body{
-   background-color: #1c1c1f;
-}
+/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
 
 .wrapper{
   display: flex;
