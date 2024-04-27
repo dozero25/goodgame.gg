@@ -14,9 +14,21 @@ let ReplyObj = {
     replyGroup: "",
     replySequence: "",
     replyRegDate: "",
-
-
 };
+
+
+const boardObj = {
+    boardIndex: "",
+    boardSubject: "",
+    userIndex: "",
+    boardContent: "",
+    boardVisit: "",
+    boardRegDate: "",
+    boardUploadName: "",
+    boardUploadSize: "",
+    boardUploadLocation: ""
+}
+
 let searchObj={
 limit:"Y",
 count :5,
@@ -83,6 +95,34 @@ getTotalReplyCount() {
     return returnData;
 }
 
+//getBoardData(){
+//
+// let responseData = null;
+//        $.ajax({
+//            async: false,
+//            type: "get",
+//            url: `http://localhost:8000/api/board/selectOne/${boardObj.boardIndex}`, // BoardData 필요
+//            data: boardObj,
+//            dataType: "json",
+//            success: response => {
+//                responseData = response.data;
+//                console.log(response.data);
+//
+//            },
+//            error: error => {
+//                console.log(error);
+//            }
+//        });
+//        return responseData;
+//
+//}
+
+
+
+
+
+
+
 }///searchList/post
 //3. Servicce
 class MyPageService {
@@ -97,6 +137,7 @@ class MyPageService {
 
     printReplyElement() {
 const replyData=MyPageApi.getInstance().printReplyList();
+
         const tblContent = document.querySelector(".tbl-content-reply");
         console.log("tblContent"+tblContent);
 
@@ -104,7 +145,8 @@ const replyData=MyPageApi.getInstance().printReplyList();
         // 각 데이터를 반복하여 테이블에 추가
        for (const data of replyData) {
                 console.log("data"+data);
-
+//       const boardData = MyPageApi.getInstance().getBoardData();//replyIndex boardSubject변경예정
+//       console.log(boardData);
 
                 rowContent += `
 

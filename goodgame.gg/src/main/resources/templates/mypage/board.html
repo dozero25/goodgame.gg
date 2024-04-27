@@ -11,10 +11,9 @@
         <h2>Gg.gg</h2>
         <ul>
             <li><a href="http://localhost:8000/mypage"><i class="fas fa-regular fa-user"></i> 내 정보</a></li>
-            <li><a href="http://localhost:8000/post"><i class="fas fa-regular fa-file"></i> 내 포스트 목록</a></li>
-            <li><a href="http://localhost:8000/reply"><i class="fas fa-regular fa-tag"></i> 내 댓글 목록</a></li>
-           <!-- <li><a href="http://localhost:8000/update"><i class="fas fa-regular fa-address-book"></i> 회원정보 수정</a></li>-->
-            <li><a href="http://localhost:8000/delete"><i class="fas fa-regular fa-code"></i> 회원탈퇴</a></li>
+            <li><a href="http://localhost:8000/mypage/post"><i class="fas fa-regular fa-file"></i> 내 포스트 목록</a></li>
+            <li><a href="http://localhost:8000/mypage/reply"><i class="fas fa-regular fa-tag"></i> 내 댓글 목록</a></li>
+            <li><a href="http://localhost:8000/mypage/delete"><i class="fas fa-regular fa-code"></i> 회원탈퇴</a></li>
         </ul>
         <div class="social_media">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -40,10 +39,10 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>boardIndex</th>
-                            <th>boardSubject</th>
-                            <th>boardContent</th>
-                            <th>boardRegDate</th>
+                            <th>My post</th>
+                            <th>게시글 제목</th>
+                            <th>게시글 내용</th>
+                            <th>게시글 작성날짜</th>
                         </tr>
                         </thead>
                     </table>
@@ -71,7 +70,7 @@
 
 </body>
 <script src="/static/js/principal.js"></script>
-<script src="/static/js/mypageBoard.js"></script>
+<script src="/static/js/mypage/mypageBoard.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

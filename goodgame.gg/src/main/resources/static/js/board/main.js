@@ -129,7 +129,27 @@ class BoardMainApi {
     }
 
 
+    fileSelectOneBoard(boardIndex) {
+        boardObj.boardIndex = boardIndex;
+        console.log(boardObj.boardIndex);
+             let responseData = null;
 
+                   $.ajax({
+                       async: false,
+                       type: "get",
+                       url: `http://localhost:8000/api/board/update/${boardObj.boardIndex}`,
+                       dataType: "json",
+                       success: response => {
+                           responseData = response;
+
+                           console.log(responseData);
+                       },
+                       error: error => {
+                           console.log(error);
+                       }
+                   });
+                   return responseData;
+        }
 
 
 
@@ -181,6 +201,12 @@ class BoardMainService {
         boardTable.innerHTML = ''; // 초기화 필수
         responseData.forEach((data,index)=> {
             const formattedRegDate = formatTimeAgo(data.boardRegDate);
+            console.log(data.boardIndex);
+            const boardIndex = data.boardIndex;
+            const thumb = BoardMainApi.getInstance().fileSelectOneBoard(boardIndex);
+
+            console.log(thumb.data);
+            console.log(thumb.data.boardUploadLocation);
 
 
             boardTable.innerHTML += `
@@ -190,7 +216,7 @@ class BoardMainService {
                 <td class="board-info">
                     <a href="/board/selectOne?boardIndex=${data.boardIndex}" class="board-href" value=${data.boardIndex}>${data.boardSubject}</a>
                     <span class = "reply-blue">[${data.replyCount}]</span>
-                    <td class = "board-thumb"><img src="/static/image/board/gg.png" alt="GG" width="35" height="35"></td>
+                    <td class = "board-thumb">  ${!thumb.data.boardUploadLocation ? '' : `<img src="/images/${thumb.data.boardUploadLocation}" class="boardFile" alt="boardfile" width="35" height="35">`}</td>
 
                 </td>
 
