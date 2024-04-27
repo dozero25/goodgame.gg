@@ -6,7 +6,7 @@
 
     <insert id="duoInsert" parameterType="fourjo.idle.goodgame.gg.web.dto.duo.DuoDto">
         insert into duo_mst
-        values(0, #{duoGameId}, #{duoQue}, #{duoPosition}, #{duoContent}, date_add(now(),interval 15 minute), #{duoTier})
+        values(0, #{duoGameId}, #{duoQue}, #{duoPosition}, #{duoContent}, date_add(now(),interval 15 minute), #{duoTier},#{duoThreeChampions})
     </insert>
 
 

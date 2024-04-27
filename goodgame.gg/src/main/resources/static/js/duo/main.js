@@ -25,7 +25,8 @@ let duoObj = {
     duoGameId: "",
     duoQue: "",
     duoPosition: "",
-    duoContent: ""
+    duoContent: "",
+    duoThreeChampions:""
 
 };
 
@@ -236,6 +237,7 @@ class DuoMainService {
             const deadLine = new Date(data.duoWdate);
             const deadTime = (Math.floor((deadLine.getTime() - now.getTime()) / 1000 / 60));
             const uploadTime = Math.floor((now.getTime() - (new Date(data.duoWdate).getTime() - 900000)) / 60000);
+            var champion=data.duoThreeChampions.toString().split("-");
             //now:현재시간  deadLine: deadTime을 계산하기 위해 가져온 duoWdate값을 Date형식으로 저장
             //deadTime: 현재 시간인 now에서 duoWdate인 deadLine을 뺀 뒤에 60000으로 나누어 저장(밀리초 단위 이므로 deadTime에는 분 단위로 저장된다
             //uploadTime: 시스템 상 글을 입력하면 15분이 더해져서 Wdate으로 저장되기 때문에 900000(15분)을 빼고 이를 60000으로 나누어 분 단위로 저장한다
@@ -253,24 +255,30 @@ class DuoMainService {
         <div class="duoMiniBoard">
              <div id="miniBoardA">
                 <span style="color: #36a2ce;  font-size: 12px">${uploadTime < 60 ? uploadTime + '분 전' : uploadTime < 1440 ? Math.floor(uploadTime / 60) + '시간 전' : Math.floor(uploadTime / 1440) + '일 전'}</span>
-                <span style="color: red">${deadTime < 0 ? '만료' : deadTime + '분 후 만료'}</span>
+                <span style="color: rgb(153,153,153); font-size: 12px">${deadTime < 0 ? '만료' : deadTime + '분 후 만료'}</span>
              </div>
              <div id="miniBoardB">
-                <span> ${data.duoQue} ${data.duoTier} ${data.duoPosition==""?"상관없이":data.duoPosition} 갑니다</span>
+                <span> ${data.duoQue} ${data.duoTier} 포지션 ${data.duoPosition==""?"상관없이":data.duoPosition} 갑니다</span>
              </div>
              <div id="miniBoardC" >
                <span> ${data.duoContent} </span>
              </div>
-             
              <div id="miniBoardD" >
-                <img src="static/images/duo/tier/${data.duoTier}.png" width=20px height=20px>
-                 <a href="/record/${data.duoGameId.replaceAll(" ", "%20").replaceAll("#", "-")}" class="nicknameClick">${data.duoGameId}</a>
-                   <img src="static/images/duo/position/${data.duoPosition}.png" width=20px height=20px>
+                  <img src="static/images/duo/position/${data.duoPosition}.png" width=30px height=30px>
                 
-                         <button type="button" class="copy-button" value="${data.duoGameId}">아이디 복사</button>
+                  <a href="/record/${data.duoGameId.replaceAll(" ", "%20").replaceAll("#", "-")}" class="nicknameClick">${data.duoGameId}</a>
+                 
+                      
                     
              </div>
-   
+             <div id="miniBoardE" >
+                <img src="static/images/duo/tier/${data.duoTier}.png" class="miniBoardEImg"><br>
+                 <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${champion[0]}.png" class="miniBoardEImg"><br>
+                  <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${champion[1]}.png" class="miniBoardEImg"><br>
+                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${champion[2]}.png" class="miniBoardEImg"><br>
+                       <button type="button" class="copy-button" value="${data.duoGameId}">아이디 복사</button>
+             </div>
+                
            
         </div>
             `;
@@ -649,7 +657,7 @@ class ComponentEvent {
 
         document.addEventListener('click', function (e) {
             if (!queSelectField.contains(e.target) && checkOpenedObj.queOpen == 1 && checkOpenedObj.queDoubleIn == 0) {
-                console.log("que");
+
                 queList.classList.toggle("que-hide");
                 queArrowIcon.classList.toggle("que-rotate");
                 checkOpenedObj.queOpen = 0;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fourjo.idle.goodgame.gg.repository.DuoRepository;
 import fourjo.idle.goodgame.gg.web.dto.duo.*;
+import fourjo.idle.goodgame.gg.web.dto.rotation.ChampionEnum;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,7 +25,7 @@ public class DuoService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String myKey = "";
+    private final String myKey = "RGAPI-d96e1a37-837a-49c9-92a9-8cdea33afaff";
     private final String serverUrl = "https://kr.api.riotgames.com/";
     private final String serverAsia = "https://asia.api.riotgames.com/";
 
@@ -51,6 +52,41 @@ public class DuoService {
             e.printStackTrace();
         }
         return accountDto;
+    }
+    public String searchMostThreeChampionsByPuuid(String puuid){
+        String threeChampionName = "";
+        List<ChampionMasteryDto> championMasteryDto=new ArrayList<>();
+        try {
+
+           HttpClient c = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(serverUrl + "lol/champion-mastery/v4/champion-masteries/by-puuid/"+puuid+"?api_key=" + myKey);
+
+            HttpResponse response = c.execute(request);
+
+            // riotResponseCodeError(response);
+
+            HttpEntity entity = response.getEntity();
+            championMasteryDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
+
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
+        for(int i=0;i<3;i++)
+        {
+
+            threeChampionName+=ChampionEnum.findByKey((int) championMasteryDto.get(i).getChampionId());
+            if(i==2)
+            {
+                break;
+            }
+            threeChampionName+="-";
+
+
+        }
+
+        return threeChampionName;
     }
 
     public SummonerDto searchEncryptedIdByPuuid(String puuid) {
@@ -108,10 +144,11 @@ public class DuoService {
 
 
             AccountDto accountDto = searchPuuidBySummonerNameAndTagLine(idAndTag[0], idAndTag[1]);
-        //아이디를 #을 기준으로 split하여 각각 저장하였습니다.
-
+         String threeChampions=searchMostThreeChampionsByPuuid(accountDto.getPuuid());
+         duoDto.setDuoThreeChampions(threeChampions);
                 SummonerDto summonerDto = searchEncryptedIdByPuuid(accountDto.getPuuid());
                 List<LeagueEntryDto> leagueEntryDto = searchTierByEncryptedId(summonerDto.getId());
+
                 //티어 정보를 영어로 반환하기 때문에 js와 html에서 활용하기 위해 한글로 바꾸었습니다.
               if(leagueEntryDto.get(0).getTier().equalsIgnoreCase("challenger"))
               {
@@ -214,7 +251,6 @@ public class DuoService {
 //아이디와 태그라인을 #으로 분리한 뒤 puuid를 찾아옵니다. 이 때 puuid가 비어 있으면 존재하지 않는 아이디 이므로 1을 return하고 puuid가 존재하면 0을 return합니다.
 
         AccountDto accountDto = searchPuuidBySummonerNameAndTagLine(idAndTag[0], idAndTag[1]);
-        System.out.println(accountDto);
         if(accountDto.getPuuid()==null) {
             return 1;
         }

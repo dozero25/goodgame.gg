@@ -13,4 +13,5 @@ public class DuoDto {
     private String duoContent;
     private String duoWdate;
     private String duoTier;
+    private String duoThreeChampions;
 }
