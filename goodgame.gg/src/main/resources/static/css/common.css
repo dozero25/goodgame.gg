@@ -1,7 +1,7 @@
 * {
     /* font-family: 'SUIT-Regular'; */
 
-}
+
 
 input, table, td, th{
     border: 1px solid rgb(36, 37, 38);
@@ -9,6 +9,7 @@ input, table, td, th{
 label {
         color: #ffffff;
 }
+
 input {
     padding: 5px;
     cursor: pointer;
@@ -28,4 +29,5 @@ body {
     /* background-color: #211e30; */
     background: rgb(36, 37, 38);
 }
+
 

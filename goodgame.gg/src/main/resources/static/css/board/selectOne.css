@@ -1,0 +1,443 @@
+
+html, body, header, main, footer, div, p, h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.main-bar{
+    
+    top: 0; /* 화면의 맨 위에 배치합니다. */
+    left: 0; /* 좌측 정렬합니다. */
+    width: 100%; /* 화면 전체 너비를 사용합니다. */
+    height: 100px; /* 바의 높이를 지정합니다. */
+    background-color: #0000ff; /* 바의 배경색을 지정합니다. */
+    color : white;
+    
+} 
+
+ 
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1c1c1f;
+    color: #333;
+}
+
+.container, .main_content, .wrapper {
+    background-color: #1c1c1f ;
+}
+
+
+.board-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #31313C; 
+    border-radius: 5px; 
+    box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.board-container:hover {
+    box-shadow: 0 20px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22),  0 -10px 10px rgba(0,0,0,0.15);
+  }
+
+.boardContent-box {
+    margin-left: 35px;
+} 
+
+.updateDeleteBtn{
+    margin-left: 20px;
+
+}
+
+.update-btn,
+.delete-btn {
+    background-color: #999; 
+    padding: 10px; 
+    border: 2px solid #0c0c0c;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: #000000; 
+    font-weight: bold;  
+}
+
+.update-btn:hover,
+.delete-btn:hover {
+    background-color: #888; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+}
+
+
+
+
+
+
+
+
+
+.sub{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.selectOne-hr{
+    border: none; 
+    border-top: 2px solid #000000; 
+
+}
+.boardFile{
+  margin-left: 35px;
+}
+
+.board-header {
+    margin-bottom: 20px;
+}
+
+.board-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: rgb(194, 194, 194);
+}
+.selectOne-hr{
+    font-size:5px;
+}
+
+.returnBoard {
+    margin-left: 20px;
+    padding: 10px; 
+    border: 2px solid #0c0c0c;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    background-color: #464646;
+    color: hsl(0, 0%, 100%);
+    font-weight: bold; 
+}
+
+.returnBoard:hover {
+    background-color: #888; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+}
+
+
+.board-meta {
+    margin-top: 0px;
+    font-size: 14px;
+    color: #777;
+}
+
+.board-info-bar{
+    margin-left:30px;
+}
+
+.board-content {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.boardContent {
+    width: 712px;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 20px;
+    background-color: #2c3031;
+    color:white;
+    border: 2px solid #262130;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.boardFile{
+    width: 100px; 
+    height: 100px; 
+}
+.boardFile:hover{
+   transform: scale(6); /* 1.2는 이미지의 현재 크기보다 20% 크게 만듭니다. */
+   margin-left: 250px;
+   transition: margin-left 1s ease, transform 1s ease; /* transform 및 margin-right에 애니메이션 효과 적용 */
+   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.board-reply {
+    margin-top: 20px;
+}
+
+.reply {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.reply-user {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.reply-date {
+    font-size: 12px;
+    color: #777;
+}
+
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #000;
+    background-color: #000;
+    border: 2px solid #000;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+
+
+.replyUpdate-btn {
+  background-color: #202A48;
+  color: white;
+  border: none;
+  
+  width: 50px;
+  height: 20px;
+  border-radius: 20px;
+
+}
+
+.replyDelete-btn {
+    background-color: #202A48;
+    color: white;
+    border: none;
+    
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+
+}
+
+
+
+
+.replyGroupUpdateBtn {
+    background-color: #202A48;
+    color: white;
+    border: none;
+    
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+
+}
+
+.replyGroupDeleteBtn {
+    background-color: #202A48;
+    color: white;
+    border: none;
+    
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+
+}
+
+
+.replySequenceUpdateBtn {
+    background-color: #686b72;
+    color: white;
+    border: none;
+    
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 0.5em;
+
+}
+
+.replySequenceDeleteBtn {
+    background-color: #686b72;
+    color: white;
+    border: none;
+    
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 0.5em;
+
+}
+
+
+
+.button:hover {
+    background-color: #666;
+    border-color: #666;
+}
+
+
+#like-btn {
+    padding : 5px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+
+
+.emoji {
+    margin-right: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.reply-table table{ /*마진을 또 다른데서 주면 댓글 높이 오류남*/
+    display:flex;
+    flex-direction:column;
+    margin-left:30px;
+    margin-right:30px;
+    align-items:left;
+    table-layout:fixed;
+    
+    width: 690px;
+    padding: 20px;
+    border: 2px solid #000000; 
+    border-radius: 10px;
+ 
+
+}
+
+.reply-table thead{
+    color: #707070;
+}
+
+.reply-squTable{
+    background-color: #2c272e;
+    width: 550px;
+    margin-right:5px;
+    
+
+}
+
+
+
+.GroupRegDate{
+    font-weight: normal;
+}
+
+.reply-update-box{
+    margin-top:10px;
+}
+
+.rply-update-input{
+    background-color: rgb(0, 0, 0);
+    color:rgb(250, 250, 250);
+    width:530px;
+    height:36px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+}
+
+.rply-update-btn{
+   background-color : #666666;
+   color: rgb(0, 0, 0);
+   font-weight: Bold;
+   height:36px;
+   border-radius: 10px;
+
+}
+
+
+
+.reply-content {
+    width:640px;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    background-color: #2c3031;
+    color:rgb(174, 171, 171);
+    border: 2px solid #262130;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+  
+.reply-content:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
+.reply-box{
+
+    margin-left: 30px;
+}
+
+.repInsert-btn {
+    padding: 10px;
+    border: 3px solid #2e2e2e;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #000000;
+    color: rgb(211, 211, 211);
+}
+
+.reply-content,
+.repInsert-btn {
+    vertical-align: top;
+}
+.reply-content{
+    height: 100px;
+}
+.repInsert-btn{
+    height: 115px;
+}
+
+.replyGroupBtn-box {
+    margin-left:25px;
+    margin-top: 15px; /* 댓글 높이 오류*/
+}
+
+
+.replyGroup-input{
+    background-color: rgb(156, 156, 156);
+    color:black;
+    width:590px;
+    height:30px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.reg-gro-btn{
+   background-color : #000000;
+   color: white;
+   height:40px;
+   border-radius: 10px;
+}
+
+.repInsert-btn:hover {
+    border: 3px solid #636363;
+    background-color: #39045c;
+    color: #ffffff;
+    font-weight: 700;  
+}
+
+.repInsert-btn:active {
+    background-color: #39045c;
+    color: #f8f8f8;
+    font-weight: 700;
+}
+
+.GroupContent, .SquenceContent{
+    color: white;
+}
+
+.GroupContent{
+    height: auto;
+}
+

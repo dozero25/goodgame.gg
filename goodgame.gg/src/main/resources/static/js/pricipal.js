@@ -23,7 +23,7 @@ class PrincipalApi {
                 console.log(error);
             }
         });
-        
+
         return responseData;
     }
 }
