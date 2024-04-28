@@ -36,18 +36,10 @@ public class BoardService {
    } //그냥 인서트
 
     public int registerBoardImg(BoardDTO boardDTO){
-        log.info("boardDTO"+boardDTO);
 
-        log.info("filePath"+filePath);
         String boardUploadName = boardDTO.getFile().getOriginalFilename(); // insert할때도 파일이름, 사이즈는 board에 들어감
-        log.info("getOriginalFilename:"+boardUploadName);
-
         long boardUploadSize = boardDTO.getFile().getSize();
-        log.info("boardUploadSize:"+boardUploadSize);
         String boardUploadLocation = UUID.randomUUID().toString().replaceAll("-", "") + boardUploadName;
-        log.info("boardUploadLocation:"+boardUploadLocation);
-
-
 
         File uploadFile = new File(filePath, boardUploadLocation);
 
@@ -55,7 +47,6 @@ public class BoardService {
             boardDTO.getFile().transferTo(uploadFile);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e.getMessage());
         }
         boardDTO.setBoardUploadName(boardUploadName);
         boardDTO.setBoardUploadSize(boardUploadSize);
@@ -75,14 +66,9 @@ public class BoardService {
 
     public int boardFileUpdate(BoardDTO boardDTO){
         String boardUploadName = boardDTO.getFile().getOriginalFilename(); // insert할때도 파일이름, 사이즈는 board에 들어감
-        log.info("getOriginalFilename:"+boardUploadName);
 
         long boardUploadSize = boardDTO.getFile().getSize();
-        log.info("boardUploadSize:"+boardUploadSize);
         String boardUploadLocation = UUID.randomUUID().toString().replaceAll("-", "") + boardUploadName;
-        log.info("boardUploadLocation:"+boardUploadLocation);
-
-
 
         File uploadFile = new File(filePath, boardUploadLocation);
 
@@ -90,7 +76,6 @@ public class BoardService {
             boardDTO.getFile().transferTo(uploadFile);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e.getMessage());
         }
         boardDTO.setBoardUploadName(boardUploadName);
         boardDTO.setBoardUploadSize(boardUploadSize);
@@ -140,7 +125,6 @@ public class BoardService {
     }
 
     public void likeAdd(int boardIndex, int userIndex) {
-        log.info("likeAdd..."+boardIndex);
         boardRepository.likeAdd(boardIndex, userIndex);
         boardRepository.likeUpdate(boardIndex);
     };
@@ -174,11 +158,7 @@ public class BoardService {
         dto.setReplySequence(dto.getReplySequence());
 
         boardRepository.boardReplyInsertByReplyGroup(dto);
-
-
     }
-
-
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     public BoardReplyDTO boardReplyUpdateSelectOneByReplyIndex(int replyIndex) {

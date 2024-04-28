@@ -71,7 +71,7 @@
 
         LEFT JOIN reply_mst r ON b.boardIndex = r.boardIndex
 
-        where  b.boardIndex = #{boardIndex}
+        where b.boardIndex = #{boardIndex}
     </select>
 
 
@@ -89,7 +89,6 @@
         JOIN user_mst u ON b.userIndex = u.userIndex
 
         LEFT JOIN reply_mst r ON b.boardIndex = r.boardIndex
-
 
         <choose>
             <when test='searchKey=="1"'> where boardSubject like CONCAT('%', #{searchValue}, '%') </when>
@@ -259,10 +258,5 @@
         where boardIndex = #{boardIndex}
         and replyGroup = #{replyGroup}
     </select>
-
-
-
-
-
 
 </mapper>

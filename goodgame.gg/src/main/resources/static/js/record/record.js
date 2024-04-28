@@ -440,13 +440,13 @@ class RecordShowInfoService{
                         }
                     }
                     
-                    if(index4== 0 || index4 == 5 && participantsInfo[index4].win == "true"){
-                        winTeam.winIndex = index4;
-                    }
                     if(participantsInfo[index4].win == "false"){
                         loseTeam.teamName = participantsInfo[index4].teamId == 100 ? "블루팀" : "레드팀"
                         loseTeam.maxGold += participantsInfo[index4].goldEarned;
                         loseTeam.maxKill += participantsInfo[index4].kills;                    
+                    }
+                    if(index4== 0 || index4 == 5 && participantsInfo[index4].win == "true"){
+                        winTeam.winIndex = index4;
                     }
                     if(index4== 0 || index4 == 5 && participantsInfo[index4].win == "false"){
                         loseTeam.loseIndex = index4;

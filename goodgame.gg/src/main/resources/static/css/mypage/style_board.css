@@ -101,7 +101,7 @@ margin-bottom: 20px;
 }
 
 .wrapper .main_content .header .top_menu {
-<!--float: right;-->
+float: right;
 width: 110px;
 height: 20PX;
 display: flex;
@@ -123,14 +123,10 @@ padding: 0;
 background-color: #ffffff;
 }
 
-
 .wrapper .main_content .header .top_menu a:hover {
 background-color: #111;
 color: #fff;
 }
-
-<!-- --------------------------------------------- -->
-
 
 h1{
   font-size: 30px;

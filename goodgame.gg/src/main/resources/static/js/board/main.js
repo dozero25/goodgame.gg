@@ -5,37 +5,33 @@ window.onload = () => {
 
     ComponentEvent.getInstance().addClickEventInsertButton();
     ComponentEvent.getInstance().addClickEventsearchButton();
+    ComponentEvent.getInstance().loadAllViewButton();
     ComponentEvent.getInstance().loadViewCountHotButton();
     ComponentEvent.getInstance().loadlikeCountHotButton();
-
+    
 }
 
 let searchObj = {
-    page: 1, 
-    searchKey: "", 
-    searchValue: "", 
+    page: 1,
+    searchKey: "",
+    searchValue: "",
     limit: "Y",
-    count: 10, 
-
+    count: 10,
 }
 
-
-
 const boardObj = {
-    boardIndex: "", 
-    boardSubject: "", 
-    userIndex: "", 
-    userNick: "", 
-    replyCount: "", 
-    boardContent: "", 
-    boardVisit: 0, 
-    boardRegDate: "", 
-    boardLikeCount:0,
+    boardIndex: "",
+    boardSubject: "",
+    userIndex: "",
+    userNick: "",
+    replyCount: "",
+    boardContent: "",
+    boardVisit: 0,
+    boardRegDate: "",
+    boardLikeCount: 0,
     boardUploadName: "",
     boardUploadSize: "",
-    boardUploadLocation:""
-
-
+    boardUploadLocation: ""
 }
 
 const boardLikeObj = {
@@ -44,72 +40,60 @@ const boardLikeObj = {
     userIndex: 0,
     boardLike: 0,
     boardBad: 0
-
-
 }
 
-
 class BoardMainApi {
-        static #instance = null;
-        static getInstance(){ 
-            if(this.#instance == null) {
-                this.#instance = new BoardMainApi();
-            }
-            return this.#instance;
+    static #instance = null;
+    static getInstance() {
+        if (this.#instance == null) {
+            this.#instance = new BoardMainApi();
         }
+        return this.#instance;
+    }
 
-    searchBoard(searchObj){
-            let returnData = null;
+    searchBoard(searchObj) {
+        let returnData = null;
 
         $.ajax({
-            async : false,
+            async: false,
             type: "get",
             url: `http://localhost:8000/api/board/search`,
-            data: searchObj, 
+            data: searchObj,
             dataType: "json",
-            success : response => { 
-                console.log("Ajax 요청 성공:");
-                console.log(response);
+            success: response => {
                 returnData = response.data;
             },
             error: error => {
-                console.error("ajax 요청 오류");
-                console.log(error);
             }
         });
         return returnData;
     }
-
-
 
     //페이징
-    searchBoardTotalCount(){
-                let returnData = null;
+    searchBoardTotalCount() {
+        let returnData = null;
 
         $.ajax({
-            async : false,
+            async: false,
             type: "get",
             url: `http://localhost:8000/api/board/totalCount`,
-            data: {"searchKey":searchObj.searchKey,
-            "searchValue":searchObj.searchValue}, 
+            data: {
+                "searchKey": searchObj.searchKey,
+                "searchValue": searchObj.searchValue
+            },
             dataType: "json",
-            success : response => { 
-                console.log("Ajax 요청 성공:");
-                console.log(response);
+            success: response => {
                 returnData = response.data;
             },
             error: error => {
-                console.error("ajax 요청 오류");
-                console.log(error);
             }
         });
         return returnData;
     }
 
-
     //조회수카운트
-    likeCountBoard(boardLikeObj){
-    let responseData = null;
+    likeCountBoard(boardLikeObj) {
+        let responseData = null;
 
         $.ajax({
             async: false,
@@ -119,70 +103,57 @@ class BoardMainApi {
             dataType: "json",
             success: response => {
                 responseData = response.data;
-                console.log("likeCountBoard : "+response.data);
-
             },
             error: error => {
-                console.log(error);
             }
-    });
+        });
         return responseData;
     }
 
 
     fileSelectOneBoard(boardIndex) {
         boardObj.boardIndex = boardIndex;
-        console.log(boardObj.boardIndex);
-             let responseData = null;
+        let responseData = null;
 
-                   $.ajax({
-                       async: false,
-                       type: "get",
-                       url: `http://localhost:8000/api/board/update/${boardObj.boardIndex}`,
-                       dataType: "json",
-                       success: response => {
-                           responseData = response;
-
-                           console.log(responseData);
-                       },
-                       error: error => {
-                           console.log(error);
-                       }
-                   });
-                   return responseData;
-        }
-
-
-
-
-
-
+        $.ajax({
+            async: false,
+            type: "get",
+            url: `http://localhost:8000/api/board/update/${boardObj.boardIndex}`,
+            dataType: "json",
+            success: response => {
+                responseData = response;
+            },
+            error: error => {
+            }
+        });
+        return responseData;
+    }
 }
 
 class BoardMainService {
-     static #instance = null;
-     static getInstance(){
-         if(this.#instance == null) {
-             this.#instance = new BoardMainService();
-         }
-            return this.#instance;
-     }
+    static #instance = null;
+    static getInstance() {
+        if (this.#instance == null) {
+            this.#instance = new BoardMainService();
+        }
+        return this.#instance;
+    }
 
 
-    getLoadAllBoardList(){
+    getLoadAllBoardList() {
         const responseData = BoardMainApi.getInstance().searchBoard(searchObj);
         const boardTable = document.querySelector(".board-table tbody");
 
- 
+
         const formatTimeAgo = timestamp => {
             const currentTime = new Date();
             const previousTime = new Date(timestamp);
-        
+
             const timeDifference = currentTime - previousTime;
-        
+
 
             const seconds = Math.floor(timeDifference / 1000);
-        
+
             if (seconds < 60) {
                 return '방금 전';
             } else if (seconds < 3600) {
@@ -200,16 +171,12 @@ class BoardMainService {
 
 
         boardTable.innerHTML = ''; // 초기화 필수
-        responseData.forEach((data,index)=> {
+        responseData.forEach((data, index) => {
             const formattedRegDate = formatTimeAgo(data.boardRegDate);
-            console.log(data.boardIndex);
             const boardIndex = data.boardIndex;
             const thumb = BoardMainApi.getInstance().fileSelectOneBoard(boardIndex);
 
-            console.log(thumb.data);
-            console.log(thumb.data.boardUploadLocation);
-
-
+            // <td class = "board-thumb">  ${!thumb.data.boardUploadLocation ? '' : `<img src="/images/${thumb.data.boardUploadLocation}" class="boardFile" alt="boardfile" width="35" height="35">`}</td>
             boardTable.innerHTML += `
             <tr class="board-row">
                 <td>${data.boardIndex}</td>
@@ -217,8 +184,7 @@ class BoardMainService {
                 <td class="board-info">
                     <a href="/board/selectOne?boardIndex=${data.boardIndex}" class="board-href" value=${data.boardIndex}>${data.boardSubject}</a>
                     <span class = "reply-blue">[${data.replyCount}]</span>
-                    <td class = "board-thumb">  ${!thumb.data.boardUploadLocation ? '' : `<img src="/images/${thumb.data.boardUploadLocation}" class="boardFile" alt="boardfile" width="35" height="35">`}</td>
-
+                    <td class = "board-thumb"><img src="/static/images/board/GG.png" class="boardFile" alt="boardfile"></td>
                 </td>
 
                 <td>${data.userNick}</td>
@@ -239,7 +205,7 @@ class BoardMainService {
         const pageController = document.querySelector(".page-controller");
 
         const totalcount = BoardMainApi.getInstance().searchBoardTotalCount(searchObj);
-  
+
         const maxPageNumber = totalcount % searchObj.count == 0
             ? Math.floor(totalcount / searchObj.count)
             : Math.floor(totalcount / searchObj.count) + 1;
@@ -303,96 +269,88 @@ class BoardMainService {
 
 
 
-class ComponentEvent{
+class ComponentEvent {
     static #instance = null;
     static getInstance() {
-        if(this.#instance == null) {
+        if (this.#instance == null) {
             this.#instance = new ComponentEvent();
         }
         return this.#instance;
     }
 
-    addClickEventInsertButton(){
-            
-            const insertButton = document.querySelector(".insert-button");
-            
+    addClickEventInsertButton() {
 
-            insertButton.addEventListener("click", function() {
-                const responseData = BoardMainApi.getInstance().searchBoard();
-                const principal = PrincipalApi.getInstance().getPrincipal();
+        const insertButton = document.querySelector(".insert-button");
 
-                if(principal === null){
-                     window.location.href = "http://localhost:8000/login";
-                }else{
-                    window.location.href = "http://localhost:8000/board/insert";
-                    console.log('버튼이 클릭되었습니다.');
-                }   
+        insertButton.addEventListener("click", function () {
+            const responseData = BoardMainApi.getInstance().searchBoard();
+            const principal = PrincipalApi.getInstance().getPrincipal();
 
-            });
+            if (principal === null) {
+                window.location.href = "http://localhost:8000/login";
+            } else {
+                window.location.href = "http://localhost:8000/board/insert";
+            }
+
+        });
 
     }
 
 
-    addClickEventsearchButton(){
-
-
+    addClickEventsearchButton() {
         const searchBtn = document.getElementById("searchBtn");
-        console.log(searchBtn);
-        searchBtn.addEventListener("click", function() {
+
+        searchBtn.addEventListener("click", function () {
 
             const searchKey = $("#searchKey").val();
             const searchValue = $("#searchValue").val();
             searchObj.searchKey = searchKey;
             searchObj.searchValue = searchValue;
 
-             BoardMainService.getInstance().getLoadAllBoardList();
-
-            console.log('버튼이 클릭되었습니다.');
-
+            BoardMainService.getInstance().getLoadAllBoardList();
         });
 
     }
 
+    
+    loadAllViewButton() {
+        const likeBtn = document.getElementById("all-btn");
+        likeBtn.addEventListener("click", function () {
+            BoardMainService.getInstance().getLoadAllBoardList();
+        });
 
+    }
 
-
-    loadViewCountHotButton(){
+    loadViewCountHotButton() {
 
         const likeBtn = document.getElementById("view-btn");
-        likeBtn.addEventListener("click", function(){
+        likeBtn.addEventListener("click", function () {
 
             const searchKey = $("#view-btn").val();
-            const searchValue = 50;
+            const searchValue = 100;
             searchObj.searchKey = searchKey;
             searchObj.searchValue = searchValue;
-
 
             BoardMainService.getInstance().getLoadAllBoardList();
 
 
         });
-            
+
     }
 
-    loadlikeCountHotButton(){
-
-  
+    loadlikeCountHotButton() {
         const viewBtn = document.getElementById("like-btn");
-        viewBtn.addEventListener("click", function(){
-            
-
+        viewBtn.addEventListener("click", function () {
             const searchKey = $("#like-btn").val();
-            const searchValue = 3;
+            const searchValue = 10;
             searchObj.searchKey = searchKey;
             searchObj.searchValue = searchValue;
-  
+
             BoardMainService.getInstance().getLoadAllBoardList();
-            
+
         });
 
     }
-
-
 }
 
 

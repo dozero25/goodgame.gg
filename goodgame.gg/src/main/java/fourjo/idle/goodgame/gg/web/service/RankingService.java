@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fourjo.idle.goodgame.gg.repository.RankingRepository;
 import fourjo.idle.goodgame.gg.web.dto.ranking.*;
+import fourjo.idle.goodgame.gg.web.dto.riotKey.RiotApiKeyDto;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,9 +28,7 @@ public class RankingService {
     private ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient client = HttpClientBuilder.create().build();
 
-    private final String ApiKey = "RGAPI-d96e1a37-837a-49c9-92a9-8cdea33afaff";
-    private final String serverUri = "https://kr.api.riotgames.com";
-    private final String serverUriAsia = "https://asia.api.riotgames.com";
+    private final RiotApiKeyDto riotApiKeyDto = new RiotApiKeyDto();
 
     private final String solo = "RANKED_SOLO_5x5";
     private final String flex = "RANKED_FLEX_SR";
@@ -45,7 +44,7 @@ public class RankingService {
         }
 
         try {
-            HttpGet request = new HttpGet(serverUri + "/lol/league/v4/challengerleagues/by-queue/" + queue + "?api_key=" + ApiKey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/challengerleagues/by-queue/" + queue + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
 //            riotResponseCodeError(response);
@@ -70,7 +69,7 @@ public class RankingService {
             }
 
             try {
-                HttpGet request = new HttpGet(serverUri + "/lol/league/v4/grandmasterleagues/by-queue/" + queue + "?api_key=" + ApiKey);
+                HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/grandmasterleagues/by-queue/" + queue + "?api_key=" + riotApiKeyDto.getMykey());
                 HttpResponse response = client.execute(request);
 
 //            riotResponseCodeError(response);
@@ -95,7 +94,7 @@ public class RankingService {
         }
 
         try {
-            HttpGet request = new HttpGet(serverUri + "/lol/league/v4/masterleagues/by-queue/" + queue + "?api_key=" + ApiKey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/masterleagues/by-queue/" + queue + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
 //            riotResponseCodeError(response);
@@ -115,7 +114,7 @@ public class RankingService {
         SummonerDto summonerDto = new SummonerDto();
 
         try {
-            HttpGet request = new HttpGet(serverUri + "/lol/summoner/v4/summoners/" + summonerId + "?api_key=" + ApiKey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/summoner/v4/summoners/" + summonerId + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
             HttpEntity entity = response.getEntity();
@@ -133,7 +132,7 @@ public class RankingService {
 
 
         try {
-            HttpGet request = new HttpGet(serverUriAsia + "/riot/account/v1/accounts/by-puuid/" + puuid + "?api_key=" + ApiKey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
             HttpEntity entity = response.getEntity();
@@ -156,7 +155,7 @@ public class RankingService {
         }
 
         try {
-            HttpGet request = new HttpGet(serverUri + "/lol/league/v4/entries/" + queue +"/"+ tier +"/"+ division + "?page=" + page +"&api_key=" + ApiKey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/entries/" + queue +"/"+ tier +"/"+ division + "?page=" + page +"&api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
 //            riotResponseCodeError(response);
@@ -164,27 +163,17 @@ public class RankingService {
             HttpEntity entity = response.getEntity();
             listLeagueEntryDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
 
-
         } catch (IOException e){
             e.printStackTrace();
         }
         return listLeagueEntryDto;
     }
 
-
-
-
-
-
-
-
-
-
     //highrank_mst insert
     public int insertRankingLeagueV4(RankingDto insert) {
-
         return rankingRepository.insertRankingLeagueV4(insert);
     }
+
     public int updateRankingSummonerV4(RankingDto update) {
         return rankingRepository.updateRankingSummonerV4(update);
     }
@@ -201,8 +190,6 @@ public class RankingService {
     public int truncateTable(){
         return rankingRepository.truncateTable();
     }
-
-
 
     //lowrank_mst insert
     public int insertLowRankingLeagueV4(RankingDto insert) {
@@ -225,27 +212,13 @@ public class RankingService {
         return rankingRepository.truncateTable();
     }
 
-
-
-
-
-
-
-
     //DB 랭킹 리스트 select ...
     public List<RankingDto> getRankingList (RankingSearchDto rankingSearchDto) {
-
         rankingSearchDto.setIndex();
-
-        System.out.println(rankingSearchDto);
-
-
         return rankingRepository.getRankingList(rankingSearchDto);
     }
 
     public int getRankingTotalCount(RankingSearchDto rankingSearchDto) {
-
-
         return rankingRepository.getRankingTotalCount(rankingSearchDto);
     }
 
@@ -257,10 +230,5 @@ public class RankingService {
         }else {
             return 1;
         }
-
     }
-
-
-
-
 }

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/common.css">
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/header.css">
@@ -25,6 +26,7 @@
                         
                         <aside class="quickMenu">
                             <button class="insert-button" type="button">게시글 작성</button>
+                            <button class="all-btn" id="all-btn" type="button" value="all">전체글 ▾</button>
                             <button class="view-btn" id="view-btn" type="button" value="view">인기글 ▾</button>
                             <button class="like-btn" id="like-btn" type="button" value="like">추천글 ▾</button>
                         </aside>
@@ -38,19 +40,20 @@
                             <option value="4">제목+내용</option>
                         </select>
                         <input type="search" id="searchValue" class="search-input">
-                        <button type="button" id="searchBtn" class="search-button">검색</button>
+                        <button type="button" id="searchBtn" class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
 
                 <table class="board-table">
                     <thead>
                     <tr>
-                        <th>번호</th>
-                        <th colspan="2">제목[댓글]</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th>조회</th>
-                        <th>추천</th>
+                        <th style="width: 100px;">번호</th>
+                        <th style="width: 400px;">제목[댓글]</th>
+                        <th style="width: 100px;"></th>
+                        <th style="width: 100px;">작성자</th>
+                        <th style="width: 100px;">작성일</th>
+                        <th style="width: 100px;">조회</th>
+                        <th style="width: 100px;">추천</th>
                     </tr>
                     </thead>
                     <tbody>

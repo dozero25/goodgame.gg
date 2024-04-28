@@ -9,6 +9,7 @@ import fourjo.idle.goodgame.gg.web.dto.record.ChampionMasteryDto;
 import fourjo.idle.goodgame.gg.web.dto.record.LeagueDto;
 import fourjo.idle.goodgame.gg.web.dto.record.matches.MatchDto;
 import fourjo.idle.goodgame.gg.web.dto.record.SummonerDto;
+import fourjo.idle.goodgame.gg.web.dto.riotKey.RiotApiKeyDto;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,16 +25,14 @@ public class RecordService {
 
     private ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
 
-    private final String mykey = "RGAPI-515638e8-a16c-4d07-97f7-2fa502fa8e61";
-    private final String serverUrl = "https://kr.api.riotgames.com";
-    private final String severUrlAsia = "https://asia.api.riotgames.com/";
+    private final RiotApiKeyDto riotApiKeyDto = new RiotApiKeyDto();
     private final HttpClient c = HttpClientBuilder.create().build();
 
     // 게임 이름 + 태그라인 검색
     public AccountDto searchSummonerInfoByGameNameAndTagLine(String gameName, String tagLine){
         AccountDto accountDto = new AccountDto();
         try {
-            HttpGet request = new HttpGet(severUrlAsia + "/riot/account/v1/accounts/by-riot-id/" + gameName+"/"+tagLine+ "?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-riot-id/" + gameName+"/"+tagLine+ "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);
@@ -51,7 +50,7 @@ public class RecordService {
     public AccountDto searchAccountInfoByPuuid(String puuid){
         AccountDto accountDto = new AccountDto();
         try {
-            HttpGet request = new HttpGet(severUrlAsia + "/riot/account/v1/accounts/by-puuid/" + puuid+ "?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-puuid/" + puuid+ "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);
@@ -69,7 +68,7 @@ public class RecordService {
     public SummonerDto searchSummonerInfoByEncryptedPUUID(String encryptedPUUID){
         SummonerDto summonerDto = new SummonerDto();
         try {
-            HttpGet request = new HttpGet(serverUrl + "/lol/summoner/v4/summoners/by-puuid/" + encryptedPUUID + "?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/summoner/v4/summoners/by-puuid/" + encryptedPUUID + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);
@@ -84,11 +83,11 @@ public class RecordService {
     }
 
     // puuid로 게임정보 조회
-    public List<String> searchMatchesByPuuid (String puuid){
+    public List<String> searchMatchesByPuuid (String puuid, int minCount){
         List<String> matchesList = new ArrayList<>();
 
         try {
-            HttpGet request = new HttpGet(severUrlAsia + "/lol/match/v5/matches/by-puuid/"+puuid+"/ids" + "?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/lol/match/v5/matches/by-puuid/"+puuid+"/ids?start="+minCount+"&count="+(minCount+9)+"&api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);
@@ -108,7 +107,7 @@ public class RecordService {
         MatchDto matchDto = new MatchDto();
 
         try {
-            HttpGet request = new HttpGet(severUrlAsia + "/lol/match/v5/matches/"+matchId+"?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/lol/match/v5/matches/"+matchId+"?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);
@@ -127,7 +126,7 @@ public class RecordService {
     public List<LeagueDto> searchLeagueBySummonerName(String enCodeSummonerName){
         List<LeagueDto> leagueList = new ArrayList<LeagueDto>();
         try {
-            HttpGet request = new HttpGet(serverUrl + "/lol/league/v4/entries/by-summoner/" + enCodeSummonerName + "?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/entries/by-summoner/" + enCodeSummonerName + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);
@@ -145,7 +144,7 @@ public class RecordService {
         List<ChampionMasteryDto> championMasteryList = new ArrayList<>();
 
         try {
-            HttpGet request = new HttpGet(serverUrl + "/lol/champion-mastery/v4/champion-masteries/by-puuid/" + puuid + "?api_key=" + mykey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/champion-mastery/v4/champion-masteries/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             riotResponseCodeError(response);

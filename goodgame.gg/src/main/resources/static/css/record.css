@@ -20,11 +20,17 @@ body {
     height: 900px;
 }
 
+.back-img-box{
+    background-image: url("/static/images/img11.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
 .profil-box {
     width: 100%;
     height: 200px;
 
-    background-color: #383838;
+    /* background-image: linear-gradient(to right,#545454 ,#343434); */
 }
 
 .head-info {
@@ -73,7 +79,7 @@ body {
 
 .profil-box:nth-child(2) {
     height: 75px;
-    border-top: 1px solid rgb(36, 37, 38);
+    
 }
 
 .head-check {

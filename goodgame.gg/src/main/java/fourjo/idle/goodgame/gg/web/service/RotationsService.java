@@ -1,6 +1,7 @@
 package fourjo.idle.goodgame.gg.web.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fourjo.idle.goodgame.gg.web.dto.riotKey.RiotApiKeyDto;
 import fourjo.idle.goodgame.gg.web.dto.rotation.ChampionEnum;
 import fourjo.idle.goodgame.gg.web.dto.rotation.ChampionInfoDto;
 import fourjo.idle.goodgame.gg.web.dto.rotation.RotationsChampionDto;
@@ -22,16 +23,13 @@ public class RotationsService {
     private ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient client = HttpClientBuilder.create().build();
 
-    private final String ApiKey = "RGAPI-d96e1a37-837a-49c9-92a9-8cdea33afaff";
-    private final String serverUri = "https://kr.api.riotgames.com";
-    private final String serverUriAsia = "https://asia.api.riotgames.com";
-
+    private final RiotApiKeyDto riotApiKeyDto = new RiotApiKeyDto();
 
     public List<ChampionEnum> rotationsChampion() {
         RotationsChampionDto rotationsChampionDto = new RotationsChampionDto();
 
         try {
-            HttpGet request = new HttpGet(serverUri + "/lol/platform/v3/champion-rotations/?api_key=" + ApiKey);
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/platform/v3/champion-rotations/?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
             HttpEntity entity = response.getEntity();

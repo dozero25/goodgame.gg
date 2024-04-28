@@ -20,8 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/board") // js로 보낼때 경로
@@ -59,8 +57,6 @@ public class BoardApi {
     @PostMapping("/update")
     //@Operation(summary = "게시글 수정", description = "조건에 맞으면 게시글 수정됩니다.")
     public ResponseEntity<CMRespDto<?>> boardUpdateOKByBoardIndex (@RequestBody BoardDTO dto){
-        log.info("수정 {}",dto);
-
         boardService.boardUpdateOKByBoardIndex(dto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true ));
@@ -82,8 +78,7 @@ public class BoardApi {
     @GetMapping("/update/{boardIndex}")
     //@Operation(summary = "게시글 수정용 ", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
     public ResponseEntity<CMRespDto<?>> loadUpdatePageByBoardIndex (@PathVariable("boardIndex") int boardIndex){
-        System.out.println(boardIndex);
-        log.info("업데이트용 "+ boardService.loadUpdatePageByBoardIndex(boardIndex));
+        boardService.loadUpdatePageByBoardIndex(boardIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.loadUpdatePageByBoardIndex(boardIndex)));
     }
@@ -108,9 +103,7 @@ public class BoardApi {
     @GetMapping("/selectOne/{boardIndex}")
     //@Operation(summary = "게시글 상세보기", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
     public ResponseEntity<CMRespDto<?>> selectOneBoard (@PathVariable("boardIndex") int boardIndex){
-        log.info("selectOne...{}", boardIndex);
         BoardDTO dto2 = boardService.boardSelectOneByBoardIndex(boardIndex);
-        log.info(dto2.toString());
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", dto2));
     }
@@ -122,8 +115,6 @@ public class BoardApi {
     @GetMapping("/search")
     //@Operation(summary = "게시글 검색", description = "게시글 전체목록, 제목, 닉네임, 내용, 제목+내용에 해당하는 검색목록을 출력합니다.")
     public ResponseEntity<CMRespDto<?>> searchBoard (BoardSearchDTO dto){
-        //리스트 빈거
-        log.info("search...{}", dto);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.boardSearchAllBySubjectAndUserIndexAndContent(dto))); //true면 출력이 안됨
     }
@@ -131,14 +122,10 @@ public class BoardApi {
     @GetMapping("/totalCount")
     //@Operation(summary = "게시글 상세보기", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
     public ResponseEntity<CMRespDto<?>> boardTotalCount (BoardSearchDTO dto){
-
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.boardTotalCount(dto)));
 
     }
-
-
-
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ좋아요 추천ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @GetMapping("/find/like")
@@ -152,8 +139,6 @@ public class BoardApi {
     //@Operation(summary = "게시글 추천수 count", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
     public ResponseEntity<CMRespDto<?>> likeCountByBoardIndex (int boardIndex){
         boardIndex = 10;
-        System.out.println(boardService.likeCountByBoardIndex(boardIndex));
-
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.likeCountByBoardIndex(boardIndex)));
 
@@ -162,7 +147,6 @@ public class BoardApi {
     @PostMapping("/like")
     //@Operation(summary = "게시글 좋아요", description = "게시글 좋아요를 완료합니다.")
     public ResponseEntity<CMRespDto<?>> likeAdd (int boardIndex, int userIndex){
-        log.info(""+boardIndex);
 
         boardService.likeAdd(boardIndex, userIndex);
         return ResponseEntity.ok()
@@ -234,15 +218,10 @@ public class BoardApi {
     @GetMapping("/selectOne/reply/update/{replyIndex}")
     //@Operation(summary = "게시글 댓글수정로드용 ", description = "해당 게시글의 특정 댓글 정보를 가져옵니다.")
     public ResponseEntity<CMRespDto<?>> boardReplyUpdateSelectOneByReplyIndex(@PathVariable("replyIndex") int replyIndex, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        System.out.println(replyIndex);
-        log.info("업데이트용 "+ boardService.boardReplyUpdateSelectOneByReplyIndex(replyIndex));
+        boardService.boardReplyUpdateSelectOneByReplyIndex(replyIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.boardReplyUpdateSelectOneByReplyIndex(replyIndex)));
     }
-
-
-
-
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 삭제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @PostMapping("/selectOne/replyGroup/delete")
@@ -261,18 +240,11 @@ public class BoardApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
-
-
-
-
-
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 전체 목록ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @GetMapping("/selectOne/reply/{boardIndex}")
     //@Operation(summary = "댓글목록",description = "게시글 상세보기를 하면 댓글목록을 확인 할 수 있습니다.")
     public ResponseEntity<CMRespDto<?>> boardReplySelectAll (@PathVariable("boardIndex") int boardIndex, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        System.out.println(boardIndex);
-        log.info("댓글용1 "+ boardService.loadUpdatePageByBoardIndex(boardIndex));
-
+        boardService.loadUpdatePageByBoardIndex(boardIndex);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.boardReplySelectAll(boardIndex)));
     }
