@@ -445,15 +445,8 @@ class BoardSelectOneService {
             }
 
             <div class = "sub">
-                <table>
-                    <tr>
-                        <th class="boardSubject" colspan="2">${responseData.boardSubject}</th>
-                    </tr>
-                </table>
+                <span class="boardSubject">${responseData.boardSubject}</span>
             </div>
-
-
-            
         `;
 
 
@@ -462,22 +455,18 @@ class BoardSelectOneService {
 
 
         boardMeta.innerHTML = `
-             <table class="board-info-bar">
-                <hr class = "selectOne-hr">
-                <tr>
-                    <td><p>| 게시글 번호: ${responseData.boardIndex}</p></td>
-                    <td><p>| 작성자: ${responseData.userNick}</p></td>
-                    <td><p>| 작성날짜: ${formattedRegDate}</p></td>
-                    <td><p>| 댓글수: ${responseData.replyCount}</p></td>
-                    <td><p>| 조회수: ${responseData.boardVisit + 1}</p></td>
-                    <td><p>| 추천수: ${responseData.boardLikeCount}</p></td>
-                    <br>
-
-                </tr>
-            </table>
+                <div class="board-info-bar">
+                    <div>게시글 번호 : <span class="info-bar-text">${responseData.boardIndex}</span></div>
+                    <div class="info-bar-mar">|</div>
+                    <div>작성자 : <span class="info-bar-text">${responseData.userNick}</span></div>
+                    <div class="info-bar-mar">|</div>
+                    <div>작성날짜 : <span class="info-bar-text">${formattedRegDate}</span></div>
+                    <div class="info-bar-mar">|</div>
+                    <div>조회수 : <span class="info-bar-text">${responseData.boardVisit + 1}</span></div>
+                    <div class="info-bar-mar">|</div>
+                    <div>추천수 : <span class="info-bar-text">${responseData.boardLikeCount}</span></div>
+                </div>
         `;
-
-
 
         const boardTable = document.querySelector(".board-content");
 
@@ -499,7 +488,7 @@ class BoardSelectOneService {
         buttonContainer.innerHTML = `
 
               <button id="like-btn" class="like-btn">
-                     ${boardLikeObj.boardLike == 1 ? '<span class="emoji">👍</span> Like!' : '<span class="emoji">👍</span> Like! '}
+                     ${boardLikeObj.boardLike == 1 ? '<span class="emoji">👍 Like!</span>' : '<span class="emoji">👍 Like!</span>'}
               </button> 
               
 
@@ -579,7 +568,7 @@ class BoardSelectOneService {
 
             ${data.replySequence != 1 && (data.replySequence == num2 || data.replyGroup == num1) ?
                 `<br>
-                 <table class="reply-squTable" style="margin-left:70px; margin-right:10px; font-size: 0.8em;">
+                 <table class="reply-squTable" style="margin-left:70px; margin-right:10px; font-size: 0.8em; width:650px">
                     <thead>
                         <th> ⤷&nbsp;&nbsp;&nbsp;&nbsp;【 ${data.userNick} 】 </th>
                         <td  style= “font-size: 0.8em;”>${formattedRegDate}</td>
@@ -700,50 +689,37 @@ class ComponentEvent {
 
     }
 
-
     addClickEventLikeButton() {
-
-
         const likeBtn = document.getElementById('like-btn');
-
+        const emoji = document.querySelector(".emoji");
         if (boardLikeObj.boardLike == 1){
 
-            likeBtn.style.backgroundColor = '#543478'; // 보라
-            likeBtn.style.borderColor = '#543478'; // 보라
-            likeBtn.style.color = '#fff'; // 흰색 텍스트
+            likeBtn.style.color = '#fff';
+            likeBtn.style.filter = "grayscale(0%)";
+            emoji.style.display = "block";
 
         }else{
-
-            likeBtn.style.backgroundColor = '#000'; // 검정색
-            likeBtn.style.borderColor = '#000'; // 검정색
-            likeBtn.style.color = '#000'; // 검정색 텍스트
-
-
+            likeBtn.style.color = '#fff';
+            likeBtn.style.filter = "grayscale(100%)";
+            emoji.style.display = "none";
         }
 
-  
         likeBtn.addEventListener("click", function () {
-            
-
-            if (boardLikeObj.boardLike == 1) { // 이미 boardLike=1일때
+            if (boardLikeObj.boardLike == 1) { 
 
                 BoardSelectOneApi.getInstance().likeBadCancel(boardLikeObj);
 
-                likeBtn.style.backgroundColor = '#000'; // 검정색
-                likeBtn.style.borderColor = '#000'; // 검정색
-                likeBtn.style.color = '#000'; // 검정색 텍스트
-
+                likeBtn.style.color = '#fff'; 
+                emoji.style.display = "none";
+                likeBtn.style.filter = "grayscale(100%)";
                 boardLikeObj.boardLike = 0;
-                
 
-
-            } else { // boardLike != 1일때
+            } else {
                 BoardSelectOneApi.getInstance().likeBoard(boardLikeObj);
 
-                likeBtn.style.backgroundColor = '#543478'; // 보라
-                likeBtn.style.borderColor = '#543478'; // 보라
-                likeBtn.style.color = '#fff'; // 흰색
-
+                likeBtn.style.color = '#fff';
+                likeBtn.style.filter = "grayscale(0%)";
+                emoji.style.display = "block";
 
 
                 boardLikeObj.boardLike++;

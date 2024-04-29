@@ -98,6 +98,7 @@
                 boardContent like CONCAT('%', #{searchValue}, '%'))  </when>
             <when test='searchKey=="view"'> where boardVisit  >= #{searchValue}  </when>
             <when test='searchKey=="like"'> where boardLikeCount  >= #{searchValue}  </when>
+            <when test='searchKey=="all"'>where 1=1</when>
         </choose>
         GROUP BY b.boardIndex, b.boardSubject, u.userId, b.boardRegDate,b.boardVisit, b.boardUploadName, b.boardUploadSize, b.boardUploadLocation
             order by boardIndex desc

@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -32,6 +33,7 @@ public class RecordService {
     public AccountDto searchSummonerInfoByGameNameAndTagLine(String gameName, String tagLine){
         AccountDto accountDto = new AccountDto();
         try {
+//            URL url = new URL()
             HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-riot-id/" + gameName+"/"+tagLine+ "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 

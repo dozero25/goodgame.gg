@@ -120,7 +120,7 @@ public class MyPageApi {
     @GetMapping("/searchList/board")
     public ResponseEntity<CMRespDto<?>> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println(boardSearchDTO);
-        List<BoardDTO> boardDTO =  myPageService.searchMyBoardListByIndex(boardSearchDTO);
+        List<BoardAndLikeDTO> boardDTO =  myPageService.searchMyBoardListByIndex(boardSearchDTO);
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardDTO));
 

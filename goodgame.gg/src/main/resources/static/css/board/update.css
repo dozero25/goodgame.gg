@@ -16,7 +16,24 @@
     background-color: #0000ff; /* 바의 배경색을 지정합니다. */
     color : white;
 }
+.board-header{
+    display: block;
+    min-width: 900px;
+    height: 275px;
+    background-image: url("/static/images/background/irellia.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    padding-top: 20px;
+}
 
+#letter {
+    width: 1050px;
+    margin: 32px auto;
+    color: rgb(249, 249, 249);
+    font-weight: 700;
+    font-size: 48px;
+}
 .update-detail {
     max-width: 800px;
     margin: 20px auto;

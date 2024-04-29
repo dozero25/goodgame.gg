@@ -176,7 +176,7 @@ class BoardMainService {
             const boardIndex = data.boardIndex;
             const thumb = BoardMainApi.getInstance().fileSelectOneBoard(boardIndex);
 
-            // <td class = "board-thumb">  ${!thumb.data.boardUploadLocation ? '' : `<img src="/images/${thumb.data.boardUploadLocation}" class="boardFile" alt="boardfile" width="35" height="35">`}</td>
+            
             boardTable.innerHTML += `
             <tr class="board-row">
                 <td>${data.boardIndex}</td>
@@ -184,7 +184,7 @@ class BoardMainService {
                 <td class="board-info">
                     <a href="/board/selectOne?boardIndex=${data.boardIndex}" class="board-href" value=${data.boardIndex}>${data.boardSubject}</a>
                     <span class = "reply-blue">[${data.replyCount}]</span>
-                    <td class = "board-thumb"><img src="/static/images/board/GG.png" class="boardFile" alt="boardfile"></td>
+                    <td class = "board-thumb">  ${!thumb.data.boardUploadLocation ? '' : `<img src="/images/${thumb.data.boardUploadLocation}" class="boardFile" alt="boardfile" width="35" height="35">`}</td>
                 </td>
 
                 <td>${data.userNick}</td>
@@ -211,11 +211,11 @@ class BoardMainService {
             : Math.floor(totalcount / searchObj.count) + 1;
 
         pageController.innerHTML = `
-            <a href="javascript:void(0)" class="pre-button disabled">이전</a>
+            <span class="pre-button disabled"><i class="fa-solid fa-play pre"></i></span>
             <ul class="page-numbers">
             
             </ul>
-            <a href="javascript:void(0)" class="next-button disabled">다음</a>
+            <span class="next-button disabled"><i class="fa-solid fa-play next"></i></span>
         `;
 
         if (searchObj.page != 1) {
@@ -248,7 +248,7 @@ class BoardMainService {
 
         for (let i = startIndex; i <= endIndex; i++) {
             pageNumbers.innerHTML += `
-                <a href="javascript:void(0)"class ="page-button ${i == searchObj.page ? "disabled" : ""}"><li>${i}</li></a>
+            <li><span class ="page-button ${i == searchObj.page ? "disabled" : ""}">${i}</span></li>
             `;
         }
 
@@ -316,6 +316,8 @@ class ComponentEvent {
     loadAllViewButton() {
         const likeBtn = document.getElementById("all-btn");
         likeBtn.addEventListener("click", function () {
+            const searchKey = $("#all-btn").val();
+            searchObj.searchKey = searchKey;
             BoardMainService.getInstance().getLoadAllBoardList();
         });
 

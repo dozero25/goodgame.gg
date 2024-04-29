@@ -14,6 +14,26 @@
     width: 100%;
     font-size: 15px;
 }
+
+.board-header{
+    display: block;
+    min-width: 900px;
+    height: 275px;
+    background-image: url("/static/images/background/irellia.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    padding-top: 20px;
+}
+
+#letter {
+    width: 1050px;
+    margin: 32px auto;
+    color: rgb(249, 249, 249);
+    font-weight: 700;
+    font-size: 48px;
+}
+
 .board-container {
     width: 1050px;
 }
@@ -30,7 +50,7 @@
 }
 
 .board-table thead tr th{
-    background-color: #17171a;
+    background-color: #161616;
     border-left: none;
     border-right: none;
     padding: 20px 15px;
@@ -93,12 +113,6 @@
     
 }
 
-.search-button:active {
-    background-color: #39045c;
-    color: #f8f8f8; 
-    font-weight: 700;
-}
-
 .right-items {
     display: flex;
     justify-content: center;
@@ -121,52 +135,91 @@
 
     text-align: center;
     font-size: 14px;
+    height: 60px;
+    background-color: #25272A;
 }
 
 .page-controller {
     display: flex;
     justify-content: center;
-
+    font-size: 12px;
+    align-items: center;
     margin: 10px 0px;
+}
+.pre-button,
+.next-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 28px;
+    margin: 0px 4px;
+    border: 1px solid #7B7A8E;
+    border-radius: 3px;
+
+    padding: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.pre {
+    transform: rotate(180deg);
+    size: 20px;
 }
 
 .page-numbers {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 200px; */
 }
 
-.page-controller a {
+.page-numbers li {
+    list-style-type: none;
+    width: 36px;
+    height: 28px;
+}
+
+.page-numbers li span {
     display: flex;
-    border-radius: 5px;
     justify-content: center;
     align-items: center;
 
-    
+    border: 1px solid #7B7A8E;
+    border-radius: 3px;
+
+    font-weight: bold;
     text-decoration: none;
-    margin: 0px 5px;
-    border: 2px solid #000000;
-    background-color: #afafaf;
-    width: 40px;
-    height: 28px;
+    color: #9E9EB1;
 
-    font-weight: 500;
-    font-size: 16px;
+    cursor: pointer;
+
 }
-
+.page-button {
+    width: 100%;
+    height: 100%;
+    
+}
 .page-controller li {
     list-style-type: none;
     border-radius: 5px;
+    margin: 0px 5px;
 }
 
 .page-controller a:hover {
-    background-color: #2f2d38;
-    color: rgb(228, 228, 228);
+    background-color: #202020;
 }
 
 .page-controller .disabled {
-    border-radius: 5px;
-    background-color: #31313C;
-    color: rgb(126, 126, 126);
-    cursor: default;
+    color: #9E9EB1;
+    cursor: auto;
+}
+
+.page-numbers .disabled {
+    background-color: #515151;
+    border: 1px solid #515151;
+    color: white;
+    cursor: auto;
 }
 
 .search-container {
@@ -187,21 +240,16 @@
     height: 25px;
 }
 
-
-
 .reply-blue {
     font-weight: bold;
     color: #99ccff;
 }
-
-
 
 .board-thumb {
     margin-left: auto; 
 }
 
 .board-thumb img {
-    /* width: 60px; */
     height: 50px;
 }
 
@@ -250,11 +298,6 @@
 }
 
 
-
-
-
-
-
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
 
 .page-numbers {
@@ -265,50 +308,6 @@
 
 }
 
-.page-numbers li {
-    list-style-type: none;
-}
-
-.page-numbers li span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 22px; /* 너비 */
-    height: 22px;
-    margin: 0px 4px;
-
-    border: 1px solid #d4d4d4;
-    border-radius: 3px;
-    padding: 2px;
-
-    font-weight: bold;
-    text-decoration: none;
-    color: #31313C;
-
-    cursor: pointer;
-
-}
-
-/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
-
-
-
-.page-controller a:hover {
-    background-color: #202020;
-}
-
-.page-controller .disabled {
-    color: #9E9EB1;
-    cursor: auto;
-}
-
-.page-numbers .disabled {
-    background-color: #31313C;
-    border: 1px solid #7f7f86;
-    color: white;
-   
-    cursor: auto;
-}
 /* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
 
 .wrapper{

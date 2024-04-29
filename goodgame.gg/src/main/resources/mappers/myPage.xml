@@ -42,11 +42,12 @@
 
 
     <!--3. 내가 쓴 글 목록-->
-    <select id="searchMyBoardListByIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardDTO">
-        SELECT bm.boardIndex, bm.boardSubject, bm.boardContent, bm.boardRegDate, bm.userIndex
-        FROM board_mst bm
-        INNER JOIN user_mst um ON bm.userIndex = um.userIndex
+    <select id="searchMyBoardListByIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardAndLikeDTO">
+        SELECT bm.boardIndex, bm.boardSubject,bm.userIndex, bm.boardContent, bm.boardRegDate, bm.boardVisit, blm.boardLike
+        FROM lol.board_mst bm
+        INNER JOIN lol.board_like_mst blm ON bm.userIndex = blm.userIndex
         WHERE bm.userIndex = #{userIndex}
+        order by boardIndex desc
         <if test='limit == "Y"'>
                 limit #{index},#{count}
         </if>
@@ -57,6 +58,7 @@
     <select id="searchMyReplyListByIndex"  parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.ReplySearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.ReplyDTO">
         SELECT * FROM reply_mst
         WHERE userIndex = #{userIndex}
+        order by boardIndex desc
         <if test='limit == "Y"'>
             limit #{index},#{count}
         </if>
@@ -75,4 +77,8 @@
     <select id="totalReplyCount" parameterType="integer" resultType="integer">
         SELECT COUNT(*) FROM reply_mst WHERE userIndex = #{userIndex}
     </select>
+
+    <delete id="deleteBoardByUserIndexAndBoardIndex">
+
+    </delete>
 </mapper>

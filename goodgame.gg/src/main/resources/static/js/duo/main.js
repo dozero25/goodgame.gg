@@ -219,7 +219,6 @@ class DuoMainService {
 
             preButton.onclick = () => {
                 searchObj.page++;
-
                 this.getLoadAllDuoList();
             }
         }

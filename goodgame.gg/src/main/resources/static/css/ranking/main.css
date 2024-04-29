@@ -4,58 +4,60 @@ body {
     margin: 0;
     padding: 0;
     background: #010A13;
-} 
+}
 
+/*여기*/
+.menu-li{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 main {
     font-weight: normal;
 }
 
+/*여기*/
 .content-header{
     display: block;
     min-width: 900px;
-
+    height: 275px;
+    background-image: url("/static/images/background/vayne.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
+
+
 
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
 
+/*여기*/
 .header-h1{
     width: 900px;
-    margin: auto;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    font-size: 40px;
+    margin: 32px auto;
+    font-size: 48px;
     color: white;
 }
 
-.header-h1::after {
-    min-width: 900px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    content: "";
-    display: block;
-    height: 1px;
-    margin-top: 16px;
-
-}
 
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
-
-.content-header nav{
+/*여기*/
+.content-nav{
     width: 900px;
     box-sizing: border-box;
     padding-top: 4px;
     padding-bottom: 4px;
-    margin-top: 1px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-
 }
 
+/*여기*/
 .queue-solo,.queue-flex{
     display: inline-block;
     block-size: 40px;
-    line-height: 39px;
+    line-height: 38px;
     cursor: pointer;
     padding-left: 16px;
     padding-right: 16px;
@@ -63,11 +65,12 @@ main {
     color: white;
     margin: 0 auto;
     font-weight: normal;
-
     border: 1px solid #393939;
     border-radius: 4px;
 
 }
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
 
 .queue-solo:hover, .queue-flex:hover {
     background-color: #202020;

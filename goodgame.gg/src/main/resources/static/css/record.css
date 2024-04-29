@@ -21,16 +21,19 @@ body {
 }
 
 .back-img-box{
-    background-image: url("/static/images/img11.png");
+    display: block;
+    min-width: 900px;
+    height: 275px;
+    background-image: url("/static/images/background/akali.jpg");
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
 
 .profil-box {
     width: 100%;
     height: 200px;
-
-    /* background-image: linear-gradient(to right,#545454 ,#343434); */
 }
 
 .head-info {
@@ -92,6 +95,7 @@ body {
     display: flex;
     height: 100%;
     margin: 0 auto;
+    margin-top: 10px;
 }
 
 .rank-box{

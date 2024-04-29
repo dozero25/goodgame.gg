@@ -35,8 +35,8 @@ public class AccountService {
 
     public EmpDto registerEmp(EmpDto empDto) {
         duplicateUserId(empDto.getEmpId());
-//        checkPassword(userDto.getUserPw());
-//        inputUserGender(userDto.getUserGender());
+//        checkPassword(empDto.getEmpPw());
+//        inputUserGender(empDto.getEmpGender());
 
         empDto.setEmpPw(new BCryptPasswordEncoder().encode(empDto.getEmpPw()));
         accountRepository.registerEmp(empDto);

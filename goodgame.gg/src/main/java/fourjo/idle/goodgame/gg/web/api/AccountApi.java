@@ -16,7 +16,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/account")
@@ -48,7 +47,6 @@ public class AccountApi {
 
         if(principalDetails != null){
             principalDetails.getAuthorities().forEach(role -> {
-                log.info("로그인된 사용자의 권한 : {}", role.getAuthority());
             });
         } else {
             return ResponseEntity

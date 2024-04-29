@@ -20,7 +20,7 @@ public interface MyPageRepository {
     public int updateMypageInfo(UserDTO userDTO);
 
     /*3. 내가 쓴 글 목록*/
-    public List<BoardDTO> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO);
+    public List<BoardAndLikeDTO> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO);
 
     /*4. 내가 쓴 댓글 목록*/
     public List<ReplyDTO> searchMyReplyListByIndex(ReplySearchDTO replySearchDTO);
