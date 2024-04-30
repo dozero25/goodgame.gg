@@ -231,7 +231,7 @@ class RankingMainService {
             const formattedLeaguePoints = data.leaguePoints.toLocaleString();
             rankingTable.innerHTML += `
             <tr>
-                <td class="td-num">${data.rankingRowNum}</td>
+                <td class="td-num">${index+1}</td>
                 <td class="td-name"> 
                     <a target="_target" class="summoner-link" href="#" style="text-decoration: none; color: inherit;">
                     <input type="hidden" class="td-name-link-value" value = ${data.gameName.replaceAll(" ", "~")+"-"+data.tagLine}>  

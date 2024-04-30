@@ -465,18 +465,18 @@ class BoardSelectOneService {
         `;
 
         const boardTable = document.querySelector(".board-content");
+        const boardImgBox = document.querySelector(".board-img-box");
 
-
-        boardTable.innerHTML = `
-                
-                <div class = "boardContent-box">
-                    <textarea class="boardContent" id="boardContent" cols="80" rows="30" readonly>${responseData.boardContent}</textarea>
-                </div>
-                ${!responseData.boardUploadLocation ? '' : `<img src="/images/${responseData.boardUploadLocation}" class="boardFile" alt="boardfile">`}
+        boardTable.innerHTML = `  
+            <div class = "boardContent-box">
+                <textarea class="boardContent" id="boardContent" cols="80" rows="30" readonly>${responseData.boardContent}</textarea>
+            </div>
         `
+        boardImgBox.innerHTML = `
+        ${!responseData.boardUploadLocation ? '' : `<img src="/images/${responseData.boardUploadLocation}" class="boardFile" alt="boardfile">`}
+        `;
 
         const buttonContainer = document.querySelector(".button-container");
-
         buttonContainer.innerHTML = `
 
               <button id="like-btn" class="like-btn">
@@ -604,9 +604,7 @@ class BoardSelectOneService {
             }
         });
 
-
     }
-
 
     setBoardReplyGroupContent(){
         const replyInsert = document.querySelector(".reply-content");
@@ -615,11 +613,7 @@ class BoardSelectOneService {
         replyObj.boardIndex = boardObj.boardIndex;
         replyObj.userIndex = principal.user.userIndex;
         replyObj.replyContent = replyInsert.value;
-
     }
-
-
-
     
     //대댓글 내용 수정용
     setBoardReplySquenceContent(){ 

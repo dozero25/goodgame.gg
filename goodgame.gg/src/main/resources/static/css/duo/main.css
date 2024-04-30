@@ -274,7 +274,7 @@
 
 /*위의 list영역에 출력되는 이미지들*/
 .position-options img {
-    width: 40px;
+    width: 20px;
     position: absolute;
     top: 15px;
     bottom: 15px;
