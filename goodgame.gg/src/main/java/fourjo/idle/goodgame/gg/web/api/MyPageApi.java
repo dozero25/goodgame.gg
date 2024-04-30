@@ -166,5 +166,20 @@ public class MyPageApi {
 
     }
 
+    @DeleteMapping("/delete/board/info/{boardIndex}")
+    public ResponseEntity<CMRespDto<?>> deleteBoardByUserIndexAndBoardIndex(@PathVariable("boardIndex") int boardIndex, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", myPageService.deleteBoardByUserIndexAndBoardIndex(boardIndex, principalDetails.getUser().getUserIndex())));
+
+    }
+
+    @DeleteMapping("/delete/board/reply/info/{boardIndex}/{replyGroup}/{replySequence}")
+    public ResponseEntity<CMRespDto<?>> deleteBoardReplyByUserIndexAndBoardIndexAndBoardGroup(@PathVariable("boardIndex") int boardIndex,@PathVariable("replyGroup") int replyGroup,@PathVariable("replySequence") int replySequence, @AuthenticationPrincipal PrincipalDetails principalDetails ) {
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", myPageService.deleteBoardReplyByUserIndexAndBoardIndexAndBoardGroup(boardIndex, principalDetails.getUser().getUserIndex(), replyGroup, replySequence)));
+
+    }
+
+
 
 }

@@ -43,7 +43,7 @@
 
     <!--3. 내가 쓴 글 목록-->
     <select id="searchMyBoardListByIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardAndLikeDTO">
-        SELECT bm.boardIndex, bm.boardSubject,bm.userIndex, bm.boardContent, bm.boardRegDate, bm.boardVisit, blm.boardLike
+        SELECT distinct bm.boardIndex, bm.boardSubject,bm.userIndex, bm.boardContent, bm.boardRegDate, bm.boardVisit, blm.boardLike
         FROM board_mst bm
         INNER JOIN board_like_mst blm ON bm.userIndex = blm.userIndex
         WHERE bm.userIndex = #{userIndex}
@@ -78,11 +78,11 @@
         SELECT COUNT(*) FROM reply_mst WHERE userIndex = #{userIndex}
     </select>
 
-    <delete id="deleteBoardByUserIndexAndBoardIndex">
+    <delete id="deleteBoardByUserIndexAndBoardIndex" parameterType="integer">
         delete from board_mst where boardIndex = #{boardIndex} and userIndex = #{userIndex}
     </delete>
 
-    <delete id="deleteBoardReplyByUserIndexAndBoardIndexAndBoardGroup">
+    <delete id="deleteBoardReplyByUserIndexAndBoardIndexAndBoardGroup" parameterType="integer">
         delete from reply_mst
         where
         boardIndex = #{boardIndex} and

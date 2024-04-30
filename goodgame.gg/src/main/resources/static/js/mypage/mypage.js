@@ -4,7 +4,10 @@ window.onload = () => {
     MyPageService.getInstance().printMyPage();
     MyPageService.getInstance().printBoardElement();
     MyPageService.getInstance().printReplyTable();
-
+    
+    ComponentEvent.getInstance().deleteClickButtonBoard();
+    ComponentEvent.getInstance().deleteClickButtonReplyBoard();
+    
     ComponentEvent.getInstance().addClickEventModificationButton();
 }
 //1.데이터를 저장할 변수 추가하기
@@ -52,6 +55,18 @@ let searchObjByReply = {
     userIndex: ""
 }
 
+let deletebox = {
+    boardIndex : "",
+    userIndex : ""
+}
+
+let deleteReplyBox = {
+    boardIndex : "",
+    replyGroup : "",
+    replySequence : "",
+    userIndex : ""
+}
+
 //2. Api
 class MyPageApi {
     static #instance = null;
@@ -83,7 +98,6 @@ class MyPageApi {
         });
 
         return successFlag;
-
     }
 
     printMyPageUser() {
@@ -109,8 +123,8 @@ class MyPageApi {
     }
 
     printBoardList() {
-
         let returnData = null;
+
         searchObjByBoard.userIndex = `${PrincipalApi.getInstance().getPrincipal().user.userIndex}`;
         $.ajax({
             async: false,
@@ -126,7 +140,6 @@ class MyPageApi {
                 console.log(error);
             }
         });
-        console.log("returnData" + returnData);
         return returnData;
     }
     getTotalBoardCount() {
@@ -148,7 +161,6 @@ class MyPageApi {
                 console.log(error);
             }
         });
-        console.log(returnData)
         return returnData;
     }
 
@@ -180,7 +192,6 @@ class MyPageApi {
 
         ReplyObj.userIndex = `${PrincipalApi.getInstance().getPrincipal().user.userIndex}`;
 
-
         $.ajax({
             async: false,
             type: "get",
@@ -196,6 +207,42 @@ class MyPageApi {
         });
 
         return returnData;
+    }
+
+    deleteBoardInMypage() {
+        let successFlag = false;
+
+        $.ajax({
+            async: false,
+            type: "delete",
+            url: `http://localhost:8000/api/mypage/delete/board/info/${deletebox.boardIndex}`,
+            dataType: "json",
+            success: response => {
+                successFlag = true;
+            },
+            error: error => {
+            }
+        });
+
+        return successFlag;
+    }
+
+    deleteReplyInMypage() {
+        let successFlag = false;
+
+        $.ajax({
+            async: false,
+            type: "delete",
+            url: `http://localhost:8000/api/mypage/delete/board/reply/info/${deleteReplyBox.boardIndex}/${deleteReplyBox.replyGroup}/${deleteReplyBox.replySequence}`,
+            dataType: "json",
+            success: response => {
+                successFlag = true;
+            },
+            error: error => {
+            }
+        });
+
+        return successFlag;
     }
 
 }
@@ -232,9 +279,7 @@ class MyPageService {
             <div>
                 <img src="/static/images/MyPage-Profile.png" alt="">
             </div>
-            <form id="uploadForm" method="post" enctype="multipart/form-data">
-                <input type="file" id="upload-img"  class="upload-img" name="upload-img">
-            </form>
+
         </div>
         <div class="getUserInfo">
             <label class="modification-label">NICK</label>
@@ -274,17 +319,18 @@ class MyPageService {
 
         boardData.forEach((data, index) => {
             boardTable.innerHTML += `
-                <tr>
+                <tr class="board-box-wrap">
                     <td>${data.boardIndex}</td>
                     <td>${data.boardSubject}</td>
                     <td>${data.boardRegDate}</td>
                     <td>${data.boardVisit}</td>
                     <td>${data.boardLike}</td>
-                    <td class="delete-board-btn"><button value=${data.boardIndex}>삭제</button></td>
+                    <td class="delete-board-btn"><button value=${data.boardIndex} class="delete-btn-board">삭제</button></td>
                 </tr>
             `
         });
         this.loadBoardPageController();
+        ComponentEvent.getInstance().deleteClickButtonReplyBoard();
     }
 
     loadBoardPageController() {
@@ -360,15 +406,18 @@ class MyPageService {
 
         replyData.forEach((data, index) => {
             replyTable.innerHTML += `
-            <tr>
+            <tr class="reply-box-wrap">
                 <td>${data.boardIndex}</td>
                 <td>${data.replyContent}</td>
                 <td>${data.replyRegDate}</td>
-                <td class="delete-reply-btn"><button>삭제</button></td>
+                <td class="delete-reply-btn"><button class="reply-delete-btn" value="${data.boardIndex}">삭제</button></td>
+                <input type="hidden" value="${data.replyGroup}" class="reply-gorup-delete">
+                <input type="hidden" value="${data.replySequence}" class="reply-seq-delete">
             </tr>
             `
         });
         this.loadReplyPageController();
+        ComponentEvent.getInstance().deleteClickButtonReplyBoard();
     }
 
     loadReplyPageController() {
@@ -485,6 +534,49 @@ class ComponentEvent {
                 }
             };
         }
+    }
+
+    deleteClickButtonBoard(){
+        const deleteBtn = document.querySelectorAll(".delete-btn-board");
+
+        deleteBtn.forEach((btn, index) => {
+            btn.onclick = () => {
+                deletebox.boardIndex = btn.value;
+                deletebox.userIndex = PrincipalApi.getInstance().getPrincipal().user.userIndex;
+
+                const successFlag = new MyPageApi().deleteBoardInMypage(deletebox);
+                
+                if(successFlag){
+                    const row = btn.closest('.board-box-wrap');
+                    row.style.display = 'none';
+                }
+            }
+        });
+        
+    }
+
+    deleteClickButtonReplyBoard(){
+        const deleteBtn = document.querySelectorAll(".reply-delete-btn");
+
+        const groupVal = document.querySelectorAll(".reply-gorup-delete");
+        const seqVal = document.querySelectorAll(".reply-seq-delete");
+
+        deleteBtn.forEach((btn, index) => {
+            btn.onclick = () => {
+                deleteReplyBox.boardIndex = btn.value;
+                deleteReplyBox.replyGroup = groupVal[index].value;
+                deleteReplyBox.replySequence = seqVal[index].value;
+                deleteReplyBox.userIndex = PrincipalApi.getInstance().getPrincipal().user.userIndex;
+
+                const successFlag = new MyPageApi().deleteReplyInMypage(deleteReplyBox);
+                
+                if(successFlag){
+                    const row = btn.closest('.reply-box-wrap');
+                    row.style.display = 'none';
+                }
+            }
+        });
+        
     }
 
 

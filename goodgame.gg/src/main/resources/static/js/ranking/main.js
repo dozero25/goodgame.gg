@@ -4,6 +4,8 @@ window.onload = () => {
 
     ComponentEvent.getInstance().addClickEventSearchButton();
     ComponentEvent.getInstance().addClickEventsCssButton();
+    ComponentEvent.getInstance().showMiunsRankingIndex();
+    
 }
 
 
@@ -22,11 +24,11 @@ let searchRankingObj = {
     tagLine : "",
     limit : "Y",
     count : 30,
-    page : 1
+    page : 1,
+    index : 0
 }
 
 let gameNameAndTagLine ="";
-
 
 class RankingMainApi {
     static #instance = null;
@@ -125,8 +127,6 @@ class RankingMainApi {
         return returnData;
     }
 
-
-
 }
 
 class RankingMainService {
@@ -143,13 +143,10 @@ class RankingMainService {
         const infoContainer = document.querySelector(".info-container");
         const bottomContainer = document.querySelector(".total-page-count");
 
-
-
         const totalcount = RankingMainApi.getInstance().getSearchRankingTotalCount(searchRankingObj);
         const maxPageNumber = totalcount % searchRankingObj.count == 0
             ? Math.floor(totalcount / searchRankingObj.count)
             : Math.floor(totalcount / searchRankingObj.count) + 1;
-
 
         pageController.innerHTML = `
         <span class="pre-button disabled"><i class="fa-solid fa-play pre"></i></span>
@@ -231,7 +228,7 @@ class RankingMainService {
             const formattedLeaguePoints = data.leaguePoints.toLocaleString();
             rankingTable.innerHTML += `
             <tr>
-                <td class="td-num">${index+1}</td>
+                <td class="td-num">${data.rankingRowNum}</td>
                 <td class="td-name"> 
                     <a target="_target" class="summoner-link" href="#" style="text-decoration: none; color: inherit;">
                     <input type="hidden" class="td-name-link-value" value = ${data.gameName.replaceAll(" ", "~")+"-"+data.tagLine}>  
