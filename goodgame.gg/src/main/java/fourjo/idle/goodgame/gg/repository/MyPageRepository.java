@@ -33,4 +33,8 @@ public interface MyPageRepository {
 
     public int totalReplyCount(int userIndex);
 
+    public int deleteBoardByUserIndexAndBoardIndex(int boardIndex, int userIndex);
+
+    public int deleteBoardReplyByUserIndexAndBoardIndexAndBoardGroup(int boardIndex, int userIndex);
+
 }

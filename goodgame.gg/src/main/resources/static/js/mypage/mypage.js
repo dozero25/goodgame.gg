@@ -72,10 +72,8 @@ class MyPageApi {
             url: `http://localhost:8000/api/mypage/update/${PrincipalApi.getInstance().getPrincipal().user.userIndex}`,
             contentType: "application/json",
             data: JSON.stringify(MyPageObj),
-            /* data: MyPageObj*/
             dataType: "json",
             success: response => {
-                //                returnData = response.data;
                 successFlag = true;
                 console.log(response);
             },
@@ -88,7 +86,6 @@ class MyPageApi {
 
     }
 
-    //유저정보 출력
     printMyPageUser() {
         let returnData = null;
 
@@ -111,7 +108,6 @@ class MyPageApi {
         return returnData;
     }
 
-    //(2). 정보 출력.  주소로 이동했습니다.
     printBoardList() {
 
         let returnData = null;
@@ -134,7 +130,6 @@ class MyPageApi {
         return returnData;
     }
     getTotalBoardCount() {
-        //정보(searchObj에 부합하는)의 전체 개수를 가져온다
 
         let returnData = null;
 
@@ -180,7 +175,6 @@ class MyPageApi {
     }
 
     getTotalReplyCount() {
-        //정보(searchObj에 부합하는)의 전체 개수를 가져온다
 
         let returnData = null;
 
@@ -206,7 +200,6 @@ class MyPageApi {
 
 }
 
-//3. Service
 class MyPageService {
     static #instance = null;
     static getInstance() {
@@ -217,7 +210,6 @@ class MyPageService {
 
     }
 
-    //수정할 때 사용하는 메서드
     setMyPageObjValues() {
         const modificationInputs = document.querySelectorAll(".modification-input");
 
@@ -253,7 +245,7 @@ class MyPageService {
         <div class="getUserInfo">
             <label class="modification-label">PASSWORD</label>
             <div>
-                <input type="text" class="modification-input" style="cursor: default;" value="${responseData?.userEmail}" disabled>
+                <input type="password" class="modification-input" style="cursor: default;" value="${responseData?.userEmail}" disabled>
             </div>
         </div>
         <div class="getUserInfo">

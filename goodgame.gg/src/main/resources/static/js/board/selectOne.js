@@ -537,15 +537,15 @@ class BoardSelectOneService {
                     </tbody>
                     <tfoot class ="updateGroup-tfoot">
                         <tr>
-                        ${principal.user.userIndex == data.userIndex?`
+                        
                             <td>
                                 <button type="button" id="reply-group-insert" class="reply-group-insert"  data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" class="replyGroupUpdateBtn">답글</button>                           
+                            ${principal.user.userIndex == data.userIndex?`  
                                 <button type="button" id="reply-group-update"  data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" class="replyGroupUpdateBtn">수정</button>                           
                                 <button type="button" id="reply-group-delete" class="replyGroupDeleteBtn" data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" >삭제</button>
                             </td>
                             `:`
                             <td style="display:none;">
-                                <button type="button" id="reply-group-insert"  data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" class="replyGroupUpdateBtn">답글</button>                           
                                 <button type="button" id="reply-group-update"  value="${data.replyIndex}" class="replyGroupUpdateBtn">수정</button>                                                     
                                 <button type="button" id="reply-group-delete" class="replyGroupDeleteBtn" value="${data.replyIndex}" style="display:none;">삭제</button>
                             </td>

@@ -173,39 +173,56 @@ class BoardUpdateService{
             
             updateDetail.innerHTML = `
 
-            
-            
-            <label class="updateTitle">제목</label>
-            <div>
-                <input type="text" id="boardSubject" class="updateBoardSubject" autocomplete="off" value="${responseData.data.boardSubject}">
-            </div>
-            <div class ="updateUserNickAndContent">
-                <label class="updateUserNick">작성자&nbsp;</label>
-                <span>
-                    <input type="text" class="userNickView" id="userNick" autocomplete="off" value="${responseData.data.userNick}" readonly>
-                </span>
-                <label class="updateRegDate">&nbsp;작성일&nbsp;</label>
-                <span>
-                    <input type="datetime" id="boardRegDate" class="boardRegDateView" autocomplete="off" value="${responseData.data.boardRegDate}" readonly>
-                </span>
-            </div>
-            <label class="updateContent">내용</label>
-            <div>
-                <textarea class="updateBoardContent" id = "boardContent" cols="100" rows="30">${responseData.data.boardContent}</textarea>
-            </div>
-    
-            <form id="uploadForm" method="post" enctype="multipart/form-data">
-                <input type="file" id="updateUploadFile"  class="updateUploadFile" value1="${responseData.data.boardUploadName}" value2="${responseData.data.boardIndex}" name="file">
-            </form>
-           
-            <div class = "update-btn">
+                <div class="title-detail">
+                    <div>
+                        <div class="update-title-box">
+                            <div class="updateTitle">제목</div>
+                        </div>
+                        <input type="text" id="boardSubject" class="updateBoardSubject" autocomplete="off" value="${responseData.data.boardSubject}">
+                    </div>
+                </div>
+                <div>
+                    <div class ="updateUserNickAndContent">
+                        <label class="updateUserNick">작성자</label>
+                        <span>
+                            <input type="text" class="userNickView" id="userNick" autocomplete="off" value="${responseData.data.userNick}" readonly>
+                        </span>
+                        <label class="updateRegDate">&nbsp;작성일&nbsp;</label>
+                        <span>
+                            <input type="datetime" id="boardRegDate" class="boardRegDateView" autocomplete="off" value="${responseData.data.boardRegDate}" readonly>
+                        </span>
+                    </div>
+                </div>
+                <div class="content-detail">
+                    
+                    <div>
+                        <div  class="content-detail-box">
+                            <div class="updateContent">내용</div>
+                        </div>
+                        <div>
+                            <textarea class="updateBoardContent" id = "boardContent" cols="100" rows="30">${responseData.data.boardContent}</textarea>
+                        </div>
+                        <div>
+                            <form id="uploadForm" method="post" enctype="multipart/form-data">
+                            <input type="file" id="updateUploadFile"  class="updateUploadFile" value1="${responseData.data.boardUploadName}" value2="${responseData.data.boardIndex}" name="file">
+                            </form>
+                        </div>
+                    </div>
+                    <input type="hidden" class="boardUploadName">
+                    <input type="hidden" class="boardUploadName">
+                    <input type="hidden" class="boardUploadName">
+                </div>
+
+                <input type="hidden" class="boardUploadName">
+                <input type="hidden" class="boardUploadName">
+                <input type="hidden" class="boardUploadName">
+
+                <div class = "update-btn">
                     <button type="submit" id = "update-complete" class="update-complete">수정완료</button>
                     <a href = "http://localhost:8000/board/selectOne?boardIndex=${responseData.data.boardIndex}">
                     <button type="button" class = "update-cancel"  value="${responseData.data.boardIndex}">수정취소</button>
                     </a>
-            </div>
-            
-    
+                </div>
             `;
      
 

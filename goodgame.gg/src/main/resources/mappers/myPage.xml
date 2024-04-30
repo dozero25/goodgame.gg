@@ -79,6 +79,15 @@
     </select>
 
     <delete id="deleteBoardByUserIndexAndBoardIndex">
+        delete from board_mst where boardIndex = #{boardIndex} and userIndex = #{userIndex}
+    </delete>
 
+    <delete id="deleteBoardReplyByUserIndexAndBoardIndexAndBoardGroup">
+        delete from reply_mst
+        where
+        boardIndex = #{boardIndex} and
+        userIndex = #{userIndex} and
+        replyGroup  = #{replyGroup} and
+        replySequence = ${replySequence}
     </delete>
 </mapper>

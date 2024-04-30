@@ -85,10 +85,14 @@
     margin-bottom: 10px;
 }
 
-.updateTitle,  .updateContent, .updateUserNick{
+.updateTitle,  .updateContent{
     color:rgb(164, 167, 170);
     font-weight: bold;
     margin-bottom: 20px;
+}
+.updateUserNick {
+    color:rgb(164, 167, 170);
+    font-weight: bold;
 }
 .updateRegDate{
     font-weight: bold;
@@ -96,13 +100,18 @@
 }
 
 .updateUserNickAndContent{
-    margin-top:20px;
-    margin-bottom:20px;
+    width: 720px;
+    margin: 10px 0px 10px 15px;
+}
+
+.updateUserNickAndContent input {
+    border: none;
 }
 
 .userNickView, .boardRegDateView{
     border-radius: 5px;
-    background-color: rgb(207, 207, 207);
+    background-color: transparent;
+    color: #ffffff;
 }
 
 .update-complete{
@@ -112,14 +121,16 @@
     border-radius: 4px;
     padding: 5px 10px;
     margin-top: 10px;
+    margin-right: 20px;
 }
 
 .update-cancel{
-   margin-top:5px;
-   background-color : #000000;
-   color: white;
-   height:40px;
-   border-radius: 10px;
+    background-color: #202A48;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-top: 10px;
 }
 
 .boardUploadName{
@@ -127,9 +138,9 @@
 }
 
 .updateUploadFile {
-    margin-left: 45px;
     margin-top:5px;
 }
 #uploadForm{
     color: #ffffff;
+    display: flex;
 }
