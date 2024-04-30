@@ -129,7 +129,7 @@ public class BoardApi {
     }
 
     @GetMapping("/totalCount")
-    //@Operation(summary = "게시글 상세보기", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
+    //@Operation(summary = "게시글 전체 개수", description = "게시글 전체 카운트.")
     public ResponseEntity<CMRespDto<?>> boardTotalCount (BoardSearchDTO dto){
 
         return ResponseEntity.ok()
@@ -142,14 +142,14 @@ public class BoardApi {
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ좋아요 추천ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @GetMapping("/find/like")
-    //@Operation(summary = " 해당 게시글 및 유저 추천수", description = "해당 boardIndex 조건에 맞는 게시글 추천수 count.")
+    //@Operation(summary = " 해당 게시글 및 유저 추천수", description = "커뮤니티게시판 boardIndex 조건에 맞는 해당 게시글에 UserIndex 좋아요(추천) 체크 확인용 API")
     public ResponseEntity<CMRespDto<?>> likeByBoardIndexAndUserIndex (int boardIndex, int userIndex ){
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", boardService.likeByBoardIndexAndUserIndex(boardIndex, userIndex)));
 
     }
     @GetMapping("/like/count")
-    //@Operation(summary = "게시글 추천수 count", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
+    //@Operation(summary = "게시글 추천수 count", description = "커뮤니티게시판 boardIndex 조건에 맞는 해당 게시글 추천수 Count API")
     public ResponseEntity<CMRespDto<?>> likeCountByBoardIndex (int boardIndex){
         boardIndex = 10;
         System.out.println(boardService.likeCountByBoardIndex(boardIndex));
@@ -170,7 +170,7 @@ public class BoardApi {
     }
 
     @PostMapping("/cancel")
-    //@Operation(summary = "게시글 좋아요 또는 싫어요 취소 ", description = "게시글 좋아요 또는 싫어요 선택을 취소합니다.")
+    //@Operation(summary = "게시글 좋아요 취소 ", description = "게시글 좋아요 선택을 취소합니다.")
     public ResponseEntity<CMRespDto<?>> likeBadCancel (int boardIndex, int userIndex) {
         boardService.likeCancel(boardIndex,userIndex);
         return ResponseEntity.ok()
@@ -210,7 +210,7 @@ public class BoardApi {
     }
 
     @PostMapping(value = "/selectOne/reply/insert/{replyGroup}")
-    //@Operation(summary = "게시글 댓글 등록", description = " 해당 게시글의 댓글을 등록할 수 있습니다.")
+    //@Operation(summary = "게시글 대댓글 등록", description = " 해당 게시글의 replyGroup에 따른 대댓글을 등록할 수 있습니다.")
     public ResponseEntity<CMRespDto<?>> boardReplyInsertByReplySequence(@PathVariable(value = "replyGroup") int replyGroup,
                                                                         @RequestBody BoardReplyDTO dto,
 
@@ -254,7 +254,7 @@ public class BoardApi {
     }
 
     @PostMapping("/selectOne/replySequence/delete")
-    //@Operation(summary = "게시글 댓글삭제", description = "해당 게시글의 특정 댓글을 삭제할 수 있습니다")
+    //@Operation(summary = "게시글 대댓글삭제", description = "해당 게시글의 특정 대댓글을 삭제할 수 있습니다")
     public ResponseEntity<CMRespDto<?>> boardReplyDeleteByReplyIndex(int replyIndex){
         boardService.boardReplyDeleteByReplyIndex(replyIndex);
         return ResponseEntity.ok()
