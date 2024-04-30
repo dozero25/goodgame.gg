@@ -262,18 +262,6 @@ class DuoMainService {
             const deadTime = (Math.floor((deadLine.getTime() - now.getTime()) / 1000 / 60));
             const uploadTime = Math.floor((now.getTime() - (new Date(data.duoWdate).getTime() - 900000)) / 60000);
             var champion=data.duoThreeChampions.toString().split("-");
-            //now:현재시간  deadLine: deadTime을 계산하기 위해 가져온 duoWdate값을 Date형식으로 저장
-            //deadTime: 현재 시간인 now에서 duoWdate인 deadLine을 뺀 뒤에 60000으로 나누어 저장(밀리초 단위 이므로 deadTime에는 분 단위로 저장된다
-            //uploadTime: 시스템 상 글을 입력하면 15분이 더해져서 Wdate으로 저장되기 때문에 900000(15분)을 빼고 이를 60000으로 나누어 분 단위로 저장한다
-            //아래 miniBoardA에서 삼항 연산자를 활용하여 uploadTime이 60보다 작으면(1시간 이내) '분 전'을 붙여서 출력하고 1440(1일)보다 작으면 60으로 나눈 몫에 '시간 전'을 붙여 출력하고 그 외에는 1440으로 나눈 몫에 '일전'을 붙여 출력한다.
-            //deadTime은 0보다 작으면 '만료'를 출력하고 그 이외에는 '분 후 만료'를 추가하여 출력한다
-
-            //miniBoardB에서는 제목을 출력하는 데 각 data들을 연결하여 출력한다(이를 위해 모두 한글로 진행하였다)
-
-            //miniBoradC에서 내용이 비어있으면 공백으로 두고 있으면 출력하게 설정하였다.
-
-            //miniBoardD에서 티어와 포지션 에 맞는 이미지를 가져와 출력하고 아이디는 클릭하면 전적보기로 이동하게 설정하였다. 아이디 복사 버튼을 클릭하면 메세지와 함께 복사 성공했다는 문구가 출력된다.
-
 
             duoTable.innerHTML += `
         <div class="duoMiniBoard">
@@ -289,9 +277,8 @@ class DuoMainService {
              </div>
              <div id="miniBoardD" >
                   <img src="static/images/duo/position/${data.duoPosition}.png">
-                
                   <a target="_target" href="#" class="nicknameClick">${data.duoGameId}</a>
-                  <input type="hidden" class="mini-board-value" value = ${data.duoGameId.replaceAll(" ", "~").replaceAll("#", "-")}>  
+                  <input type="hidden" class="mini-board-value" value = ${data.duoGameId.replaceAll(" ", "~").replaceAll("#", "-")}>
              </div>
              <div id="miniBoardE" >
                 <img src="static/images/duo/tier/${data.duoTier}.png" class="miniBoardEImg"><br>

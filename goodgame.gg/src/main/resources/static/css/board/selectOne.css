@@ -49,7 +49,7 @@ textarea{
 
 .update-btn{
     padding: 10px;
-    border: 2px solid #0AC8B9;
+    border: 2px solid #515151;
     border-radius: 8px;
     cursor: pointer;
     background-color: transparent;
@@ -60,6 +60,7 @@ textarea{
 }
 
 .update-btn:hover{
+    border: 2px solid #0AC8B9;
     background-color: #0AC8B9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -68,7 +69,7 @@ textarea{
 .delete-btn {
     background-color: transparent;
     padding: 10px;
-    border: 2px solid #c50000;
+    border: 2px solid #515151;
     border-radius: 8px;
     cursor: pointer;
     color: #ffffff;
@@ -78,6 +79,7 @@ textarea{
 
 .delete-btn:hover {
     background-color: #c50000;
+    border: 2px solid #c50000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -112,7 +114,7 @@ textarea{
 
 .returnBoard {
     padding: 10px;
-    border: 2px solid #0AC8B9;
+    border: 2px solid #515151;
     border-radius: 8px;
     cursor: pointer;
     background-color: transparent;
@@ -123,6 +125,7 @@ textarea{
 }
 
 .returnBoard:hover {
+    border: 2px solid #0AC8B9;
     background-color: #0AC8B9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -238,15 +241,22 @@ textarea{
     height: 20px;
     border-radius: 20px;
 }
+.reply-group-insert{
+    background-color: #202A48;
+    color: white;
+    border: none;
+    border-radius: 4px;
+
+    padding: 5px 10px;
+}
 
 .replyGroupUpdateBtn {
     background-color: #202A48;
     color: white;
     border: none;
 
-    width: 50px;
-    height: 20px;
-    border-radius: 20px;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 
 .replyGroupDeleteBtn {
@@ -254,9 +264,8 @@ textarea{
     color: white;
     border: none;
 
-    width: 50px;
-    height: 20px;
-    border-radius: 20px;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 
 .replySequenceUpdateBtn {
@@ -271,14 +280,11 @@ textarea{
 }
 
 .replySequenceDeleteBtn {
-    background-color: #686b72;
+    background-color: #202A48;
     color: white;
     border: none;
-
-    width: 36px;
-    height: 20px;
-    border-radius: 20px;
-    font-size: 0.5em;
+    border-radius: 4px;
+    padding: 5px 10px;
 }
 
 .button:hover {
@@ -295,30 +301,44 @@ textarea{
     justify-content: center;
     align-items: center;
 }
-
-.reply-table table {
-    /*마진을 또 다른데서 주면 댓글 높이 오류남*/
+.reply-table-info {
     display: flex;
     flex-direction: column;
     margin-left: 30px;
     margin-right: 30px;
-    align-items: left;
     table-layout: fixed;
 
     width: 690px;
     padding: 20px;
-    border: 2px solid #000000;
+    border: 2px solid #1E282D;
     border-radius: 4px;
+}
+
+.reply-table-info td, .reply-table-info th {
+    border: none;
 }
 
 .reply-table thead {
     color: #707070;
+
 }
 
 .reply-squTable {
-    background-color: #2c272e;
-    width: 550px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    background-color: transparent;
+    border: 2px solid #1E282D;
+    border-radius: 4px;
+    width: 650px;
     margin-right: 5px;
+    margin-left:70px; 
+    font-size: 0.8em;
+}
+
+.reply-squTable td, .reply-squTable th {
+    border: none;
 }
 
 .GroupRegDate {
@@ -326,26 +346,28 @@ textarea{
 }
 
 .reply-update-box {
-    margin-top: 10px;
+    margin: 10px 0px;
 }
 
 .rply-update-input {
-    background-color: rgb(0, 0, 0);
+    background-color: transparent;
     color: rgb(250, 250, 250);
     width: 530px;
     height: 36px;
     border-radius: 5px;
-    margin-left: 20px;
     margin-bottom: 10px;
-
+    word-break: break-all;
 }
 
 .rply-update-btn {
-    background-color: #666666;
-    color: rgb(0, 0, 0);
-    font-weight: Bold;
-    height: 36px;
-    border-radius: 10px;
+    background-color: #202A48;
+    color: white;
+    border: none;
+
+    height: 40px;
+    
+    padding: 5px 10px;
+    border-radius: 4px;
 
 }
 
@@ -353,12 +375,9 @@ textarea{
     width: 670px;
     padding: 10px;
     border-radius: 4px;
-    background-color: #2c3031;
-    color: rgb(174, 171, 171);
-    border: 2px solid #262130;
-
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #1E282D;
 }
 
 .reply-box {
@@ -368,12 +387,13 @@ textarea{
 }
 
 .repInsert-btn {
-    padding: 10px;
-    border: 1px solid #2e2e2e;
-    font-size: 14px;
-    font-weight: 700;
-    background-color: #000000;
-    color: rgb(211, 211, 211);
+    background-color: #202A48;
+    color: white;
+    border: none;
+
+    border-radius: 4px;
+    padding: 5px 10px;
+
     margin-top: 10px;
 }
 
@@ -397,13 +417,14 @@ textarea{
 
 
 .replyGroup-input {
-    background-color: rgb(156, 156, 156);
-    color: black;
+    background-color: transparent;
+    color: #ffffff;
     width: 590px;
     height: 30px;
     border-radius: 5px;
     padding: 5px;
-    margin-left: 5px;
+    margin-left: 7px;
+    border: 2px solid #1E282D;
 }
 
 .reg-gro-btn {
@@ -413,27 +434,17 @@ textarea{
     border-radius: 10px;
 }
 
-.repInsert-btn:hover {
-    border: 3px solid #636363;
-    background-color: #39045c;
-    color: #ffffff;
-    font-weight: 700;
-}
-
-.repInsert-btn:active {
-    background-color: #39045c;
-    color: #f8f8f8;
-    font-weight: 700;
-}
-
 .GroupContent,
 .SquenceContent {
     color: white;
 }
 
-.GroupContent {
+.GroupContent,.SquenceContent {
     height: auto;
+    padding: 10px 0px;
 }
+
+
 
 .like-btn{
     background-image: url("/static/images/bee.png");
@@ -449,3 +460,4 @@ textarea{
     border-radius: 50%;
     filter : grayscale(100%);
 }
+

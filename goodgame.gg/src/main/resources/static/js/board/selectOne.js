@@ -10,6 +10,7 @@ window.onload = () => {
     ComponentEvent.getInstance().addClickEventUpdateBoardButton();
     ComponentEvent.getInstance().addClickEventLikeButton();
     ComponentEvent.getInstance().addClickEventReplyInsertButton();
+    ComponentEvent.getInstance().addClickShowReplyInsertText();
     ComponentEvent.getInstance().addClickEventReplyInputBtn();
     ComponentEvent.getInstance().addClickEventReplyGroupDeleteBtn();
     ComponentEvent.getInstance().addClickEventReplySequenceDeleteBtn();
@@ -477,21 +478,15 @@ class BoardSelectOneService {
                     <textarea class="boardContent" id="boardContent" cols="80" rows="30" readonly>${responseData.boardContent}</textarea>
                 </div>
                 ${!responseData.boardUploadLocation ? '' : `<img src="/images/${responseData.boardUploadLocation}" class="boardFile" alt="boardfile">`}
-
-                
         `
 
-        
         const buttonContainer = document.querySelector(".button-container");
-
 
         buttonContainer.innerHTML = `
 
               <button id="like-btn" class="like-btn">
                      ${boardLikeObj.boardLike == 1 ? '<span class="emoji">👍 Like!</span>' : '<span class="emoji">👍 Like!</span>'}
               </button> 
-              
-
         `;
 
 
@@ -522,44 +517,48 @@ class BoardSelectOneService {
                 `
                 <br>
 
-                <table class = "reply-table" border=2 rules="none" style="background-color: #181818;">
+                <table class = "reply-table-info">
                     <thead>
                         <tr>
                             <th>【 ${data.userNick} 】</th>
-                            <td class="GroupRegDate" font-size: 0.8em;>${formattedRegDate}</td>
+                            <th class="GroupRegDate" font-size: 0.8em;>${formattedRegDate}</th>
                         <tr>
                     </thead>
                     <tbody>
-                         <tr>
+                        <tr>
                             <td class="GroupContent">${data.replyContent}</td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="reply-update-box" style="display:none">
-                                    <input type="text" class="rply-update-input" maxlength="300" value="${data.replyContent}">
-                                    <button type="button" class="rply-update-btn" value="${data.replyIndex}">수정완료✔</button>
+                                    <div style="display:flex">
+                                        <input type="text" class="rply-update-input" maxlength="300" value="${data.replyContent}">
+                                        <button type="button" class="rply-update-btn" value="${data.replyIndex}">수정완료✔</button>
+                                    </div>
                                 </div>
                             </td>
-                        ${principal.user.userIndex == data.userIndex?`
+                            
                         </tr>
                     </tbody>
                     <tfoot class ="updateGroup-tfoot">
                         <tr>
+                        ${principal.user.userIndex == data.userIndex?`
                             <td>
+                                <button type="button" id="reply-group-insert" class="reply-group-insert"  data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" class="replyGroupUpdateBtn">답글</button>                           
                                 <button type="button" id="reply-group-update"  data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" class="replyGroupUpdateBtn">수정</button>                           
                                 <button type="button" id="reply-group-delete" class="replyGroupDeleteBtn" data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" >삭제</button>
                             </td>
                             `:`
                             <td style="display:none;">
-                                 <button type="button" id="reply-group-update"  value="${data.replyIndex}" class="replyGroupUpdateBtn">수정</button>                                                     
-                                 <button type="button" id="reply-group-delete" class="replyGroupDeleteBtn" value="${data.replyIndex}" style="display:none;">삭제</button>
+                                <button type="button" id="reply-group-insert"  data-value1="${data.replyIndex}"  data-value2="${data.boardIndex}" class="replyGroupUpdateBtn">답글</button>                           
+                                <button type="button" id="reply-group-update"  value="${data.replyIndex}" class="replyGroupUpdateBtn">수정</button>                                                     
+                                <button type="button" id="reply-group-delete" class="replyGroupDeleteBtn" value="${data.replyIndex}" style="display:none;">삭제</button>
                             </td>
+                        `}
                         </tr>
-                        `
-                        }
                     </tfoot>
                 </table>
-                <div class="replyGroupBtn-box">
+                <div class="replyGroupBtn-box" style="display:none">
                     <input class="replyGroup-input" value = "" maxlength="300" placeholder = "댓글을 입력하세요">
                     <button id= "rply" class="reg-gro-btn" onclick="reply_insert(${data.replyGroup})" value="${data.replyGroup}">답글쓰기✔</button>
                 </div>` 
@@ -568,10 +567,10 @@ class BoardSelectOneService {
 
             ${data.replySequence != 1 && (data.replySequence == num2 || data.replyGroup == num1) ?
                 `<br>
-                 <table class="reply-squTable" style="margin-left:70px; margin-right:10px; font-size: 0.8em; width:650px">
+                 <table class="reply-squTable">
                     <thead>
-                        <th> ⤷&nbsp;&nbsp;&nbsp;&nbsp;【 ${data.userNick} 】 </th>
-                        <td  style= “font-size: 0.8em;”>${formattedRegDate}</td>
+                        <th> ⤷ 【 ${data.userNick} 】 </th>
+                        <th  style= “font-size: 0.8em;”>${formattedRegDate}</th>
                     </thead>
                         <tbody>
                             <td class = "SquenceContent">${data.replyContent}</td>
@@ -694,12 +693,16 @@ class ComponentEvent {
         const emoji = document.querySelector(".emoji");
         if (boardLikeObj.boardLike == 1){
 
-            likeBtn.style.color = '#fff';
+            likeBtn.style.color = '#ffffff';
+            likeBtn.style.fontStyle = '16px';
+            likeBtn.style.fontWeight = '600';
             likeBtn.style.filter = "grayscale(0%)";
             emoji.style.display = "block";
 
         }else{
-            likeBtn.style.color = '#fff';
+            likeBtn.style.color = '#ffffff';
+            likeBtn.style.fontStyle = '16px';
+            likeBtn.style.fontWeight = '600';
             likeBtn.style.filter = "grayscale(100%)";
             emoji.style.display = "none";
         }
@@ -709,7 +712,9 @@ class ComponentEvent {
 
                 BoardSelectOneApi.getInstance().likeBadCancel(boardLikeObj);
 
-                likeBtn.style.color = '#fff'; 
+                likeBtn.style.color = '#ffffff';
+                likeBtn.style.fontStyle = '16px';
+                likeBtn.style.fontWeight = '600'; 
                 emoji.style.display = "none";
                 likeBtn.style.filter = "grayscale(100%)";
                 boardLikeObj.boardLike = 0;
@@ -717,7 +722,9 @@ class ComponentEvent {
             } else {
                 BoardSelectOneApi.getInstance().likeBoard(boardLikeObj);
 
-                likeBtn.style.color = '#fff';
+                likeBtn.style.color = '#ffffff';
+                likeBtn.style.fontStyle = '16px';
+                likeBtn.style.fontWeight = '600';
                 likeBtn.style.filter = "grayscale(0%)";
                 emoji.style.display = "block";
 
@@ -736,8 +743,6 @@ class ComponentEvent {
         const repInsertBtn = document.querySelector(".repInsert-btn"); 
         const repContent = document.querySelector(".reply-content"); 
 
-
-
         repInsertBtn.addEventListener("click", function () {
             repContent.focus();
             BoardSelectOneService.getInstance().setBoardReplyGroupContent();
@@ -751,6 +756,21 @@ class ComponentEvent {
 
     }
 
+    addClickShowReplyInsertText(){
+        const rgiBtn = document.querySelectorAll(".reply-group-insert");
+        const rgbBox = document.querySelectorAll(".replyGroupBtn-box");
+
+        rgiBtn.forEach((btn, index) => {
+            btn.onclick = () => {
+                if(rgbBox[index].style.display != "none"){
+                    rgbBox[index].style.display = "none";
+                } else {
+                    rgbBox[index].style.display = "block";
+                }
+            }
+        });
+        
+    }
     
 
     //대댓글 등록버튼

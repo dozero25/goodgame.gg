@@ -197,8 +197,6 @@ public class BoardApi {
     //@Operation(summary = "게시글 댓글 등록", description = " 해당 게시글의 댓글을 등록할 수 있습니다.")
     public ResponseEntity<CMRespDto<?>> boardReplyInsertByReplySequence(@PathVariable(value = "replyGroup") int replyGroup,
                                                                         @RequestBody BoardReplyDTO dto,
-
-
                                                                         @AuthenticationPrincipal PrincipalDetails principalDetails){
         boardService.boardReplyInsertBySequence(dto);
 

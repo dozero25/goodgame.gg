@@ -81,8 +81,8 @@
             rd.roleId,
             rm.roleName
         from user_mst um
-            left join lol.role_dtl rd on(um.userId = rd.userId)
-            left join lol.role_mst rm on(rm.roleId = rd.roleId)
+            left join role_dtl rd on(um.userId = rd.userId)
+            left join role_mst rm on(rm.roleId = rd.roleId)
         where
             um.userId = #{userId}
     </select>
@@ -101,8 +101,8 @@
             rd.roleId,
             rm.roleName
         from emp_mst em
-            left join lol.role_dtl rd on(em.empId = rd.empId)
-            left join lol.role_mst rm on(rm.roleId = rd.roleId)
+            left join role_dtl rd on(em.empId = rd.empId)
+            left join role_mst rm on(rm.roleId = rd.roleId)
         where
             em.empId = #{empId}
     </select>

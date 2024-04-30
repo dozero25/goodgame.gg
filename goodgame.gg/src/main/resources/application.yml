@@ -9,7 +9,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lol
-    username: multi20
+    username: root
     password: 1234
   servlet:
     multipart:
@@ -22,3 +22,8 @@ mybatis:
 
 file:
   path: C:/goodgame.gg/images/
+
+
+#    url: jdbc:mysql://223.130.161.242:3306/multi20_04
+#    username: multi20_04
+#    password: 1234
