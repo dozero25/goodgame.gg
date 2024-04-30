@@ -36,7 +36,7 @@ public class DuoService {
 
             summonerName = summonerName.replaceAll(" ", "%20"); //들어온 데이터 띄어쓰기를 %20 으로 바꿉니다.(주소에는 %20으로 표시됨)
             HttpClient c = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "riot/account/v1/accounts/by-riot-id/" + summonerName + "/" + tagLine + "?api_key=" + riotApiKeyDto.getMykey());
+            HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-riot-id/" + summonerName + "/" + tagLine + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
             // riotResponseCodeError(response);
@@ -57,7 +57,7 @@ public class DuoService {
         try {
 
             HttpClient c = HttpClientBuilder.create().build();
-            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "lol/champion-mastery/v4/champion-masteries/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
+            HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/champion-mastery/v4/champion-masteries/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
 
             HttpResponse response = c.execute(request);
 
@@ -166,7 +166,6 @@ public class DuoService {
         }
 
         return duoRepository.duoInsert(duoDto);
-
 
     }
 

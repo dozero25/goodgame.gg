@@ -154,7 +154,7 @@
     </select>
 
     <update id ="likeUpdate" parameterType="integer">
-        update board_mst set boardLikeCount = (select count(boardIndex) from lol.board_like_mst
+        update board_mst set boardLikeCount = (select count(boardIndex) from board_like_mst
         where boardIndex = #{boardIndex}) where boardIndex = #{boardIndex}
     </update>
 

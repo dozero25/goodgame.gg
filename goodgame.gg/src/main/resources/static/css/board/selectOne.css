@@ -17,10 +17,6 @@ body {
     color: #333;
 }
 
-textarea{
-    resize: none;
-}
-
 .board-container {
     max-width: 800px;
     margin: 20px auto;

@@ -422,11 +422,9 @@ class BoardSelectOneService {
         let likeValue =  BoardSelectOneApi.getInstance().findlikeBoard();
         boardLikeObj.boardLike = likeValue; 
 
-
         const regDate = new Date(responseData.boardRegDate);
         const formattedRegDate = `${regDate.getFullYear()}년 ${regDate.getMonth() + 1}월 ${regDate.getDate()}일 
                                     ${regDate.getHours() < 12 ? '오전' : '오후'} ${regDate.getHours() % 12 || 12}시 ${regDate.getMinutes()}분 `;            
-
 
         boardTitle.innerHTML = `
             <div>
@@ -450,10 +448,7 @@ class BoardSelectOneService {
             </div>
         `;
 
-
         const boardMeta = document.querySelector(".board-meta");
-        
-
 
         boardMeta.innerHTML = `
                 <div class="board-info-bar">

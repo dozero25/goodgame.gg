@@ -1,15 +1,14 @@
 window.onload = () => {
     HeaderService.getInstance().loadHeader();
 
-    DuoMainService.getInstance().getLoadAllDuoList();                   //듀오 글 전체 불러오기
+    DuoMainService.getInstance().getLoadAllDuoList();
 
-    ComponentEvent.getInstance().addClickEventModalButton();            //글 작성 버튼 클릭(모달창 활성화)
-    ComponentEvent.getInstance().addClickEventInsertButton();           //모달 창에서 입력 완료 버튼
-    ComponentEvent.getInstance().addClickEventCheckButton();            //모달 창에서 아이디 확인 버튼
-    ComponentEvent.getInstance().addClickEventCopyButton();             //글 정보에서 아이디 복사 버튼
-    ComponentEvent.getInstance().addClickEventTierButton();             //티어 검색 클릭
-    ComponentEvent.getInstance().addClickEventPositionButton();         //포지션 검색 클릭
-    ComponentEvent.getInstance().addClickEventQueButton();              //게임 타입 검색 클릭
+    ComponentEvent.getInstance().addClickEventModalButton();
+    ComponentEvent.getInstance().addClickEventInsertButton(); 
+    ComponentEvent.getInstance().addClickEventCheckButton();    
+    ComponentEvent.getInstance().addClickEventTierButton();   
+    ComponentEvent.getInstance().addClickEventPositionButton();
+    ComponentEvent.getInstance().addClickEventQueButton();   
 }
 //검색하기 위한 Obj
 let searchObj = {
@@ -294,6 +293,7 @@ class DuoMainService {
         });
         this.loadPageController();
         ComponentEvent.getInstance().addClickATag();
+        ComponentEvent.getInstance().addClickEventCopyButton();
     }
 }
 

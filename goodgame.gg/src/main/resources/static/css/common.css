@@ -23,4 +23,7 @@ body {
     font: 600 16px/18px 'Open Sans', sans-serif;
 }
 
+textarea{
+    resize: none;
+}
 

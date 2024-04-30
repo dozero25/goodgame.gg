@@ -1,21 +1,5 @@
 
-.containerhtml, body, header, main, footer, div, p, h1, h2 {
-    margin: 0;
-    padding: 0;
-}
 
-.body{
-    background-color: #1c1c1f;
-}
-
-.main-bar{
-    top: 0; /* 화면의 맨 위에 배치합니다. */
-    left: 0; /* 좌측 정렬합니다. */
-    width: 100%; /* 화면 전체 너비를 사용합니다. */
-    height: 100px; /* 바의 높이를 지정합니다. */
-    background-color: #0000ff; /* 바의 배경색을 지정합니다. */
-    color : white;
-}
 .board-header{
     display: block;
     min-width: 900px;
@@ -34,53 +18,77 @@
     font-weight: 700;
     font-size: 48px;
 }
-.update-detail {
+.update-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #31313C;
     border-radius: 5px;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-
 }
+
+.update-detail {
+    width: 100%;
+}
+
+
+.title-detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: rgb(194, 194, 194);
+}
+
+.content-detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 15px;
+}
+
 .updateBoardSubject{
-    background-color: rgb(0, 0, 0);
     color:rgb(250, 250, 250);
-    width:700px;
+    width:714px;
     height:36px;
-    border-radius: 5px;
-    margin-left: 40px;
+    border-radius: 4px;
     margin-top:5px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #C89B3C;
+    font-size: 14px;
 }
 .updateBoardContent {
-    width:700px;
-    margin-left: 40px;
-    margin-top:5px;
+    width: 712px;
     padding-top: 10px;
     padding-left: 10px;
-    border-radius: 20px;
-    background-color: #2c3031;
-    color:white;
-    border: 2px solid #262130;
-
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
-
-.updateBoardContent:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #C89B3C;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .update-btn{
-    background-color: #31313C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    margin-top: 10px;
+
+}
+.update-title-box, .content-detail-box{
+    margin-bottom: 10px;
 }
 
 .updateTitle,  .updateContent, .updateUserNick{
     color:rgb(164, 167, 170);
-    margin-left: 40px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 .updateRegDate{
     font-weight: bold;
@@ -98,12 +106,12 @@
 }
 
 .update-complete{
-   margin-left: 40px; /*insert-cancel이랑 이부분 다름*/
-   margin-top:5px;
-   background-color : #000000;
-   color: white;
-   height:40px;
-   border-radius: 10px;
+    background-color: #202A48;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-top: 10px;
 }
 
 .update-cancel{
@@ -121,4 +129,7 @@
 .updateUploadFile {
     margin-left: 45px;
     margin-top:5px;
+}
+#uploadForm{
+    color: #ffffff;
 }
