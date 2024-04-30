@@ -10,7 +10,6 @@ window.onload = () => {
     ComponentEvent.getInstance().addClickEventTierButton();             //티어 검색 클릭
     ComponentEvent.getInstance().addClickEventPositionButton();         //포지션 검색 클릭
     ComponentEvent.getInstance().addClickEventQueButton();              //게임 타입 검색 클릭
-    ComponentEvent.getInstance().addClickATag();
 }
 //검색하기 위한 Obj
 let searchObj = {
@@ -294,6 +293,7 @@ class DuoMainService {
 
         });
         this.loadPageController();
+        ComponentEvent.getInstance().addClickATag();
     }
 }
 
@@ -571,9 +571,7 @@ class ComponentEvent {
 
                 positionSelectText.innerHTML = this.textContent;
 
-
                 positionList.classList.toggle("position-hide");
-
 
                 positionArrowIcon.classList.toggle("position-rotate");
                 checkOpenedObj.positionDoubleIn = 1;
@@ -679,7 +677,7 @@ class ComponentEvent {
     addClickATag(){
         const aTag = document.querySelectorAll(".nicknameClick");
         const inputValue = document.querySelectorAll(".mini-board-value");
-        
+    
         aTag.forEach((tag, index) =>{
             tag.onclick = () =>{
                 gameNameAndTagLine = inputValue[index].defaultValue.replaceAll("~", " ");

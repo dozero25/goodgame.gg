@@ -4,7 +4,6 @@ window.onload = () => {
 
     ComponentEvent.getInstance().addClickEventSearchButton();
     ComponentEvent.getInstance().addClickEventsCssButton();
-    ComponentEvent.getInstance().addClickATag();
 }
 
 
@@ -265,6 +264,7 @@ class RankingMainService {
             `;
         });
         this.loadPageController();
+        ComponentEvent.getInstance().addClickATag();
     }
 }
 
