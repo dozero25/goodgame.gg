@@ -90,7 +90,9 @@ body {
 }
 
 .boardFile {
+    position: relative;
     margin-left: 35px;
+    z-index: 9999;
 }
 
 .board-header {

@@ -509,7 +509,9 @@ class ComponentEvent {
 
             modificationInputs.forEach(input => {
                 input.disabled = false;
+                input.style.backgroundColor = "#515151";
             });
+
 
             modificationButton.disabled = true;
             modificationOKButton.disabled = false;

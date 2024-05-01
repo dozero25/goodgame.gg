@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,16 @@ public class AccountApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
+
+    @GetMapping("/auth/login")
+    public String login(@RequestParam(value = "error", required = false)
+                            String error, @RequestParam(value = "exception", required = false)
+                            String exception, Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+        return "/user/user-login";
+    }
+
 
     @PostMapping("/register/emp")
     @Operation(summary ="회원가입", description = "조건에 맞으면 회원가입이 진행됩니다." )

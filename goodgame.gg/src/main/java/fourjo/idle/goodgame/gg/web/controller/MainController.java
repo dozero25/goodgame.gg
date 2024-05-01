@@ -29,6 +29,10 @@ public class MainController {
     public String login(){
         return "login/login";
     }
+    @GetMapping("/loginError")
+    public String loginError(){
+        return "login/loginError";
+    }
 
     @GetMapping("/lolbti")
     public String lolbti(){
@@ -50,16 +54,9 @@ public class MainController {
     @GetMapping("/mypage")
     public String myPageMain(){return "/mypage/main.html";}
 
-    @GetMapping("/mypage/update")
-    public String myPageUpdate(){return "/mypage/update.html";}
-
     @GetMapping("/mypage/delete")
     public String myPageDelete(){return "/mypage/delete.html";}
 
-    @GetMapping("/mypage/post")
-    public String myPagePost(){return "/mypage/board.html";}
 
-    @GetMapping("/mypage/reply")
-    public String myPageReply(){return "/mypage/reply.html";}
 
 }

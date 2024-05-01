@@ -9,4 +9,6 @@ public class RiotApiKeyDto {
     private final String serverUrl = "https://kr.api.riotgames.com";
     private final String severUrlAsia = "https://asia.api.riotgames.com";
 
+    private int n;
+
 }

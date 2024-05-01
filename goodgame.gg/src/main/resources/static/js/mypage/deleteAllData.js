@@ -1,8 +1,5 @@
 window.onload = () => {
-    MyPageHeaderService.getInstance().loadHeader();
-    SidebarService.getInstance().loadSidebar();
-    
-    MyPageService.getInstance().popupForCheckUserPw();
+    HeaderService.getInstance().loadHeader();
 
     ComponentEvent.getInstance().ClickEventPopupForCheckUserPw();
     ComponentEvent.getInstance().ClickEventDeleteButton();
@@ -101,54 +98,36 @@ class MyPageService{
         popupForCheckUserPw() {
             const popupWindow = window.open('', '_blank', 'width=600,height=400');
 
-            console.log("1"+popupWindow);//null
-            console.log("2"+window);
-            console.log("3"+open);
-
             const popupContent = `
              <h1>비밀번호를 입력해주세요.</h1>
-             <input type="password" id="pop-upForDelete">
+                <input type="password" id="pop-upForDelete">
              <button id="confirmButton">확인</button>
-             `
-             console.log("1"+popupWindow);//null
-             console.log("2"+popupContent);
-             console.log("3"+document);
 
+             `
             popupWindow.document.write(popupContent);
 
-            const confirmButton = popupWindow.document.getElementById('confirmButton');
 
-                    confirmButton.onclick = () => {
-                        const inputPassword = popupWindow.document.getElementById('pop-upForDelete').value;
-                         console.log("inputPassword:"+inputPassword);
-                        //const inputPassword = DeleteObj.userPw;
-                        const isPasswordMatch = MyPageApi.getInstance().pwCheck(inputPassword);
-                        //const check = MyPageApi.getInstance().
+            setTimeout(() => {
+                const confirmButton = popupWindow.document.getElementById('confirmButton');
 
-                        //console.log(encoderPassword);//입력값
-                        //console.log(PrincipalApi.getInstance().getPrincipal().user.userPw);//DB
-
-
-                        //inputPassword를 암호화해서 비교
-                        if (isPasswordMatch) {
-                            alert("인증이 완료되었습니다.");
-                            document.getElementById('check-user-pw-button').disabled = true;
-                            document.getElementById('delete-button').disabled = false;
-                            popupWindow.close();
-                        } else {
-                            popupWindow.alert("비밀번호가 일치하지 않습니다.");
-                           popupWindow.close();
-                        }
+                confirmButton.onclick = () => {
+                    const inputPassword = popupWindow.document.getElementById('pop-upForDelete').value;
+                    const isPasswordMatch = MyPageApi.getInstance().pwCheck(inputPassword);
+                    if (isPasswordMatch) {
+                        alert("인증이 완료되었습니다.");
+                        document.getElementById('check-user-pw-button').disabled = true;
+                        document.getElementById('delete-button').disabled = false;
+                        popupWindow.close();
+                    } else {
+                        popupWindow.alert("비밀번호가 일치하지 않습니다.");
+                       popupWindow.close();
                     }
+                }
+            }, 100);
+
+            
         };
 
-        //서버로 보내주는 함수
-        //function post(ID,PW){
-        //  let Identy = [ID,PW]
-        //  console.log('test')
-       // }
-
-        // 2. 유저의 모든 데이터를 삭제하는 메서드
         deleteAll() {
             let successFlagB=MyPageApi.getInstance().deleteUserData();
             console.log("sFB="+successFlagB);
@@ -188,7 +167,8 @@ class ComponentEvent {
                 document.getElementById('check-user-pw-button').disabled = false;
                 document.getElementById('delete-button').disabled = true;
                 alert("회원탈퇴 완료되었습니다.");
-                window.location.href = "http://localhost:8000/home.html";
+                window.location.href = "/main";
+                window.location.href = "/logout";
            } else {
                alert("회원탈퇴 실패하었습니다aaaaaaaaaa.");
                location.reload();

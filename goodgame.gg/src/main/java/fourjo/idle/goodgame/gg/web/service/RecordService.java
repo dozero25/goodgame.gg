@@ -44,6 +44,7 @@ public class RecordService {
 
         } catch (IOException e){
             e.printStackTrace();
+            return null;
         }
         return accountDto;
     }
@@ -62,6 +63,7 @@ public class RecordService {
 
         } catch (IOException e){
             e.printStackTrace();
+            return null;
         }
         return accountDto;
     }
@@ -80,6 +82,7 @@ public class RecordService {
 
         } catch (IOException e){
             e.printStackTrace();
+            return null;
         }
         return summonerDto;
     }
@@ -100,6 +103,7 @@ public class RecordService {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return matchesList;
     }
@@ -120,6 +124,7 @@ public class RecordService {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return matchDto;
     }
@@ -137,6 +142,7 @@ public class RecordService {
             leagueList = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return leagueList;
     }
@@ -159,6 +165,7 @@ public class RecordService {
 
         } catch (IOException e){
             e.printStackTrace();
+            return null;
         }
         return championMasteryList;
     }

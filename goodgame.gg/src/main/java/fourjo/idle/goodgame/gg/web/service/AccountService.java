@@ -2,6 +2,7 @@ package fourjo.idle.goodgame.gg.web.service;
 
 import fourjo.idle.goodgame.gg.exception.CustomInputPasswordException;
 import fourjo.idle.goodgame.gg.exception.CustomInputUserGenderException;
+import fourjo.idle.goodgame.gg.exception.CustomSameNickNameException;
 import fourjo.idle.goodgame.gg.exception.CustomSameUserIdException;
 import fourjo.idle.goodgame.gg.repository.AccountRepository;
 import fourjo.idle.goodgame.gg.web.dto.account.EmpDto;
@@ -23,8 +24,9 @@ public class AccountService {
 
     public UserDto registerUser(UserDto userDto) {
         nullValueCheck(userDto);
-        duplicateUserId(userDto.getUserId());
-        checkPassword(userDto.getUserPw());
+//        duplicateUserId(userDto.getUserId());
+//        checkPassword(userDto.getUserPw());
+//        duplicateUserNick(userDto.getUserNick());
         inputUserGender(userDto.getUserGender());
 
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
@@ -80,16 +82,29 @@ public class AccountService {
         }
     }
 
+    public void duplicateUserNick(String userNick){
+        String result = accountRepository.findNickNameByNickNameForError(userNick);
+
+        Map<String, String> errorMap = new HashMap<>();
+        if(result != null){
+            errorMap.put("registerError", "이미 존재하는 사용자 이름입니다.");
+            throw new CustomSameNickNameException(errorMap);
+        }
+
+    }
+
+
     public void inputUserGender(String userGender){
-        String gender = userGender.toLowerCase();
+        String gender = userGender;
+        if(userGender == null){
+            gender = "x";
+        } else {
+            gender = gender.toLowerCase();
+        }
         Map<String, String> errorMap = new HashMap<>();
 
-        if(gender.length() != 1){
-            errorMap.put("registerError", "입력 데이터 길이를 확인해주세요");
-            throw new CustomInputUserGenderException(errorMap);
-
-        } else if( (gender.equals("m") || gender.equals("w")) != true ){
-            errorMap.put("registerError", "올바른 단어를 사용해 입력해주세요");
+        if( (gender.equals("m") || gender.equals("w")) != true ){
+            errorMap.put("registerError", "성별을 선택해주세요.");
             throw new CustomInputUserGenderException(errorMap);
         }
     }
