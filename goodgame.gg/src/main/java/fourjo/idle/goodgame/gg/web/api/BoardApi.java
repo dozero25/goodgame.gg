@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -96,9 +95,6 @@ public class BoardApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
-
-
-
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 상세보기페이지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @GetMapping("/selectOne/{boardIndex}")
     //@Operation(summary = "게시글 상세보기", description = "해당 boardIndex 조건에 맞는 게시글을 상세 보기합니다.")
@@ -107,9 +103,6 @@ public class BoardApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", dto2));
     }
-
-
-
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시물 검색 및 목록ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @GetMapping("/search")
@@ -161,17 +154,6 @@ public class BoardApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
-//    @PostMapping("/bad")
-//    //@Operation(summary = "게시글 싫어요", description = "게시글 싫어요를 완료합니다.")
-//    public ResponseEntity<CMRespDto<?>> badAdd (int boardIndex, int userIndex){
-//        boardService.badAdd(boardIndex, userIndex);
-//        return ResponseEntity.ok()
-//                .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
-//    }
-
-
-
-
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ조회수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @GetMapping("/visit")
     //@Operation(summary = "게시글 조회수", description = "특정 게시물 인덱스를 입력하면(상세보기) 해당 게시글 조회수 1증가합니다.")
@@ -180,9 +162,6 @@ public class BoardApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", dto));
     }
-
-
-
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 작성ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     @PostMapping("/selectOne/reply/insert")
@@ -199,7 +178,6 @@ public class BoardApi {
                                                                         @RequestBody BoardReplyDTO dto,
                                                                         @AuthenticationPrincipal PrincipalDetails principalDetails){
         boardService.boardReplyInsertBySequence(dto);
-
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }

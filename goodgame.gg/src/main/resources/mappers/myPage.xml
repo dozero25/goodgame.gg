@@ -43,7 +43,7 @@
     <select id="searchMyBoardListByIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardSearchDTO" resultType="fourjo.idle.goodgame.gg.web.dto.mypage.BoardAndLikeDTO">
         SELECT distinct bm.boardIndex, bm.boardSubject,bm.userIndex, bm.boardContent, bm.boardRegDate, bm.boardVisit, blm.boardLike
         FROM board_mst bm
-        INNER JOIN board_like_mst blm ON bm.userIndex = blm.userIndex
+        LEFT JOIN board_like_mst blm ON bm.userIndex = blm.userIndex
         WHERE bm.userIndex = #{userIndex}
         order by boardIndex desc
         <if test='limit == "Y"'>

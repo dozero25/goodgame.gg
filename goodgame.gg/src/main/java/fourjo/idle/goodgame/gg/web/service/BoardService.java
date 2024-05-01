@@ -1,4 +1,5 @@
 package fourjo.idle.goodgame.gg.web.service;
+import fourjo.idle.goodgame.gg.exception.CustomNullReplyValueException;
 import fourjo.idle.goodgame.gg.repository.BoardRepository;
 import fourjo.idle.goodgame.gg.web.dto.board.BoardDTO;
 
@@ -14,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -143,6 +146,7 @@ public class BoardService {
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 작성ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
     public void boardReplyInsertByReplyGroup(BoardReplyDTO dto) { //이름바꾸기
+        nullReplyCheck(dto.getReplyContent());
         dto.setReplyGroup(boardRepository.boardReplyGroupCount(dto.getBoardIndex()));
 
         dto.setReplyGroup(dto.getReplyGroup());
@@ -153,6 +157,7 @@ public class BoardService {
     }
 
     public void boardReplyInsertBySequence(BoardReplyDTO dto) {
+        nullReplyCheck(dto.getReplyContent());
         dto.setReplySequence(boardRepository.boardReplySequenceCount(dto.getBoardIndex(), dto.getReplyGroup()));
         dto.setReplyGroup(dto.getReplyGroup());
         dto.setReplySequence(dto.getReplySequence());
@@ -185,6 +190,16 @@ public class BoardService {
         return boardRepository.boardReplySelectAll(boardIndex);
     }
 
+    public void nullReplyCheck(String replyContent){
+        Map<String, String> errorMap = new HashMap<>();
+
+        replyContent = replyContent.replaceAll(" ", "");
+
+        if(replyContent.equals("")){
+            errorMap.put("nullReplyError", "댓글을 다시 작성해주세요.");
+            throw new CustomNullReplyValueException(errorMap);
+        }
+    }
  
 
 

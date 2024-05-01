@@ -35,7 +35,8 @@ public class SecurityConfig {
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/main","/login", "/").permitAll()
+                        .requestMatchers("/main","/login", "/","/board","/ranking", "/duo", "/record", "/record/**", "/lolbti", "/board/selectOne").permitAll()
+                        .requestMatchers("/board/insert/**", "/board/update/**","/board/delete/**","/mypage" ,"/mypage/**").hasAuthority("USER")
                         .requestMatchers("/admin/**").hasAnyRole("EMP1")
                         .anyRequest().permitAll()
                 )

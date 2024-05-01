@@ -44,4 +44,10 @@ public class ExceptionAdvice {
         return ResponseEntity.badRequest()
                 .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "riot response Error", e.getErrorMap()));
     }
+
+    @ExceptionHandler(CustomNullReplyValueException.class)
+    public ResponseEntity<?> nullReplyValueException(CustomNullReplyValueException e){
+        return ResponseEntity.badRequest()
+                .body(new CMRespDto<>(HttpStatus.BAD_REQUEST.value(), "null Reply Error", e.getErrorMap()));
+    }
 }

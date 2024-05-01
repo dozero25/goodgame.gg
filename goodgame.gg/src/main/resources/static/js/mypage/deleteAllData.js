@@ -158,7 +158,7 @@ class ComponentEvent {
     // 2. 삭제 이벤트 버튼
     ClickEventDeleteButton() {
         const DeleteButton = document.getElementById("delete-button");
-        console.log("2323 .DeleteButton:"+ DeleteButton);
+
         DeleteButton.onclick = () => {
 
          let successFlagA= MyPageService.getInstance().deleteAll();
@@ -175,17 +175,7 @@ class ComponentEvent {
            }
         };
     }
-
-}//endclass
-
-    /*changeProfileImage() {
-        const profileImage = document.getElementByClass('Profile-img');
-        const imgFile = document.getElementByClass('img-file');
-
-        imgFile.onchange = () => {
-            profileImage =
-        }
-    }*/
+}
 
 
 
