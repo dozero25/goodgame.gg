@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### yml 파일
+goodgame.gg/src/main/resources/application.yml
+application.yml
+
+### riot key
+goodgame.gg/src/main/java/fourjo/idle/goodgame/gg/web/dto/riotKey/*
