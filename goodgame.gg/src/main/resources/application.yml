@@ -21,4 +21,4 @@ mybatis:
     - /mappers/*
 
 file:
-  path: C:/goodgame.gg/images/123
+  path: C:/goodgame.gg/images/
