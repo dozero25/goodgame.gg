@@ -33,8 +33,6 @@ build/
 .vscode/
 
 ### yml 파일
-goodgame.gg/src/main/resources/application.yml
-application.yml
-
+.yml
 ### riot key
-fourjo.idle.goodgame.gg.web.dto.riotKey
+fourjo/idle/goodgame.gg/web/dto/riotKey/*
