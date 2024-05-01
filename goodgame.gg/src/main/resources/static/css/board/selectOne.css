@@ -461,3 +461,7 @@ body {
     filter : grayscale(100%);
 }
 
+.table-info-th {
+    color:#ffffff; 
+    padding-right: 10px;
+}

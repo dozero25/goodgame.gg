@@ -469,7 +469,7 @@ class BoardSelectOneService {
                 <table class = "reply-table-info">
                     <thead>
                         <tr>
-                            <th>【 ${data.userNick} 】</th>
+                            <th class="table-info-th">${data.userNick}</th>
                             <th class="GroupRegDate" font-size: 0.8em;>${formattedRegDate}</th>
                         <tr>
                     </thead>
@@ -518,7 +518,7 @@ class BoardSelectOneService {
                     `<br>
                  <table class="reply-squTable">
                     <thead>
-                        <th> ⤷ 【 ${data.userNick} 】 </th>
+                        <th class="table-info-th"> ⤷ ${data.userNick} </th>
                         <th  style= “font-size: 0.8em;”>${formattedRegDate}</th>
                     </thead>
                         <tbody>
