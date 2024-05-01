@@ -48,15 +48,12 @@ public class RotationsService {
             freeChampionString.add(ChampionEnum.findByKey(freeChampionInt.get(i)));
 
         }
-
         return freeChampionString;
-
     }
 
     public Map<String, ChampionInfoDto.ChampionData> ChampionInfo(ChampionEnum championEnum) {
 
         ChampionInfoDto championInfoDto = new ChampionInfoDto();
-
 
         try {
             HttpGet request = new HttpGet("https://ddragon.leagueoflegends.com/cdn/14.8.1/data/ko_KR/champion/"+championEnum+".json");
@@ -65,13 +62,11 @@ public class RotationsService {
             HttpEntity entity = response.getEntity();
             championInfoDto = objectMapper.readValue(entity.getContent(), ChampionInfoDto.class);
 
-
         } catch (IOException e) {
             e.printStackTrace();
 
         }
         Map<String, ChampionInfoDto.ChampionData> championData = championInfoDto.getData();
-
 
         return championData;
 

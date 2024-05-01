@@ -90,7 +90,6 @@ class MyPageApi {
             dataType: "json",
             success: response => {
                 successFlag = true;
-                console.log(response);
             },
             error: error => {
                 console.log(error);
@@ -110,9 +109,7 @@ class MyPageApi {
 
             dataType: "json",
             success: response => {
-                console.log("response.data:", response.data);
                 returnData = response.data;
-
             },
             error: error => {
                 console.log(error);
@@ -175,9 +172,7 @@ class MyPageApi {
             data: searchObjByReply,
             dataType: "json",
             success: response => {
-
                 returnData = response.data;
-
             },
             error: error => {
                 console.log(error);

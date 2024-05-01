@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueEntryDto {
-    //    private String leagueId;
+
     private String queueType;
     private String tier;
     private String rank;

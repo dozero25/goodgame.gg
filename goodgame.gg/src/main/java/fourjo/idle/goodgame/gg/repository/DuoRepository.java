@@ -13,7 +13,6 @@ public interface DuoRepository {
     public int duoInsert(DuoDto duoDto);
     public List<DuoDto> duoSearchByQueAndTierAndPosition(DuoSearchDto duoSearchDto);
 
-
     public int getDuoTotalCount(DuoSearchDto duoSearchDto);
 
 

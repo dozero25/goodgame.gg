@@ -5,7 +5,6 @@ window.onload = () => {
     BoardSelectOneService.getInstance().loadselectOneBoard();
     BoardSelectOneService.getInstance().getLoadBoardReply();
 
-
     ComponentEvent.getInstance().addClickEventDeleteBoardButton();
     ComponentEvent.getInstance().addClickEventUpdateBoardButton();
     ComponentEvent.getInstance().addClickEventLikeButton();
@@ -16,11 +15,7 @@ window.onload = () => {
     ComponentEvent.getInstance().addClickEventReplySequenceDeleteBtn();
     ComponentEvent.getInstance().addClickEventOpenLoadBoardReplyUpdate();
     ComponentEvent.getInstance().addClickEventReplyGroupUpdateBtn();
-
-
 }
-
-
 
 const boardObj = {
     boardIndex: "",
@@ -36,8 +31,6 @@ const boardObj = {
     boardUploadSize: "",
     boardUploadLocation: "",
     boardLikeCount: 0
-
-
 }
 
 const boardLikeObj = {
@@ -60,10 +53,6 @@ const replyObj = {
     replyRegDate: ""
 }
 
-
-
-
-
 class BoardSelectOneApi {
     static #instance = null;
     static getInstance() {
@@ -82,13 +71,9 @@ class BoardSelectOneApi {
             data: boardObj,
             dataType: "json",
             success: response => {
-                // 조회수 증가
                 this.visitBoard();
-                // 추천수 가져오기
                 this.findlikeBoard();
                 responseData = response.data;
-                console.log(response.data);
-
             },
             error: error => {
                 console.log(error);
@@ -127,8 +112,6 @@ class BoardSelectOneApi {
             url: `http://localhost:8000/api/board/visit?boardIndex=${boardObj.boardIndex}`,
             dataType: "json",
             success: response => {
-                console.log("조회수 증가 완료");
-                console.log(response.data);
             },
             error: error => {
                 console.log(error);
@@ -157,7 +140,6 @@ class BoardSelectOneApi {
         return responseData;
     }
 
-    //조회수카운트
     likeCountBoard(boardLikeObj) {
         let responseData = null;
 
@@ -169,7 +151,6 @@ class BoardSelectOneApi {
             dataType: "json",
             success: response => {
                 responseData = response.data;
-
             },
             error: error => {
                 console.log(error);
@@ -191,10 +172,8 @@ class BoardSelectOneApi {
             dataType: "json",
             success: response => {
                 returnFlag = true;
-                console.log("=======좋아요 성공======");
             },
             error: error => {
-                console.log("=======좋아요 실패======");
                 console.log(error);
             }
         });
@@ -214,19 +193,14 @@ class BoardSelectOneApi {
             dataType: "json",
             success: response => {
                 returnFlag = true;
-                console.log("=======좋아요 취소 성공======");
             },
             error: error => {
-                console.log("=======좋아요 취소 실패======");
                 console.log(error);
             }
         });
         return returnFlag;
     }
-
-
-
-    //댓글
+    
     insertBoardReplyGroup() {
         let successFlag = false;
 
@@ -241,7 +215,7 @@ class BoardSelectOneApi {
                 successFlag = true;
             },
             error: error => {
-                console.log(error.responseJSON);
+                console.log(error);
                 alert(error.responseJSON.data.nullReplyError);
             }
         });
@@ -263,7 +237,6 @@ class BoardSelectOneApi {
                 successFlag = true;
             },
             error: error => {
-                console.log(error.responseJSON);
                 alert(error.responseJSON.data.nullReplyError);
             }
         });
@@ -297,7 +270,7 @@ class BoardSelectOneApi {
 
 
     updateBoardReply() {
-        let successFlag = null;
+        let successFlag = false;
 
         $.ajax({
             async: false,
@@ -308,13 +281,9 @@ class BoardSelectOneApi {
             dataType: "json",
             success: response => {
                 successFlag = true;
-
-                console.log("====수정 성공====");
             },
             error: error => {
-                console.log("====수정 실패====");
                 console.log(error);
-                successFlag = false;
             }
         });
         return successFlag;
@@ -331,7 +300,6 @@ class BoardSelectOneApi {
             dataType: "json",
             success: response => {
                 responseData = response;
-                console.log(responseData);
             },
             error: error => {
                 console.log(error);
@@ -353,7 +321,6 @@ class BoardSelectOneApi {
             dataType: "json",
             success: response => {
                 returnFlag = true;
-                console.log("replyObj:" + replyObj);
             },
             error: error => {
                 console.log(error);
@@ -412,9 +379,7 @@ class BoardSelectOneService {
         const responseData = BoardSelectOneApi.getInstance().selectOneBoard();
         const principal = PrincipalApi.getInstance().getPrincipal();
         const boardTitle = document.querySelector(".board-title");
-
-        console.log(responseData);
-
+        
         let likeValue = BoardSelectOneApi.getInstance().findlikeBoard();
         boardLikeObj.boardLike = likeValue;
 
@@ -644,9 +609,6 @@ class ComponentEvent {
 
                 if (deleteSuccess) {
                     location.href = "/board";
-                } else {
-                    console.error("게시물 삭제에 실패했습니다.");
-                    console.log(boardIndex);
                 }
             }
         }
@@ -658,7 +620,6 @@ class ComponentEvent {
 
         updateBtn.addEventListener("click", function () {
             window.location.href = `http://localhost:8000/board/update?boardIndex=${boardObj.boardIndex}`;
-            console.log('버튼이 클릭되었습니다.')
         })
 
     }
@@ -714,7 +675,6 @@ class ComponentEvent {
         })
     }
 
-    //댓글 등록버튼 
     addClickEventReplyInsertButton() {
         const repInsertBtn = document.querySelector(".repInsert-btn");
         const repContent = document.querySelector(".reply-content");
@@ -750,8 +710,6 @@ class ComponentEvent {
         });
     }
 
-
-    //대댓글 등록버튼
     addClickEventReplyInputBtn() {
         const replyGroupBtns = document.querySelectorAll(".reg-gro-btn");
         const replyGroupInputs = document.querySelectorAll(".replyGroup-input");
@@ -800,9 +758,6 @@ class ComponentEvent {
                     if (deleteSuccess) {
                         alert("삭제를 완료했습니다.");
                         location.reload();
-                    } else {
-                        console.error("게시물 삭제에 실패했습니다.");
-                        console.log(replyIndex, boardIndex);
                     }
                 }
             });
@@ -825,17 +780,13 @@ class ComponentEvent {
                     if (deleteSuccess) {
                         alert("삭제를 완료했습니다.");
                         location.reload();
-                    } else {
-                        console.error("게시물 삭제에 실패했습니다.");
-                        console.log(replyIndex);
-                    }
+                    } 
                 }
             };
         });
 
     }
 
-    //댓글 수정창 오픈,로드하는 이벤트(service로 load불러오기) 
     addClickEventOpenLoadBoardReplyUpdate() {
         const openReplyUpdateBtns = document.querySelectorAll(".replyGroupUpdateBtn");
         const replyUpdateBoxes = document.querySelectorAll(".reply-update-box");
@@ -858,8 +809,6 @@ class ComponentEvent {
 
     }
 
-
-    //댓글 수정 완료하는 이벤트 (테스트용) 
     addClickEventReplyGroupUpdateBtn() {
         const replyUpdateBtns = document.querySelectorAll(".rply-update-btn");
         const replyUpdateInputs = document.querySelectorAll(".rply-update-input");
@@ -868,7 +817,7 @@ class ComponentEvent {
             btn.addEventListener("click", function () {
 
                 BoardSelectOneApi.getInstance().loadUpdateBoardReply();
-                const replyIndex = btn.value; // 버튼 벨류값 각 버튼의 replyIndex
+                const replyIndex = btn.value; 
 
                 const replyContent = replyUpdateInputs[index].parentElement.querySelector(".rply-update-input");
 
@@ -887,9 +836,7 @@ class ComponentEvent {
                     alert("수정이 실패되었습니다.");
                     location.reload();
                 }
-
             })
-
         })
     }
 }

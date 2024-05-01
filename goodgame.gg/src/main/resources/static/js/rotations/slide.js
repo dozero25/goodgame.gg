@@ -84,7 +84,6 @@ class RotationsApi {
                 console.log(error);
             }
         });
-        console.log(returnData);
         return returnData;
     }
 

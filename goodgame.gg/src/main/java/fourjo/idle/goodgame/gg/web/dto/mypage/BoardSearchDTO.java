@@ -1,6 +1,5 @@
 package fourjo.idle.goodgame.gg.web.dto.mypage;
 
-
 import lombok.Data;
 
 @Data

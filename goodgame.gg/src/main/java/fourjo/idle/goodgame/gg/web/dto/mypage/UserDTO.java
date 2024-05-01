@@ -15,8 +15,4 @@ public class UserDTO {
     private LocalDateTime userRegDate;
     private String userEmail;
 
-
-
-
-
 }

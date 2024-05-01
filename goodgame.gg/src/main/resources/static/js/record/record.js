@@ -35,7 +35,7 @@ class RecordApi{
                 returnData = responese.data;
             }, 
             error: error => {
-                console.log(error);
+
             }
         });
 
@@ -193,7 +193,7 @@ class RecordShowInfoService{
             <div class="rank-box">
                 <div class="rank-img" style="margin-left: 10px;">
                     <div class="img-box">
-                        <img src="/static/images/tier/${leagueData.length != 0  ? leagueData[0].tier : 0}.png" onerror="this.style.display='none'" alt="">
+                        <img src="/static/images/tier/${leagueData.length != 0  ? leagueData[0].tier : "unranked"}.png" onerror="this.style.display='none'" alt="">
                     </div>
                 </div>
                 <div class="rank-info">
@@ -326,49 +326,49 @@ class RecordShowInfoService{
                 if(participantsInfo[index2].magicDamageDealtToChampions + participantsInfo[index2].physicalDamageDealtToChampions > bestplayers.bestDamge){
                     bestplayers.bestDamge = participantsInfo[index2].magicDamageDealtToChampions + participantsInfo[index2].physicalDamageDealtToChampions;
                     bestplayers.bestDamgeSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestDamgeChamp = participantsInfo[index2].championName;
+                    bestplayers.bestDamgeChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestDamgePosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if(participantsInfo[index2].kills > bestplayers.bestKill){
                     bestplayers.bestKill = participantsInfo[index2].kills;
                     bestplayers.bestKillSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestKillChamp = participantsInfo[index2].championName;
+                    bestplayers.bestKillChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestKillPosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if(participantsInfo[index2].deaths> bestplayers.bestDeath){
                     bestplayers.bestDeath = participantsInfo[index2].deaths;
                     bestplayers.bestDeathSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestDeathChamp = participantsInfo[index2].championName;
+                    bestplayers.bestDeathChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestDeathPosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if(participantsInfo[index2].assists > bestplayers.bestAssist){
                     bestplayers.bestAssist = participantsInfo[index2].assists;
                     bestplayers.bestAssistSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestAssistChamp = participantsInfo[index2].championName;
+                    bestplayers.bestAssistChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestAssistPosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if(participantsInfo[index2].totalDamageTaken > bestplayers.bestDamgeReceive){
                     bestplayers.bestDamgeReceive = participantsInfo[index2].totalDamageTaken;
                     bestplayers.bestDamgeReceiveSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestDamgeReceiveChamp = participantsInfo[index2].championName;
+                    bestplayers.bestDamgeReceiveChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestDamgeReceivePosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if(participantsInfo[index2].goldEarned > bestplayers.bestgold){
                     bestplayers.bestgold = participantsInfo[index2].goldEarned;
                     bestplayers.bestgoldSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestgoldSummonerChamp = participantsInfo[index2].championName;
+                    bestplayers.bestgoldSummonerChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestgoldPosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if((participantsInfo[index2].deaths == 0 ? (participantsInfo[index2].kills + participantsInfo[index2].assists):(participantsInfo[index2].kills + participantsInfo[index2].assists)/participantsInfo[index2].deaths).toFixed(2) > bestplayers.bestKDA){
                     bestplayers.bestKDA = (participantsInfo[index2].deaths == 0 ? (participantsInfo[index2].kills + participantsInfo[index2].assists):(participantsInfo[index2].kills + participantsInfo[index2].assists)/participantsInfo[index2].deaths).toFixed(2);
                     bestplayers.bestKDASummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestKDAChamp = participantsInfo[index2].championName;
+                    bestplayers.bestKDAChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestKDAPosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
                 if(participantsInfo[index2].totalMinionsKilled> bestplayers.bestCs){
                     bestplayers.bestCs = participantsInfo[index2].totalMinionsKilled;
                     bestplayers.bestCsSummoner = participantsInfo[index2].riotIdGameName +"#"+participantsInfo[index2].riotIdTagline;
-                    bestplayers.bestCsChamp = participantsInfo[index2].championName;
+                    bestplayers.bestCsChamp = participantsInfo[index2].championName == "FiddleSticks"? "Fiddlesticks": participantsInfo[index2].championName;
                     bestplayers.bestCsPosition = participantsInfo[index2].individualPosition.toLowerCase();
                 }
             });
@@ -484,7 +484,7 @@ class RecordShowInfoService{
                         <div class="cop-one">
                             <div class="cop-two">
                                 <div class="cop-four">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[participantObj.parIndex].championName}.png"
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[participantObj.parIndex].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[participantObj.parIndex].championName}.png"
                                         alt="" class="">
                                 </div>
                                 <span class="cop-five">${participantsInfo[participantObj.parIndex].champLevel}</span>
@@ -535,14 +535,14 @@ class RecordShowInfoService{
                         <li class="summoner-list">
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[0].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[0].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[0].championName}.png" alt="">
                                 </div>
                                 <a target="_target" href="#" class="href-summoner">${participantsInfo[0].riotIdGameName +"#"+participantsInfo[0].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[0].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[0].riotIdTagline}>
                             </div>
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[5].championName}.png" alt="">5
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[5].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[5].championName}.png" alt="">5
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[5].riotIdGameName+"#"+participantsInfo[5].riotIdTagline}</a>
                                 <input type="hidden" value = ${(participantsInfo[5].riotIdGameName).replaceAll(" ", "~")+"-"+participantsInfo[5].riotIdTagline}>
@@ -551,14 +551,14 @@ class RecordShowInfoService{
                         <li class="summoner-list">
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[1].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[1].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[1].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[1].riotIdGameName+"#"+participantsInfo[1].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[1].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[1].riotIdTagline}>
                             </div>
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[6].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[6].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[6].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[6].riotIdGameName+"#"+participantsInfo[6].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[6].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[6].riotIdTagline}>
@@ -567,14 +567,14 @@ class RecordShowInfoService{
                         <li class="summoner-list">
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[2].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[2].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[2].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[2].riotIdGameName +"#"+participantsInfo[2].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[2].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[2].riotIdTagline}>
                             </div>
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[7].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[7].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[7].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[7].riotIdGameName+"#"+participantsInfo[7].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[7].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[7].riotIdTagline}>
@@ -583,14 +583,14 @@ class RecordShowInfoService{
                         <li class="summoner-list">
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[3].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[3].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[3].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[3].riotIdGameName+"#"+participantsInfo[3].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[3].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[3].riotIdTagline}>
                             </div>
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[8].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[8].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[8].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[8].riotIdGameName+"#"+participantsInfo[8].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[8].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[8].riotIdTagline}>
@@ -599,14 +599,14 @@ class RecordShowInfoService{
                         <li class="summoner-list">
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[4].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[4].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[4].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[4].riotIdGameName+"#"+participantsInfo[4].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[4].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[4].riotIdTagline}>
                             </div>
                             <div class="sulist-fcc">
                                 <div class="sulist-fcc-img">
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[9].championName}.png" alt="">
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[9].championName == "FilddleSticks"? "Filddlesticks":participantsInfo[9].championName}.png" alt="">
                                 </div>
                                 <a target="_blank" href="#" class="href-summoner">${participantsInfo[9].riotIdGameName+"#"+participantsInfo[9].riotIdTagline}</a>
                                 <input type="hidden" value = ${participantsInfo[9].riotIdGameName.replaceAll(" ", "~")+"-"+participantsInfo[9].riotIdTagline}>
@@ -833,8 +833,8 @@ class RecordShowInfoService{
                                                     <div class="win-game-text" style="width: 91px;">
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
-                                                                <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winTop].championName}.png" alt="" class="gpvoyimg">
+                                                                <div class="ebmaf"> 
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winTop].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winTop].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[winTeam.winTop].champLevel}</span>
                                                             </div>
@@ -874,7 +874,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseTop].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseTop].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseTop].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseTop].champLevel}</span>
                                                             </div>
@@ -981,7 +981,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winJun].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winJun].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winJun].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[winTeam.winJun].champLevel}</span>
                                                             </div>
@@ -1021,7 +1021,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseJun].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseJun].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseJun].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseJun].champLevel}</span>
                                                             </div>
@@ -1128,7 +1128,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winMid].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winMid].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winMid].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[winTeam.winMid].champLevel}</span>
                                                             </div>
@@ -1168,7 +1168,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseMid].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseMid].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseMid].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseMid].champLevel}</span>
                                                             </div>
@@ -1275,7 +1275,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winBot].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winBot].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winBot].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[winTeam.winBot].champLevel}</span>
                                                             </div>
@@ -1315,7 +1315,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseBot].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseBot].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseBot].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseBot].champLevel}</span>
                                                             </div>
@@ -1422,7 +1422,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winSur].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winSur].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winSur].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[winTeam.winSur].champLevel}</span>
                                                             </div>
@@ -1462,7 +1462,7 @@ class RecordShowInfoService{
                                                         <div class="aenclek">
                                                             <div class="frvizneed">
                                                                 <div class="ebmaf">
-                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseSur].championName}.png" alt="" class="gpvoyimg">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseSur].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseSur].championName}.png" alt="" class="gpvoyimg">
                                                                 </div>
                                                                 <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseSur].champLevel}</span>
                                                             </div>
@@ -1550,7 +1550,7 @@ class RecordShowInfoService{
                     <div class="cop-one">
                         <div class="cop-two">
                             <div class="cop-four">
-                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[participantObj.parIndex].championName}.png"
+                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[participantObj.parIndex].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[participantObj.parIndex].championName}.png"
                                     alt="" class="">
                             </div>
                             <span class="cop-five">${participantsInfo[participantObj.parIndex].champLevel}</span>
@@ -1900,7 +1900,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winTop].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winTop].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winTop].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[winTeam.winTop].champLevel}</span>
                                                         </div>
@@ -1940,7 +1940,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseTop].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseTop].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseTop].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseTop].champLevel}</span>
                                                         </div>
@@ -2047,7 +2047,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winJun].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winJun].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winJun].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[winTeam.winJun].champLevel}</span>
                                                         </div>
@@ -2087,7 +2087,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseJun].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseJun].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseJun].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseJun].champLevel}</span>
                                                         </div>
@@ -2194,7 +2194,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winMid].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winMid].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winMid].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[winTeam.winMid].champLevel}</span>
                                                         </div>
@@ -2234,7 +2234,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseMid].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseMid].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseMid].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseMid].champLevel}</span>
                                                         </div>
@@ -2341,7 +2341,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winBot].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winBot].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winBot].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[winTeam.winBot].champLevel}</span>
                                                         </div>
@@ -2381,7 +2381,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseBot].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseBot].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseBot].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseBot].champLevel}</span>
                                                         </div>
@@ -2488,7 +2488,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winSur].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[winTeam.winSur].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[winTeam.winSur].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[winTeam.winSur].champLevel}</span>
                                                         </div>
@@ -2528,7 +2528,7 @@ class RecordShowInfoService{
                                                     <div class="aenclek">
                                                         <div class="frvizneed">
                                                             <div class="ebmaf">
-                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseSur].championName}.png" alt="" class="gpvoyimg">
+                                                                <img src="https://ddragon.leagueoflegends.com/cdn/14.8.1/img/champion/${participantsInfo[loseTeam.loseSur].championName == "FiddleSticks"? "Fiddlesticks":participantsInfo[loseTeam.loseSur].championName}.png" alt="" class="gpvoyimg">
                                                             </div>
                                                             <span class="jurxazcpgcmw">${participantsInfo[loseTeam.loseSur].champLevel}</span>
                                                         </div>

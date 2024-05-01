@@ -15,9 +15,4 @@ public class BoardAndLikeDTO {
     private int boardVisit;
     private int boardLike;
 
-
-    /*=================================================*/
-
-
-
 }

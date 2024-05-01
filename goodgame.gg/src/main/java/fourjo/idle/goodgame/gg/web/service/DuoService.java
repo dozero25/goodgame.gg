@@ -26,20 +26,16 @@ public class DuoService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
     private final RiotApiKeyDto riotApiKeyDto = new RiotApiKeyDto();
-    //위에서 접속할 api 기본 주소 및 api 세팅
 
     public AccountDto searchPuuidBySummonerNameAndTagLine(String summonerName, String tagLine) {
-        //아이디와 #과 태그라인으로 이루어진 값을 활용하여 ACCOUNTS V1에서 encrypted된 puuid를 받아옵니다.
 
         AccountDto accountDto = new AccountDto();
         try {
 
-            summonerName = summonerName.replaceAll(" ", "%20"); //들어온 데이터 띄어쓰기를 %20 으로 바꿉니다.(주소에는 %20으로 표시됨)
+            summonerName = summonerName.replaceAll(" ", "%20");
             HttpClient c = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-riot-id/" + summonerName + "/" + tagLine + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
-
-            // riotResponseCodeError(response);
 
             HttpEntity entity = response.getEntity();
             accountDto = objectMapper.readValue(entity.getContent(), AccountDto.class);
@@ -60,8 +56,6 @@ public class DuoService {
             HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/champion-mastery/v4/champion-masteries/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
 
             HttpResponse response = c.execute(request);
-
-            // riotResponseCodeError(response);
 
             HttpEntity entity = response.getEntity();
             championMasteryDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {
@@ -87,15 +81,13 @@ public class DuoService {
     }
 
     public SummonerDto searchEncryptedIdByPuuid(String puuid) {
-        //Encrypted된 puuid를 이용하여 summoners V4를 통해 Encrypted된 Id를 받아옵니다.
+
         SummonerDto summonerDto = new SummonerDto();
         try {
 
             HttpClient c = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/summoner/v4/summoners/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
-
-            // riotResponseCodeError(response);
 
             HttpEntity entity = response.getEntity();
             summonerDto = objectMapper.readValue(entity.getContent(), SummonerDto.class);
@@ -108,7 +100,7 @@ public class DuoService {
     }
 
     public List<LeagueEntryDto> searchTierByEncryptedId(String encryptedId) {
-        //찾아온 EncryptedId를 통해 League V4에 접근하여 티어정보를 가져옵니다.
+
         List<LeagueEntryDto> leagueEntryDto = new ArrayList<>();
 
         try {
@@ -117,7 +109,6 @@ public class DuoService {
             HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/entries/by-summoner/" + encryptedId + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = c.execute(request);
 
-            // riotResponseCodeError(response);
 
             HttpEntity entity = response.getEntity();
             leagueEntryDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {
@@ -131,7 +122,6 @@ public class DuoService {
     }
 
     public int duoInsert(DuoDto duoDto) {
-//듀오 정보를 insert하는 곳입니다.
 
 
         String[] idAndTag = duoDto.getDuoGameId().split("#");
@@ -141,8 +131,6 @@ public class DuoService {
         duoDto.setDuoThreeChampions(threeChampions);
         SummonerDto summonerDto = searchEncryptedIdByPuuid(accountDto.getPuuid());
         List<LeagueEntryDto> leagueEntryDto = searchTierByEncryptedId(summonerDto.getId());
-
-        //티어 정보를 영어로 반환하기 때문에 js와 html에서 활용하기 위해 한글로 바꾸었습니다.
 
         if (leagueEntryDto.size()==0) {
             duoDto.setDuoTier("언랭크");
@@ -194,13 +182,13 @@ public class DuoService {
         }
 
         duoSearchDto.setIndex();
-        //인덱스 계산하는 함수에 접근하여 페이지의 첫 시작을 계산해야합니다.
+
         return duoRepository.duoSearchByQueAndTierAndPosition(duoSearchDto);
 
     }
 
     public int getDuoTotalCount(DuoSearchDto duoSearchDto) {
-        //마찬가지로 전체 페이지 수를 가져올때 게임정보와 티어, 포지션을 각각 받아오는데 비어있는값 ""이 오지 않는 데이터들만 검색할 수 있는 Key를 설정하였습니다.
+
         if (duoSearchDto.getSearchQueValue() != "" && duoSearchDto.getSearchTierValue() == "" && duoSearchDto.getSearchPositionValue() == "") {
             duoSearchDto.setSearchKey("Que");
         } else if (duoSearchDto.getSearchQueValue() == "" && duoSearchDto.getSearchTierValue() != "" && duoSearchDto.getSearchPositionValue() == "") {
@@ -223,9 +211,6 @@ public class DuoService {
 
     public int checkNick(DuoDto duoDto) {
         String[] idAndTag = duoDto.getDuoGameId().split("#");
-
-
-//아이디와 태그라인을 #으로 분리한 뒤 puuid를 찾아옵니다. 이 때 puuid가 비어 있으면 존재하지 않는 아이디 이므로 1을 return하고 puuid가 존재하면 0을 return합니다.
 
         AccountDto accountDto = searchPuuidBySummonerNameAndTagLine(idAndTag[0], idAndTag[1]);
         if (accountDto.getPuuid() == null) {

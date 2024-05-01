@@ -14,13 +14,11 @@ public class MyPageService {
     private MyPageRepository myPageRepository;
 
 
-    /*0. 더미데이터 생성*/
     public int insertUserData(UserDTO userDTO) {
 
         return myPageRepository.insertUserData(userDTO);
     }
 
-    /*1. 회원탈퇴*/
     public int deleteUserAllData(int userIndex) {
 
         return myPageRepository.deleteUserAllData(userIndex);
@@ -29,28 +27,24 @@ public class MyPageService {
 
         return myPageRepository.pwCheck(userId);
     }
-    //========================================
-    /*2. 회원정보 수정*/
+
     public int updateMypageInfo(UserDTO userDTO) {
 
         return myPageRepository.updateMypageInfo(userDTO);
     }
 
-    /*3. 내가 쓴 글 목록*/
     public List<BoardAndLikeDTO> searchMyBoardListByIndex(BoardSearchDTO boardSearchDTO) {
 
        boardSearchDTO.setIndex();
         return myPageRepository.searchMyBoardListByIndex(boardSearchDTO);
     }
 
-   /* 4. 내가 쓴 댓글 목록*/
     public List<ReplyDTO> searchMyReplyListByIndex(ReplySearchDTO replySearchDTO){
 
         replySearchDTO.setIndex();
         return myPageRepository.searchMyReplyListByIndex(replySearchDTO);
     }
 
-    /*5. 일단 하나만 불러오자*/
     public UserDTO selectOneData(int userIndex){
         return myPageRepository.selectOneData(userIndex);
     }

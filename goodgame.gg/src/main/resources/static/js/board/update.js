@@ -48,12 +48,9 @@ class BoardUpdateApi{
             data: boardObj,
             dataType: "json",
             success: response => {
-                // 조회수 증가
                 this.visitBoard();
-                // 추천수 가져오기
                 this.findlikeBoard();
                 responseData = response.data;
-                console.log(response.data);
 
             },
             error: error => {
@@ -79,11 +76,8 @@ class BoardUpdateApi{
             dataType: "json",
             success: response => {
                 successFlag = true;
-
-                console.log("====수정 성공====");
             },
             error: error => {
-                console.log("====수정 실패====");
                 console.log(error);
                 successFlag = false;
             }
@@ -107,16 +101,13 @@ class BoardUpdateApi{
                  successFlag = true;
              },
              error: error => {
-
                  console.log(error);
              }
  
          });
  
           return successFlag;
-
     }
-
 
     loadUpdateBoard(){
         let responseData = null;
@@ -128,24 +119,14 @@ class BoardUpdateApi{
             dataType: "json",
             success: response => {
                 responseData = response;
-
-                console.log(responseData);
             },
             error: error => {
                 console.log(error);
             }
         });
         return responseData;
-
     }
-
-
 }
-
-
-
-
-
 
 class BoardUpdateService{
     static #instance = null;
@@ -233,7 +214,6 @@ class BoardUpdateService{
         const principal = PrincipalApi.getInstance().getPrincipal();
 
         const responseData = BoardUpdateApi.getInstance().loadUpdateBoard();
-        console.log(responseData.data.boardContent);
   
         const formData = new FormData();
         const uploadFile = document.getElementById("updateUploadFile").files[0];
@@ -278,13 +258,7 @@ class BoardUpdateService{
         return updateOK;
     }
 
-
-
 }
-
-
-
-
 
 class ComponentEvent{
     static #instance = null;
@@ -302,8 +276,6 @@ class ComponentEvent{
 
             let updateSuccess;
             updateSuccess = BoardUpdateService.getInstance().setUpdateBoardObjValues();
-       
-                console.log(updateSuccess);
                 if(updateSuccess == 0) {
                     alert("수정이 완료되었습니다.");
                     location.href=`http://localhost:8000/board/selectOne?boardIndex=${boardObj.boardIndex}` 

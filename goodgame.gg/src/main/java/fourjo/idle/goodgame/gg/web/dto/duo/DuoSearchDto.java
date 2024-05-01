@@ -5,9 +5,7 @@ import lombok.Data;
 @Data
 public class DuoSearchDto {
 
-
-private String searchKey;
-
+    private String searchKey;
     private String searchQueValue;
     private String searchPositionValue;
     private String searchTierValue;

@@ -69,7 +69,6 @@ class BoardMainApi {
         return returnData;
     }
 
-    //페이징
     searchBoardTotalCount() {
         let returnData = null;
 
@@ -91,7 +90,6 @@ class BoardMainApi {
         return returnData;
     }
 
-    //조회수카운트
     likeCountBoard(boardLikeObj) {
         let responseData = null;
 
@@ -266,9 +264,6 @@ class BoardMainService {
 
 }
 
-
-
-
 class ComponentEvent {
     static #instance = null;
     static getInstance() {
@@ -291,11 +286,8 @@ class ComponentEvent {
             } else {
                 window.location.href = "http://localhost:8000/board/insert";
             }
-
         });
-
     }
-
 
     addClickEventsearchButton() {
         const searchBtn = document.getElementById("searchBtn");
@@ -309,9 +301,7 @@ class ComponentEvent {
 
             BoardMainService.getInstance().getLoadAllBoardList();
         });
-
     }
-
     
     loadAllViewButton() {
         const likeBtn = document.getElementById("all-btn");
@@ -320,7 +310,6 @@ class ComponentEvent {
             searchObj.searchKey = searchKey;
             BoardMainService.getInstance().getLoadAllBoardList();
         });
-
     }
 
     loadViewCountHotButton() {
@@ -334,10 +323,7 @@ class ComponentEvent {
             searchObj.searchValue = searchValue;
 
             BoardMainService.getInstance().getLoadAllBoardList();
-
-
         });
-
     }
 
     loadlikeCountHotButton() {
@@ -351,7 +337,6 @@ class ComponentEvent {
             BoardMainService.getInstance().getLoadAllBoardList();
 
         });
-
     }
 }
 

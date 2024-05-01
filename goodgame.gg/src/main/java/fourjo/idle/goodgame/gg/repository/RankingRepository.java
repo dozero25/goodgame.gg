@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper
 public interface RankingRepository {
 
-    //highrank_mst
     public int insertRankingLeagueV4(RankingDto insert);
 
     public int updateRankingSummonerV4(RankingDto update);

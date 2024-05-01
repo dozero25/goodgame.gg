@@ -20,8 +20,4 @@ public class BoardForApiDTO {
     private BigInteger boardUploadSize;
     private String boardUploadLocation;
 
-    /*=================================================*/
-
-
-
 }

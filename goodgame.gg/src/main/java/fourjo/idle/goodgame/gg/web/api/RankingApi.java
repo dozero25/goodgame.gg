@@ -5,6 +5,7 @@ import fourjo.idle.goodgame.gg.web.dto.ranking.AccountDto;
 import fourjo.idle.goodgame.gg.web.dto.ranking.LeagueEntryDto;
 import fourjo.idle.goodgame.gg.web.dto.ranking.SummonerDto;
 import fourjo.idle.goodgame.gg.web.service.RankingService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,51 +28,42 @@ public class RankingApi {
     @Autowired
     private RankingService rankingService;
 
-
-
     @GetMapping("/accountV1ByPuuid")
+    @Operation(summary ="accountInfo 가져오기", description = "puuid로 account의 정보를 가져옵니다.")
     public ResponseEntity<CMRespDto<?>> accountV1ByPuuid(String puuid) {
-
         AccountDto accountDto = rankingService.accountV1ByPuuid(puuid);
-
-
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", accountDto));
     }
 
-    //검색 및 전체 리스트
     @GetMapping("/allList")
+    @Operation(summary ="랭킹 목록 출력", description = "전체 랭킹 정보를 가져옵니다. 검색한 내용에 맞춰서 정보를 가져올 수 있습니다.")
     public ResponseEntity<CMRespDto<?>> getRankingList(fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto rankingSearchDto) {
 
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", rankingService.getRankingList(rankingSearchDto)));
     }
 
-    //페이징용 토탈 카운트
     @GetMapping("/totalCount")
+    @Operation(summary ="전체 페이지 수 출력", description = "전체 랭킹의 수를 가져옵니다. 검색과 마찬가지로 검색한 내용의 카운트를 가져옵니다.")
     public ResponseEntity<CMRespDto<?>> getRankingTotalCount(fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto rankingSearchDto) {
 
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", rankingService.getRankingTotalCount(rankingSearchDto)));
     }
 
-
-    //DB내 존재하는 소환사만 검색가능
     @GetMapping("/checkNick")
+    @Operation(summary ="DB의 존재하는 소환사 검색", description = "DB에 검색하는 소환사가 있으면 출력합니다.")
     public ResponseEntity<CMRespDto<?>> checkNick(String summoner) {
 
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", rankingService.checkNick(summoner)));
     }
 
-
-
-    //상위랭킹 업데이트 기능(DB insert)
     @PostMapping("/insertHighRankingAll")
+    @Operation(summary ="상위 랭킹 업데이트", description = "챌린저, 그랜드마스터, 마스터의 랭킹을 가져옵니다. DB에 저장하는 용도입니다.")
     public ResponseEntity<CMRespDto<?>> insertHighRankingAll() {
         rankingService.truncateTable();
-
-
 
         String queue = "";
         fourjo.idle.goodgame.gg.web.dto.ranking.LeagueListDto cgm = null;
@@ -101,8 +93,6 @@ public class RankingApi {
                     e.printStackTrace();
                 }
 
-
-                //티어,큐별 유저 갯수
                 for (int i = 0; i < cgm.getEntries().size(); i++) {
                     fourjo.idle.goodgame.gg.web.dto.ranking.RankingDto insert = new fourjo.idle.goodgame.gg.web.dto.ranking.RankingDto();
                     int wins = cgm.getEntries().get(i).getWins();
@@ -118,7 +108,6 @@ public class RankingApi {
                     insert.setLosses(losses);
                     insert.setWinRate(winRate);
                     insert.setSummonerId(cgm.getEntries().get(i).getSummonerId());
-
 
                     rankingService.insertRankingLeagueV4(insert);
                 }
@@ -144,7 +133,6 @@ public class RankingApi {
             rankingService.updateRankingSummonerV4(update);
         }
 
-
         List<String> pullPuuidList = rankingService.pullPuudList();
         for (int i = 0; i < pullPuuidList.size(); i++) {
             try {
@@ -167,13 +155,11 @@ public class RankingApi {
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
 
-
-    //하위랭킹 업데이트 기능(DB insert)
     @PostMapping("/insertEntriesRankingAll")
+    @Operation(summary ="하위 랭킹 업데이트", description = "아래 하위 랭킹의 유저를 가져옵니다. DB에 저장하는 용도입니다.")
     public ResponseEntity<CMRespDto<?>> insertEntriesRankingAll() {
 
         rankingService.truncateLowTable();
-
 
         String[] tierArr = {"DIAMOND", "EMERALD", "PLATINUM", "GOLD", "SILVER", "BRONZE"};
         String tier = "";
@@ -206,7 +192,6 @@ public class RankingApi {
 
                         page++;
                         List<LeagueEntryDto> entriesRanking = rankingService.entriesLeaguesBy4param(tier, division, queue, page);
-//                        entriesRanking.isEmpty()
                         if (entriesRanking.isEmpty()) {
                             break;
                         }
@@ -275,14 +260,6 @@ public class RankingApi {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>(HttpStatus.OK.value(), "Successfully registered", true));
     }
-
-
-
-
-
-
-
-
 
 }
 

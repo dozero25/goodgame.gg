@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChampionInfoDto { // wrapper 클래스
+public class ChampionInfoDto {
     private Map<String, ChampionData> data;
 
     @Data
@@ -20,6 +20,7 @@ public class ChampionInfoDto { // wrapper 클래스
         private List<Spells> spells;
         private Passive passive;
     }
+
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Spells {
@@ -31,31 +32,26 @@ public class ChampionInfoDto { // wrapper 클래스
         private String costBurn;
         private String rangeBurn;
         private SpellImage image;
-
-
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class SpellImage {
         private String full;
-        // spells에 사용되는 이미지 정보를 위한 별도의 클래스
-
     }
+
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Passive {
         private String name;
         private String description;
         private PassiveImage image;
-
-
     }
+
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PassiveImage {
         private String full;
-        // passive에 사용되는 이미지 정보를 위한 별도의 클래스
     }
 
 

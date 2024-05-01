@@ -24,9 +24,9 @@ public class AccountService {
 
     public UserDto registerUser(UserDto userDto) {
         nullValueCheck(userDto);
-//        duplicateUserId(userDto.getUserId());
-//        checkPassword(userDto.getUserPw());
-//        duplicateUserNick(userDto.getUserNick());
+        duplicateUserId(userDto.getUserId());
+        checkPassword(userDto.getUserPw());
+        duplicateUserNick(userDto.getUserNick());
         inputUserGender(userDto.getUserGender());
 
         userDto.setUserPw(new BCryptPasswordEncoder().encode(userDto.getUserPw()));
@@ -37,8 +37,8 @@ public class AccountService {
 
     public EmpDto registerEmp(EmpDto empDto) {
         duplicateUserId(empDto.getEmpId());
-//        checkPassword(empDto.getEmpPw());
-//        inputUserGender(empDto.getEmpGender());
+        checkPassword(empDto.getEmpPw());
+        inputUserGender(empDto.getEmpGender());
 
         empDto.setEmpPw(new BCryptPasswordEncoder().encode(empDto.getEmpPw()));
         accountRepository.registerEmp(empDto);
@@ -87,12 +87,10 @@ public class AccountService {
 
         Map<String, String> errorMap = new HashMap<>();
         if(result != null){
-            errorMap.put("registerError", "이미 존재하는 사용자 이름입니다.");
+            errorMap.put("registerError", "이미 존재하는 닉네임입니다.");
             throw new CustomSameNickNameException(errorMap);
         }
-
     }
-
 
     public void inputUserGender(String userGender){
         String gender = userGender;

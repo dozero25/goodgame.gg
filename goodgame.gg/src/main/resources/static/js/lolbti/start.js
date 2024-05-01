@@ -7,26 +7,21 @@ const btn = document.querySelector(".btn btn-outline-danger mt-3");
 
 const endPoint = 10;
 const select = [0, 0, 0];
-//1번 1탑 2정글 3미드 4원딜 5서폿
-//2번 1원거리 2근거리 ad의 경우,1마법사 2AD딜러
-//
+
 
 function calResult(){
-  console.log(select);
   var result="";
 result+=select[0];
 result+="-";
 result+=select[1];
 result+="-";
 result+=select[2];
-console.log(result);
 
   return result;
 }
 
 function setResult(){
   let point = calResult().split("-");
-  console.log("point"+point);
   let line=point[0];
   let concept=point[1];
   let aggresive=point[2];

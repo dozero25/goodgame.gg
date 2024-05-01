@@ -10,7 +10,7 @@ window.onload = () => {
     ComponentEvent.getInstance().addClickEventPositionButton();
     ComponentEvent.getInstance().addClickEventQueButton();   
 }
-//검색하기 위한 Obj
+
 let searchObj = {
     searchQueValue: "",
     searchPositionValue: "",
@@ -19,7 +19,7 @@ let searchObj = {
     count: 12,
     page: 1
 };
-//글 입력하기 위한 Obj
+
 let duoObj = {
 
     duoGameId: "",
@@ -30,13 +30,9 @@ let duoObj = {
 
 };
 
-//아이디 체크를 위한 Obj
 let checkObj = {
     duoGameId: ""
 }
-
-//select창 중복으로 열리는 것을 방지하기 위해 만들어놓은 Obj----- 창 열리면 1,닫히면 0
-//창 닫힐때 toggle을 두번 거치는 경우가 생겨서 doublein을 설정하여 관리
 
 let checkOpenedObj = {
     positionOpen: 0,
@@ -64,7 +60,7 @@ class DuoMainApi {
     }
 
     getAllDuoList(searchObj) {
-        //모든 정보(searchObj에 부합하는)를 가져온다
+
         let returnData = null;
 
         $.ajax({
@@ -84,7 +80,6 @@ class DuoMainApi {
     }
 
     getDuoTotalCount() {
-        //정보(searchObj에 부합하는)의 전체 개수를 가져온다
 
         let returnData = null;
 
@@ -110,7 +105,6 @@ class DuoMainApi {
     }
 
     postInsertDuo() {
-        //duoObj에 저장된 정보를 저장한다.
         let successFlag = null;
 
         $.ajax({
@@ -120,7 +114,6 @@ class DuoMainApi {
             data: duoObj,
             dataType: "json",
             success: response => {
-                console.log(response);
                 successFlag = true;
             },
             error: error => {
@@ -131,7 +124,6 @@ class DuoMainApi {
     }
 
     CheckNick() {
-        //checkObj에 저장된 아이디가 puuid를 가지는 지 확인한 뒤 존재하면 0, 아니면 1을 반환한다
         let returnData = null;
 
         $.ajax({
@@ -184,7 +176,6 @@ class DuoMainService {
     }
 
     loadPageController() {
-        //페이징 담당: 페이징에 필요한 것들이 전부 들어있고, 주의 해야할 점은 페이지 값이 바뀌면 getLoadAllDuoList를 통해 리스트를 다시 불러와야한다.
 
         const pageController = document.querySelector(".page-controller");
 
@@ -316,7 +307,6 @@ class ComponentEvent {
         const closeBtn = document.getElementById("closeBtn");
         const modalBody = document.getElementById("modalBody");
 
-        //초기화 변수들
         const idValue = document.getElementById("input-duoGameid");
         const contentValue = document.getElementById("duoContentValue");
         const idCheck = document.getElementById("pass");
@@ -325,8 +315,6 @@ class ComponentEvent {
 
         btn.onclick = function () {
 
-            //글 작성 버튼 눌렸을때 "글 작성"(창이 안열려있는경우)에는 모달창을 보여주고 "글 작성 취소로"변경
-            //반대의 경우에는 모달창을 지우면서 안에 있는 데이터들 초기화
 
             if (btn.innerText == "글 작성") {
                 btn.innerText = "글 작성 취소";
@@ -342,8 +330,6 @@ class ComponentEvent {
             }
 
         };
-
-        //모달 창 안에 있는 X버튼 누를 때 창 닫히고 내부 데이터 초기화
 
         closeBtn.onclick = function () {
             modal.style.display = "none";
@@ -372,11 +358,6 @@ class ComponentEvent {
 
         const insertBtn = document.getElementById("insert-success-btn");
 
-        //모든 정보를 입력하고 나서 입력 완료 버튼을 누르면 insert 진행되는 곳
-        //하지만 아이디 체크를 진행하지 않았거나 유효하지 않은 아이디를 입력한 경우 passCheck이 "X"로 유지됨(아래의 addClickEventCheckButton에서)
-        //유효한 아이디가 입력되면  passCheck이 "O"로 바뀌고 입력받은 데이터들을 duoObj에 저장한 후에 입력 진행
-        //끝나고 나면 passCheck을 비롯한 나머지 초기화하고 1페이지 불러오기
-
         insertBtn.onclick = () => {
             const passCheck = document.getElementById("pass");
             if (passCheck.value.toString() === "X") {
@@ -403,7 +384,7 @@ class ComponentEvent {
                 searchObj.page = 1;
                 DuoMainService.getInstance().getLoadAllDuoList();
                 location.reload(true);
-                //그냥 듀오리스트만 로드하면 복사가 안되는 문제가 있어서 reload로 화면 새로고침 해주었습니다.
+               
                 GameIdValue.value = "";
                 ContentValue.value = "";
                 idCheckMessage.innerHTML = "";
@@ -415,10 +396,6 @@ class ComponentEvent {
     addClickEventCheckButton() {
         const checkBtn = document.getElementById("check-gameid-btn");
         const printMsg = document.getElementById("modalGameIdCheckMessage");
-
-
-       //아이디 체크 버튼을 누를 때, 기본적으로 #이 붙어있지 않으면 "아이디 확인 필요" 메세지와 함께 alert 보여줌
-        //#이 포함된 값이 들어가면 아이디 유효성 검사를 한 뒤에 puuid가 존재하면 "O"로 값 변경해준다
 
         checkBtn.onclick = function () {
             const givenNick = document.getElementById("input-duoGameid");
@@ -454,8 +431,6 @@ class ComponentEvent {
 
     addClickEventCopyButton() {
         const copyBtn = document.querySelectorAll(".copy-button");
-
-        //아이디 옆의 복사 버튼을 누르면 복사완료 라는 alert와 함께 복사가 진행된다.
 
         copyBtn.forEach(function (data) {
             data.addEventListener('click', function () {
@@ -536,21 +511,18 @@ class ComponentEvent {
 
     addClickEventPositionButton() {
         const positionSelectField = document.getElementById("position-selectField");
-        //우리가 누르면 아래로 list가 열립니다.
-        const positionList = document.getElementById("position-list");
-        //selectField가 클릭 되면 list가 출력됩니다.
-        const positionArrowIcon = document.getElementById("position-arrowIcon");
-        //selectField옆에서 상황을 나타내주는 화살표 이미지 입니다.
-        const positionOptions = document.querySelectorAll(".position-options");
-        //List 안에 존재하는 모든 옵션들입니다.
 
-        //아래 3개의 변수는 position option중에 하나를 택했을때 해당 조건으로 듀오 정보를 보여주기 위해 각 조건들의 현재 값이 필요해 설정했습니다.
+        const positionList = document.getElementById("position-list");
+
+        const positionArrowIcon = document.getElementById("position-arrowIcon");
+
+        const positionOptions = document.querySelectorAll(".position-options");
+
         const tierSelectText = document.getElementById("tier-selectText");
         const positionSelectText = document.getElementById("position-selectText");
         const queSelectText = document.getElementById("que-selectText");
 
         positionSelectField.onclick = function () {
-            //selectField를 누르면 하단에 리스트 출력하고 화살표 회전
 
             positionList.classList.toggle("position-hide");
 
@@ -560,14 +532,11 @@ class ComponentEvent {
             } else if (checkOpenedObj.positionOpen == 1) {
                 checkOpenedObj.positionOpen = 0;
             }
-            //checkOpenedObj.positionOpen은 현재 list 창이 열려 있으면 1 닫혀있으면 0의 값을 가집니다.
         }
 
         positionOptions.forEach(function (data) {
             data.addEventListener('click', function () {
 
-                //옵션이 클릭 되었을때 진행되는 곳입니다.
-                // 처음으로 고른 곳의 Text를 SelectText에 입력하여 갱신되도록 해주었습니다.
 
                 positionSelectText.innerHTML = this.textContent;
 
@@ -575,7 +544,6 @@ class ComponentEvent {
 
                 positionArrowIcon.classList.toggle("position-rotate");
                 checkOpenedObj.positionDoubleIn = 1;
-                //이 부분과 아래 있는 window.click부분을 2번  거치는 것을 방지하기 위해 doubleIn을 1로 설정하고 아래에서 doubleIn이 0인지 확인 후 접근할수 있도록 했습니다.
 
                 if (tierSelectText.innerText === "티어 전체") {
                     searchObj.searchTierValue = ""
@@ -593,7 +561,6 @@ class ComponentEvent {
                     searchObj.searchPositionValue = positionSelectText.innerText;
                 }
 
-                //클릭된 순간 다른 필터의 값을 받아와 그에 맞는 리스트를 출력하였습니다.
                 DuoMainService.getInstance().getLoadAllDuoList();
                 checkOpenedObj.positionOpen = 0;
             })
@@ -612,7 +579,7 @@ class ComponentEvent {
     }
 
     addClickEventQueButton() {
-        //Que
+        
         const queSelectField = document.getElementById("que-selectField");
         const queList = document.getElementById("que-list");
         const queArrowIcon = document.getElementById("que-arrowIcon");

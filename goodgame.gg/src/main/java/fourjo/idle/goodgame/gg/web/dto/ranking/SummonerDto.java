@@ -6,8 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SummonerDto {
-//    private String accountId;
-//    private long revisionDate;
+
     private String id;
     private String puuid;
     private long summonerLevel;

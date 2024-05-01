@@ -24,7 +24,6 @@ public class RankingService {
     @Autowired
     RankingRepository rankingRepository;
 
-
     private ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient client = HttpClientBuilder.create().build();
 
@@ -33,7 +32,6 @@ public class RankingService {
     private final String solo = "RANKED_SOLO_5x5";
     private final String flex = "RANKED_FLEX_SR";
 
-    //Riot api
     public LeagueListDto challengerLeaguesByQueue(String queue) {
         LeagueListDto leagueListDto = new LeagueListDto();
 
@@ -47,7 +45,6 @@ public class RankingService {
             HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/challengerleagues/by-queue/" + queue + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
 
-//            riotResponseCodeError(response);
 
             HttpEntity entity = response.getEntity();
             leagueListDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
@@ -72,8 +69,6 @@ public class RankingService {
                 HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/grandmasterleagues/by-queue/" + queue + "?api_key=" + riotApiKeyDto.getMykey());
                 HttpResponse response = client.execute(request);
 
-//            riotResponseCodeError(response);
-
                 HttpEntity entity = response.getEntity();
                 leagueListDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
                 Collections.sort(leagueListDto.getEntries());
@@ -96,8 +91,6 @@ public class RankingService {
         try {
             HttpGet request = new HttpGet(riotApiKeyDto.getServerUrl() + "/lol/league/v4/masterleagues/by-queue/" + queue + "?api_key=" + riotApiKeyDto.getMykey());
             HttpResponse response = client.execute(request);
-
-//            riotResponseCodeError(response);
 
             HttpEntity entity = response.getEntity();
             leagueListDto = objectMapper.readValue(entity.getContent(), new TypeReference<>() {});
@@ -129,7 +122,6 @@ public class RankingService {
 
     public AccountDto accountV1ByPuuid(String puuid) {
         AccountDto accountDto = new AccountDto();
-
 
         try {
             HttpGet request = new HttpGet(riotApiKeyDto.getSeverUrlAsia() + "/riot/account/v1/accounts/by-puuid/" + puuid + "?api_key=" + riotApiKeyDto.getMykey());
@@ -169,7 +161,6 @@ public class RankingService {
         return listLeagueEntryDto;
     }
 
-    //highrank_mst insert
     public int insertRankingLeagueV4(RankingDto insert) {
         return rankingRepository.insertRankingLeagueV4(insert);
     }
@@ -177,42 +168,43 @@ public class RankingService {
     public int updateRankingSummonerV4(RankingDto update) {
         return rankingRepository.updateRankingSummonerV4(update);
     }
+
     public int updateRankingAccountV1(RankingDto update) {
         return rankingRepository.updateRankingAccountV1(update);
     }
-    //highrank_mst DB pulling
+
     public List<String> pullSummonerIdList() {
         return rankingRepository.pullSummonerIdList();
     }
+
     public List<String> pullPuudList() {
         return rankingRepository.pullPuuidList();
     }
+
     public int truncateTable(){
         return rankingRepository.truncateTable();
     }
 
-    //lowrank_mst insert
     public int insertLowRankingLeagueV4(RankingDto insert) {
         return rankingRepository.insertRankingLeagueV4(insert);
     }
-    public int updateLowRankingSummonerV4(RankingDto update) {
-        return rankingRepository.updateRankingSummonerV4(update);
-    }
-    public int updateLowRankingAccountV1(RankingDto update) {
-        return rankingRepository.updateRankingAccountV1(update);
-    }
-    //lowrank_mst DB pulling
+
+    public int updateLowRankingSummonerV4(RankingDto update) {return rankingRepository.updateRankingSummonerV4(update);}
+
+    public int updateLowRankingAccountV1(RankingDto update) {return rankingRepository.updateRankingAccountV1(update);}
+
     public List<String> pullLowSummonerIdList() {
         return rankingRepository.pullSummonerIdList();
     }
+
     public List<String> pullLowPuuidList() {
         return rankingRepository.pullPuuidList();
     }
+
     public int truncateLowTable(){
         return rankingRepository.truncateTable();
     }
 
-    //DB 랭킹 리스트 select ...
     public List<RankingDto> getRankingList (RankingSearchDto rankingSearchDto) {
         rankingSearchDto.setIndex();
         return rankingRepository.getRankingList(rankingSearchDto);
