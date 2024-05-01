@@ -7,11 +7,27 @@
 
 
     <select id="getRankingList" parameterType="fourjo.idle.goodgame.gg.web.dto.ranking.RankingSearchDto" resultType="fourjo.idle.goodgame.gg.web.dto.ranking.RankingDto">
+<!--        select-->
+<!--        row_number() over(order by rankingIndex asc) as rankingRowNum,-->
+<!--        gameName,tagLine,summonerLevel,profileIconId,queueType,tier,rankValue,leaguePoints,-->
+<!--        wins,losses,winRate-->
+<!--        from highrank_mst-->
         select
-        row_number() over(order by rankingIndex asc) as rankingRowNum,
-        gameName,tagLine,summonerLevel,profileIconId,queueType,tier,rankValue,leaguePoints,
-        wins,losses,winRate
-        from highrank_mst
+        (@rank := @rank + 1) AS rankingRowNum,
+        gameName,
+        tagLine,
+        summonerLevel,
+        profileIconId,
+        queueType,
+        tier,
+        rankValue,
+        leaguePoints,
+        wins,
+        losses,
+        winRate
+        FROM
+        highrank_mst,
+        (SELECT @rank := #{index}) r
 
         <where>
             <if test='queueType == "solo"'>

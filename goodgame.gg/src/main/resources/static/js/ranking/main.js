@@ -4,8 +4,6 @@ window.onload = () => {
 
     ComponentEvent.getInstance().addClickEventSearchButton();
     ComponentEvent.getInstance().addClickEventsCssButton();
-    ComponentEvent.getInstance().showMiunsRankingIndex();
-    
 }
 
 
@@ -260,8 +258,8 @@ class RankingMainService {
             
             `;
         });
-        this.loadPageController();
         ComponentEvent.getInstance().addClickATag();
+        this.loadPageController();
     }
 }
 
@@ -295,10 +293,6 @@ class ComponentEvent {
             searchRankingObj.tier = "all";
             RankingMainService.getInstance().getLoadAllRankingList();
         }
-
-
-
-
 
         selectItem.forEach(function (elem) {
             elem.addEventListener('click', function () {
@@ -340,8 +334,6 @@ class ComponentEvent {
             }
 
         })
-
-
     }
 
     addClickEventsCssButton(){
@@ -372,7 +364,6 @@ class ComponentEvent {
 
             });
         });
-
 
         function arrowToggle() {
             const arrowSpan = document.createElement('span');

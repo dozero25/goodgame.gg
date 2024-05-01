@@ -143,26 +143,31 @@ public class DuoService {
         List<LeagueEntryDto> leagueEntryDto = searchTierByEncryptedId(summonerDto.getId());
 
         //티어 정보를 영어로 반환하기 때문에 js와 html에서 활용하기 위해 한글로 바꾸었습니다.
-        if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("challenger")) {
-            duoDto.setDuoTier("챌린저");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("grandmaster")) {
-            duoDto.setDuoTier("그랜드마스터");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("master")) {
-            duoDto.setDuoTier("마스터");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("diamond")) {
-            duoDto.setDuoTier("다이아몬드");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("emerald")) {
-            duoDto.setDuoTier("에메랄드");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("platinum")) {
-            duoDto.setDuoTier("플래티넘");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("gold")) {
-            duoDto.setDuoTier("골드");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("silver")) {
-            duoDto.setDuoTier("실버");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("bronze")) {
-            duoDto.setDuoTier("브론즈");
-        } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("iron")) {
-            duoDto.setDuoTier("아이언");
+
+        if (leagueEntryDto.size()==0) {
+            duoDto.setDuoTier("언랭크");
+        }  else {
+            if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("challenger")) {
+                duoDto.setDuoTier("챌린저");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("grandmaster")) {
+                duoDto.setDuoTier("그랜드마스터");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("master")) {
+                duoDto.setDuoTier("마스터");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("diamond")) {
+                duoDto.setDuoTier("다이아몬드");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("emerald")) {
+                duoDto.setDuoTier("에메랄드");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("platinum")) {
+                duoDto.setDuoTier("플래티넘");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("gold")) {
+                duoDto.setDuoTier("골드");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("silver")) {
+                duoDto.setDuoTier("실버");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("bronze")) {
+                duoDto.setDuoTier("브론즈");
+            } else if (leagueEntryDto.get(0).getTier().equalsIgnoreCase("iron")) {
+                duoDto.setDuoTier("아이언");
+            }
         }
 
         return duoRepository.duoInsert(duoDto);
