@@ -209,20 +209,32 @@
 
 
     <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 삭제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+<!--    <delete id="boardReplyDeleteByReplyIndexAndBoardIndex" parameterType="integer">-->
+<!--        DELETE-->
+<!--        FROM reply_mst AS outer_reply-->
+<!--        WHERE EXISTS (-->
+<!--        SELECT 1-->
+<!--        FROM (-->
+<!--        SELECT *-->
+<!--        FROM reply_mst-->
+<!--        WHERE replyIndex = #{replyIndex} AND boardIndex = #{boardIndex}-->
+<!--        ) AS inner_reply-->
+<!--        WHERE outer_reply.boardIndex = inner_reply.boardIndex-->
+<!--        AND outer_reply.replyGroup = inner_reply.replyGroup-->
+<!--        AND outer_reply.replySequence >= 1-->
+<!--        )-->
+<!--    </delete>-->
     <delete id="boardReplyDeleteByReplyIndexAndBoardIndex" parameterType="integer">
-        DELETE
+        DELETE outer_reply
         FROM reply_mst AS outer_reply
-        WHERE EXISTS (
-        SELECT 1
-        FROM (
-        SELECT *
+        JOIN (
+        SELECT replyGroup
         FROM reply_mst
-        WHERE replyIndex = #{replyIndex} AND boardIndex = #{boardIndex}
-        ) AS inner_reply
-        WHERE outer_reply.boardIndex = inner_reply.boardIndex
-        AND outer_reply.replyGroup = inner_reply.replyGroup
-        AND outer_reply.replySequence >= 1
-        )
+        WHERE replyIndex = #{replyIndex}
+        AND boardIndex = #{boardIndex}
+        AND replySequence >= 1
+        ) AS inner_criteria ON outer_reply.replyGroup = inner_criteria.replyGroup
+        WHERE outer_reply.boardIndex = #{boardIndex};
     </delete>
 
     <delete id="boardReplyDeleteByReplyIndex" parameterType="integer">
