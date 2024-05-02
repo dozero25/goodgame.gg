@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/account")
-@Tag(name ="User Api", description = "User Api 입니다. User에 관한 api가 있습니다.")
+@Tag(name ="Account Api", description = "Account Api 입니다. 계정 관리에 관한 api가 있습니다.")
 public class AccountApi {
 
     @Autowired
