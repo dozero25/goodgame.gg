@@ -4,8 +4,6 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fourjo.idle.goodgame.gg.repository.BoardRepository">
 
-
-    <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시글 작성ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <insert id ="boardInsert"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         insert into board_mst
         values(0, #{boardSubject}, #{userIndex}, #{boardContent}, now(), #{boardVisit},
@@ -18,8 +16,6 @@
         #{boardUploadName},#{boardUploadSize},#{boardUploadLocation}, #{boardLikeCount});
     </insert>
 
-
-    <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시글 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
 
     <update id ="boardUpdateOKByBoardIndex" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO" >
         update board_mst set boardSubject = #{boardSubject}, boardContent =  #{boardContent} where boardIndex = #{boardIndex};
@@ -49,15 +45,9 @@
     </select>
 
 
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시물 삭제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-
     <delete id ="boardDeleteByBoardIndex" parameterType="integer">
         delete from board_mst where  boardIndex = #{boardIndex}
     </delete>
-
-
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 상세보기페이지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-
 
     <select id ="boardSelectOneByBoardIndex" parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         SELECT
@@ -74,9 +64,6 @@
         where b.boardIndex = #{boardIndex}
     </select>
 
-
-
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ게시물 검색 및 목록ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <select id ="boardSearchAllBySubjectAndUserIndexAndContent" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
 
         SELECT
@@ -137,12 +124,8 @@
         ORDER BY
         boardIndex DESC
         ) AS subquery;
-
-
     </select>
 
-
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ좋아요 추천ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
     <select id = "likeByBoardIndexAndUserIndex" parameterType="integer" resultType="integer">
         select count(userIndex) from board_like_mst
         where boardIndex = #{boardIndex} and userIndex = #{userIndex};
@@ -172,14 +155,11 @@
     </delete>
 
 
-    <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ조회수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <update id = "boardViewCount" parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardDTO">
         update board_mst set boardVisit = boardVisit + 1
         where boardIndex = #{boardIndex}
     </update>
 
-
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 작성ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <insert id ="boardReplyInsertByReplyGroup"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
         insert into reply_mst
         values(0, #{boardIndex}, #{userIndex}, #{replyContent}, #{replyGroup}, #{replySequence}, now())
@@ -190,14 +170,11 @@
         values(0, #{boardIndex}, #{userIndex}, #{replyContent}, #{replyGroup}, #{replySequence}, now())
     </insert>
 
-
-    <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
     <update id="boardReplyUpdateByReplyIndex"  parameterType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
         update reply_mst
         set replyContent = #{replyContent}
         where replyIndex = #{replyIndex}
     </update>
-
 
     <select id="boardReplyUpdateSelectOneByReplyIndex"  parameterType="integer" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
         select replyIndex, boardIndex, user_mst.userIndex, user_mst.userId, user_mst.userNick, replyContent, replyGroup, replySequence, replyRegDate
@@ -207,8 +184,6 @@
         reply_mst.replyIndex = #{replyIndex}
     </select>
 
-
-    <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 삭제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
 <!--    <delete id="boardReplyDeleteByReplyIndexAndBoardIndex" parameterType="integer">-->
 <!--        DELETE-->
 <!--        FROM reply_mst AS outer_reply-->
@@ -243,8 +218,6 @@
         WHERE replyIndex = #{replyIndex}
     </delete>
 
-
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 전체 목록ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
     <select id="boardReplySelectAll" parameterType="list" resultType="fourjo.idle.goodgame.gg.web.dto.board.BoardReplyDTO">
         select replyIndex, boardIndex, user_mst.userIndex, user_mst.userId, user_mst.userNick, replyContent, replyGroup, replySequence, replyRegDate
         from reply_mst
@@ -255,16 +228,12 @@
         reply_mst.replyGroup ASC, reply_mst.replySequence ASC
     </select>
 
-
-    <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ댓글 작성 보조ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-    <!-- 댓글 개수 -->
     <select id ="boardReplyGroupCount" resultType="integer">
         select ifnull(MAX(replyGroup) + 1, 1) as maxCount
         from reply_mst
         where boardIndex = #{boardIndex}
     </select>
 
-    <!-- 대댓글 갯수 -->
     <select id ="boardReplySequenceCount" resultType="integer">
         select MAX(replySequence) + 1 as maxCount
         from reply_mst

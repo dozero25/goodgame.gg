@@ -1,5 +1,6 @@
 package fourjo.idle.goodgame.gg.security;
 
+
 import fourjo.idle.goodgame.gg.entity.EmpMst;
 import fourjo.idle.goodgame.gg.entity.UserMst;
 import fourjo.idle.goodgame.gg.repository.AccountRepository;
